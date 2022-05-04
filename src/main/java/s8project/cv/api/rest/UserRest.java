@@ -2,13 +2,12 @@ package s8project.cv.api.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import s8project.cv.api.documents.User;
-import s8project.cv.api.documents.UserInput;
+import s8project.cv.api.inputs.UserInput;
 import s8project.cv.api.repositories.UserRepository;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Optional;
 
 @Path("user")
 public class UserRest {
