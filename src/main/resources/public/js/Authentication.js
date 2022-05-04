@@ -15,9 +15,9 @@ $("#<BUTTON_NAME>").click(function(){
 });
 
 $("li:eq(1)").click(function(){
-    sessionStorage.getItem('token');
-
-    if(<..........>){
+    // API POST request
+    response = CallWebAPI();
+    if(response === 200){
         // Success : move on to the next page
         window.location.href = "../public/<NOM_PAGE>.html";
     } else {
@@ -27,17 +27,20 @@ $("li:eq(1)").click(function(){
 });
 
 function CallWebAPI() {
-    fetch("https:///.json")
-        .then(response => {
-            // response.ok : http error or not
-            if (!response.ok) {
-                throw new Error(`Request failed with status ${response.status}`)
-            } else {
-                return response.json()
-            }
-        })
-        .then(data => {
-            console.log(data.<TEST>)
-        })
-    .catch(error => console.log(error))
+    let username = sessionStorage.getItem('username');
+    let password = sessionStorage.getItem('password');
+
+    fetch('https://test.com/User', {
+        Method: 'POST',
+            Headers: {'Content-Type': 'application/json; charset=UTF-8'},
+            Body: JSON.stringify({
+                mail:username,
+                password:password,
+            })
+    }).then(function(response){
+        return response.json()
+        }).then(function(data){
+            console.log(data)
+            }).catch(error => console.error('Error:', error));
+    });
 }
