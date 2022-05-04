@@ -1,4 +1,4 @@
-package s8project.cv.api.documents;
+package s8project.cv.api.inputs;
 
 public class UserInput {
 
