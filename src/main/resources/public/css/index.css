@@ -1,0 +1,16 @@
+/*header*/
+a, a:hover
+{
+    text-decoration: none;
+}
+
+
+.signup
+{
+    margin-right: 6px;
+}
+
+.signup a:hover
+{
+    color: #a5a58d;
+}
