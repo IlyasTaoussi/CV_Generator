@@ -8,11 +8,9 @@ $("#signin").click(function(){
     // Store credentials in session
     sessionStorage.setItem('username', username)
     sessionStorage.setItem('password', password)
-});
-
-$("li:eq(1)").click(function(){
     // API POST request
     let response = CallWebAPI()
+    // Handling the response
     if(response === 200){
         // Success : move on to the next page
         window.location.href = "../public/<NOM_PAGE>.html"
