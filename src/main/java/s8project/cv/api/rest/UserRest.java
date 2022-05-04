@@ -8,6 +8,7 @@ import s8project.cv.api.repositories.UserRepository;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Optional;
 
 @Path("user")
 public class UserRest {
@@ -22,6 +23,17 @@ public class UserRest {
     public Response createUser(UserInput input){
         User user = new User(input);
         userRepository.insert(user);
+        return Response.ok(user).build();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("search")
+    public Response searchUser(UserInput input){
+        Optional<User> optU = userRepository.findByMailAndPassword(input.getMail(), input.getPassword());
+        if(!optU.isPresent()) return Response.status(Response.Status.NOT_FOUND).build();
+        User user = optU.get();
         return Response.ok(user).build();
     }
 
