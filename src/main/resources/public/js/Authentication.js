@@ -1,8 +1,4 @@
-// Redirection
-$("li:eq(0)").click(function(){ window.location.href = "../public/authentication.html"; })
-$("li:eq(1)").click(function(){ window.location.href = "../public/<NOM_PAGE>.html"; })
-
-$("#<BUTTON_NAME>").click(function(){
+$("#signin").click(function(){
     // Get the fields values
     let username = $('#<....>').val()
     let password = $('#<....>').val()
