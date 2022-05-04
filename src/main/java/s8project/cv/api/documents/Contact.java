@@ -1,25 +1,26 @@
 package s8project.cv.api.documents;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.util.List;
 
-
+@Document("contact")
 public class Contact {
-
+    @Field(value="mail")
     private String mail;
+
+    @Field(value="name")
     private String name;
+
+    @Field(value="adress")
     private String address;
+
+    @Field(value="phone_number")
     private String phoneNumber;
+
+    @Field(value="links")
     private List<String> links;
-
-    public Contact(String mail, String name, String address, String phoneNumber, List<String> links) {
-        this.mail = mail;
-        this.name = name;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.links = links;
-    }
-
-    public Contact(){ }
 
     public String getMail() {
         return mail;
