@@ -7,7 +7,7 @@ import s8project.cv.api.rest.UserRest;
 import javax.ws.rs.ApplicationPath;
 
 @Component
-@ApplicationPath("generator")
+@ApplicationPath("api")
 public class JerseyConfiguration extends ResourceConfig {
 
         public JerseyConfiguration(){ register(UserRest.class); }
