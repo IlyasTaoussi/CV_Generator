@@ -1,0 +1,9 @@
+.separator
+{
+    height: 10px;
+    width: 10%;
+    border: none;
+    box-shadow: none;
+    background-color: #6b705c;
+    align-items: center;
+}
