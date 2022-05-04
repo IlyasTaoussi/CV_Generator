@@ -2,12 +2,10 @@ package s8project.cv.api.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import s8project.cv.api.documents.User;
+import s8project.cv.api.documents.UserInput;
 import s8project.cv.api.repositories.UserRepository;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
@@ -18,15 +16,14 @@ public class UserRest {
     @Autowired
     private UserRepository userRepository;
 
-    @GET
+    @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}")
-    public Response getUser(@PathParam("userId") int userId){
-        Optional<User> optU = userRepository.findById(userId);
-        if(!optU.isPresent()){
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        User user = optU.get();
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("new")
+    public Response createUser(UserInput input){
+        User user = new User(input);
+        userRepository.insert(user);
         return Response.ok(user).build();
     }
+
 }

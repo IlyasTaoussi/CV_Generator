@@ -1,13 +1,16 @@
 package s8project.cv.api.documents;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection="user")
 public class User {
+
     @Indexed(unique=true)
     @Field(value="mail")
+    @Id
     private String mail;
 
     @Field(value="password")
@@ -15,6 +18,11 @@ public class User {
 
     @Field(value="cv")
     private CV CV;
+
+    public User(UserInput input) {
+        mail = input.getMail();
+        password = input.getPassword();
+    }
 
     public String getMail() {
         return mail;
