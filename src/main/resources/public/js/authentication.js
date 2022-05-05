@@ -19,11 +19,11 @@ function CallWebAPI() {
     // POST request
     fetch('https://test.com/api/user', {
         Method: 'POST',
-            Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-            Body: JSON.stringify({
-                mail:username,
-                password:password,
-            })
+        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        Body: JSON.stringify({
+            mail:username,
+            password:password,
+        })
     }).then(function(response) => {
         // Handling the response
         if(response.status === 200){

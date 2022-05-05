@@ -78,18 +78,18 @@ function CallWebAPIContact() {
     // POST request
     fetch('https://test.com/api/user_id/user', {
         Method: 'POST',
-            Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-            Body: JSON.stringify({
-                cv:{
-                    contact:{
-                        mail:Mail,
-                        name:Name,
-                        address:Address,
-                        phone_number:Number,
-                        links:Links,
-                    }
+        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        Body: JSON.stringify({
+            cv:{
+                contact:{
+                    mail:Mail,
+                    name:Name,
+                    address:Address,
+                    phone_number:Number,
+                    links:Links,
                 }
-            })
+            }
+        })
     }).then(function(response) => {
          if(response.status === 200){
              // Success : reloading current page
@@ -101,12 +101,12 @@ function CallWebAPISummary() {
     // POST request
     fetch('https://test.com/api/user_id/user', {
         Method: 'POST',
-            Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-            Body: JSON.stringify({
-                cv:{
-                    summary:Summary
-                }
-            })
+        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        Body: JSON.stringify({
+            cv:{
+                summary:Summary
+            }
+        })
     }).then(function(response) => {
          if(response.status === 200){
              // Success : reloading current page
@@ -118,19 +118,19 @@ function CallWebAPIPE() {
     // POST request
     fetch('https://test.com/api/user_id/user', {
         Method: 'POST',
-            Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-            Body: JSON.stringify({
-                cv:{
-                    professional_experience:{
-                        position:Position,
-                        company_name:Company,
-                        localisation:City,
-                        start_date:startDate,
-                        end_date:EndDate,
-                        technos:Techno,
-                    }
+        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        Body: JSON.stringify({
+            cv:{
+                professional_experience:{
+                    position:Position,
+                    company_name:Company,
+                    localisation:City,
+                    start_date:startDate,
+                    end_date:EndDate,
+                    technos:Techno,
                 }
-            })
+            }
+        })
     }).then(function(response) => {
          if(response.status === 200){
              // Success : reloading current page
@@ -142,19 +142,19 @@ function CallWebAPIEducation() {
     // POST request
     fetch('https://test.com/api/user_id/user', {
         Method: 'POST',
-            Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-            Body: JSON.stringify({
-                cv:{
-                    education:{
-                        degree:SchoolingLevel,
-                        field:Domain,
-                        school:School,
-                        location:SchoolCity,
-                        start_date:FormationStartDate,
-                        end_date:FormationEndDate,
-                    }
+        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        Body: JSON.stringify({
+            cv:{
+                education:{
+                    degree:SchoolingLevel,
+                    field:Domain,
+                    school:School,
+                    location:SchoolCity,
+                    start_date:FormationStartDate,
+                    end_date:FormationEndDate,
                 }
-            })
+            }
+        })
     }).then(function(response) => {
          if(response.status === 200){
              // Success : reloading current page
@@ -166,15 +166,15 @@ function CallWebAPISkill() {
     // POST request
     fetch('https://test.com/api/user_id/user', {
         Method: 'POST',
-            Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-            Body: JSON.stringify({
-                cv:{
-                    skill:{
-                        name:Skill,
-                        level:SkillLevel,
-                    }
+        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        Body: JSON.stringify({
+            cv:{
+                skill:{
+                    name:Skill,
+                    level:SkillLevel,
                 }
-            })
+            }
+        })
     }).then(function(response) => {
          if(response.status === 200){
              // Success : reloading current page
@@ -186,17 +186,17 @@ function CallWebAPICertification() {
     // POST request
     fetch('https://test.com/api/user_id/user', {
         Method: 'POST',
-            Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-            Body: JSON.stringify({
-                cv:{
-                    certification:{
-                        name:CertifTitle,
-                        start_date:CertifStartDate,
-                        end_date:CertifEndDate,
-                        description:CertifDescription,
-                    }
+        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        Body: JSON.stringify({
+            cv:{
+                certification:{
+                    name:CertifTitle,
+                    start_date:CertifStartDate,
+                    end_date:CertifEndDate,
+                    description:CertifDescription,
                 }
-            })
+            }
+        })
     }).then(function(response) => {
          if(response.status === 200){
              // Success : reloading current page
@@ -208,15 +208,15 @@ function CallWebAPILanguage() {
     // POST request
     fetch('https://test.com/api/user_id/user', {
         Method: 'POST',
-            Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-            Body: JSON.stringify({
-                cv:{
-                    language:{
-                        name:LanguageName,
-                        level:LanguageLevel,
-                    }
+        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        Body: JSON.stringify({
+            cv:{
+                language:{
+                    name:LanguageName,
+                    level:LanguageLevel,
                 }
-            })
+            }
+        })
     }).then(function(response) => {
          if(response.status === 200){
              // Success : reloading current page
