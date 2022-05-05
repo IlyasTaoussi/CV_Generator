@@ -17,7 +17,7 @@ function CallWebAPI() {
     let username = sessionStorage.getItem('username')
     let password = sessionStorage.getItem('password')
     // POST request
-    fetch('https://test.com/api/user', {
+    fetch('https://test.com/user/new', {
         Method: 'POST',
         Headers: {'Content-Type': 'application/json; charset=UTF-8'},
         Body: JSON.stringify({
