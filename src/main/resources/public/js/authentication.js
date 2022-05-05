@@ -9,15 +9,7 @@ function OnClickFunction(){
     sessionStorage.setItem('username', username)
     sessionStorage.setItem('password', password)
     // API POST request
-    let response = CallWebAPI()
-    // Handling the response
-    if(response === 200){
-        // Success : move on to the next page
-        window.location.href = "../public/<NOM_PAGE>.html"
-    } else {
-        // Reload authentication page
-        window.location.href = "../public/authentication.html"
-    }
+    CallWebAPI()
 });
 
 function CallWebAPI() {
@@ -25,7 +17,7 @@ function CallWebAPI() {
     let username = sessionStorage.getItem('username')
     let password = sessionStorage.getItem('password')
     // POST request
-    fetch('https://test.com/User', {
+    fetch('https://test.com/api/user', {
         Method: 'POST',
             Headers: {'Content-Type': 'application/json; charset=UTF-8'},
             Body: JSON.stringify({
@@ -33,7 +25,14 @@ function CallWebAPI() {
                 password:password,
             })
     }).then(function(response) => {
-        return response.status
+        // Handling the response
+        if(response.status === 200){
+            // Success : move on to the next page
+            window.location.href = "../public/cv_form.html"
+        } else {
+            // Reload authentication page
+            window.location.href = "../public/authentication.html"
+        }
     }).catch(error => console.error(error))
 }
 
