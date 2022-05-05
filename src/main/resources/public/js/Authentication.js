@@ -1,10 +1,10 @@
-$("#signin").click(function(){
+function OnClickFunction(){
     // Get the fields values
-    let username = $('#<....>').val()
-    let password = $('#<....>').val()
+    let username = document.getElementById("email")
+    let password = document.getElementById("password")
     // Reinitialize credentials fields
-    $('#username').val('')
-    $('#password').val('')
+    document.getElementById("email").reset();
+    document.getElementById("password").reset();
     // Store credentials in session
     sessionStorage.setItem('username', username)
     sessionStorage.setItem('password', password)
@@ -33,7 +33,6 @@ function CallWebAPI() {
                 password:password,
             })
     }).then(function(response) => {
-        console.log(response.status)
         return response.status
     }).catch(error => console.error(error))
 }
