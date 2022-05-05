@@ -1,6 +1,7 @@
 package s8project.cv.api.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestParam;
 import s8project.cv.api.documents.User;
 import s8project.cv.api.inputs.UserInput;
 import s8project.cv.api.repositories.UserRepository;
@@ -32,6 +33,16 @@ public class UserRest {
     @Path("search")
     public Response searchUser(UserInput input){
         Optional<User> optU = userRepository.findByMailAndPassword(input.getMail(), input.getPassword());
+        if(!optU.isPresent()) return Response.status(Response.Status.NOT_FOUND).build();
+        User user = optU.get();
+        return Response.ok(user).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("search")
+    public Response getUserByMail(@RequestParam("mail") String mail){
+        Optional<User> optU = userRepository.findByMail(mail);
         if(!optU.isPresent()) return Response.status(Response.Status.NOT_FOUND).build();
         User user = optU.get();
         return Response.ok(user).build();
