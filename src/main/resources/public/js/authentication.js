@@ -24,7 +24,7 @@ function CallWebAPI() {
             mail:username,
             password:password,
         })
-    }).then(function(response) => {
+    }).then(response => {
         // Handling the response
         if(response.status === 200){
             // Success : move on to the next page

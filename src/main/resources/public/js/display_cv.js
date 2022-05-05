@@ -1,8 +1,15 @@
 function CallWebAPI() {
     // GET request
-    fetch('https://test.com/api/user_id/user')
-        .then(function(response) => {
-            return response.json()[0]
-        })
-    .catch(error => console.error(error))
+    fetch('https://anime-facts-rest-api.herokuapp.com/api/v1')
+        .then(response => {
+            return response.json()
+        }).then(data => {
+            appendTo(data)
+        }).catch(error => console.error(error))
 }
+
+function appendTo(data) {
+    console.log(data)
+}
+
+CallWebAPI()

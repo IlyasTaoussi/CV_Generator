@@ -90,7 +90,7 @@ function CallWebAPIContact() {
                 }
             }
         })
-    }).then(function(response) => {
+    }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
              window.location.href = "../public/cv_form.html"
@@ -107,7 +107,7 @@ function CallWebAPISummary() {
                 summary:Summary
             }
         })
-    }).then(function(response) => {
+    }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
              window.location.href = "../public/cv_form.html"
@@ -131,7 +131,7 @@ function CallWebAPIPE() {
                 }
             }
         })
-    }).then(function(response) => {
+    }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
              window.location.href = "../public/cv_form.html"
@@ -155,7 +155,7 @@ function CallWebAPIEducation() {
                 }
             }
         })
-    }).then(function(response) => {
+    }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
              window.location.href = "../public/cv_form.html"
@@ -175,7 +175,7 @@ function CallWebAPISkill() {
                 }
             }
         })
-    }).then(function(response) => {
+    }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
              window.location.href = "../public/cv_form.html"
@@ -197,7 +197,7 @@ function CallWebAPICertification() {
                 }
             }
         })
-    }).then(function(response) => {
+    }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
              window.location.href = "../public/cv_form.html"
@@ -217,7 +217,7 @@ function CallWebAPILanguage() {
                 }
             }
         })
-    }).then(function(response) => {
+    }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
              window.location.href = "../public/cv_form.html"
