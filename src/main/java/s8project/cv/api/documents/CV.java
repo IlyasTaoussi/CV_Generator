@@ -3,6 +3,8 @@ package s8project.cv.api.documents;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.List;
+
 @Document("cv")
 public class CV {
     @Field(value="contact")
@@ -12,19 +14,19 @@ public class CV {
     private String field;
 
     @Field(value="professional_experience")
-    private ProfessionalExperience professionalExperience;
+    private List<ProfessionalExperience> professionalExperience;
 
     @Field(value="education")
-    private Education education;
+    private List<Education> education;
 
     @Field(value="skill")
-    private Skill skill;
+    private List<Skill> skill;
 
     @Field(value="certification")
-    private Certification certification;
+    private List<Certification> certification;
 
     @Field(value="language")
-    private Language language;
+    private List<Language> language;
 
     public Contact getContact() {
         return contact;
@@ -42,43 +44,43 @@ public class CV {
         this.field = field;
     }
 
-    public ProfessionalExperience getProfessionalExperience() {
+    public List<ProfessionalExperience> getProfessionalExperience() {
         return professionalExperience;
     }
 
-    public void setProfessionalExperience(ProfessionalExperience professionalExperience) {
+    public void setProfessionalExperience(List<ProfessionalExperience> professionalExperience) {
         this.professionalExperience = professionalExperience;
     }
 
-    public Education getEducation() {
+    public List<Education> getEducation() {
         return education;
     }
 
-    public void setEducation(Education education) {
+    public void setEducation(List<Education> education) {
         this.education = education;
     }
 
-    public Skill getSkill() {
+    public List<Skill> getSkill() {
         return skill;
     }
 
-    public void setSkill(Skill skill) {
+    public void setSkill(List<Skill> skill) {
         this.skill = skill;
     }
 
-    public Certification getCertification() {
+    public List<Certification> getCertification() {
         return certification;
     }
 
-    public void setCertification(Certification certification) {
+    public void setCertification(List<Certification> certification) {
         this.certification = certification;
     }
 
-    public Language getLanguage() {
+    public List<Language> getLanguage() {
         return language;
     }
 
-    public void setLanguage(Language language) {
+    public void setLanguage(List<Language> language) {
         this.language = language;
     }
 }
