@@ -24,9 +24,9 @@ public class User {
     @Field(value="cv")
     private CV CV;
 
-    public User(UserInput input) {
-        mail = input.getMail();
-        password = input.getPassword();
+    public User(String mail, String password) {
+        this.mail = mail;
+        this.password = password;
     }
 
     public String getMail() {

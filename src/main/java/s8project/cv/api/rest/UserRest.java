@@ -22,7 +22,7 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("new")
     public Response createUser(UserInput input){
-        User user = new User(input);
+        User user = new User(input.getMail(), input.getPassword());
         userRepository.insert(user);
         return Response.ok(user).build();
     }
