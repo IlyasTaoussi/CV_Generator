@@ -3,11 +3,17 @@ package s8project.cv.api.documents;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document("professional_experience")
 public class ProfessionalExperience {
+
+    @Id
+    @Field(value="expId")
+    private int expId;
+
     @Field(value="position")
     private String position;
 

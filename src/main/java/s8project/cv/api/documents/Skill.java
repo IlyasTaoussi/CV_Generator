@@ -1,10 +1,16 @@
 package s8project.cv.api.documents;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document("skill")
 public class Skill {
+
+    @Id
+    @Field(value="skillId")
+    private int skillId;
+
     @Field(value="name")
     private String name;
 

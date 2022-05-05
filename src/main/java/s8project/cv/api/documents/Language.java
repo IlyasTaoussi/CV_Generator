@@ -1,10 +1,15 @@
 package s8project.cv.api.documents;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document("language")
 public class Language {
+    @Id
+    @Field(value="langId")
+    private int langId;
+
     @Field(value="name")
     private String name;
 

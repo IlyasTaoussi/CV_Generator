@@ -1,5 +1,6 @@
 package s8project.cv.api.documents;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -7,6 +8,11 @@ import java.util.Date;
 
 @Document("certification")
 public class Certification {
+
+    @Id
+    @Field(value="certId")
+    private int certId;
+
     @Field(value = "name")
     private String name;
 
