@@ -9,9 +9,13 @@ import s8project.cv.api.inputs.UserInput;
 @Document(collection="user")
 public class User {
 
+    @Id
+    @Field(value="_id")
+    @Indexed(unique=true)
+    private String id;
+
     @Indexed(unique=true)
     @Field(value="mail")
-    @Id
     private String mail;
 
     @Field(value="password")
