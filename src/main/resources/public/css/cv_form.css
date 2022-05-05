@@ -10,22 +10,15 @@
 
 h2
 {
-  border-top: 3px solid #0d6efd;
-  margin-top: 5%;
+  margin-top: 10px;
 }
+
 input[required="required"]
 {
   border: 2px solid #0d6efd;
 }
 
-button[type="button"]
-{
-  margin-top: 5px;
-}
-
 button[type="submit"]
 {
-  display: block;
-  margin-left: auto;
-  margin-bottom: 5%;
+  margin-top: 5px;
 }
