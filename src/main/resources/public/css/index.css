@@ -1,4 +1,11 @@
-/*header*/
+/* dark back : #212529 */
+
+
+body
+{
+  background-color: #212529;
+}
+
 a, a:hover
 {
     text-decoration: none;
@@ -13,4 +20,14 @@ a, a:hover
 .signup a:hover
 {
     color: #a5a58d;
+}
+
+.collapse
+{
+  float: right;
+}
+
+h1
+{
+  color: #f8f9fa;
 }

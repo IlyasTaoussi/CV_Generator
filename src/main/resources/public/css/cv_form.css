@@ -7,3 +7,25 @@
     background-color: #6b705c;
     align-items: center;
 }
+h2
+{
+  border-top: 3px solid black;
+  margin-top: 5%;
+}
+input[required="required"]
+{
+  border: 2px solid red;
+}
+
+button[type="button"]
+{
+  margin-top: 5px;
+}
+
+button[type="submit"]
+{
+  margin-top: 10px;
+  margin-bottom: 5%;
+  display: flex;
+  align-items: flex-end;
+}
