@@ -10,9 +10,9 @@ import s8project.cv.api.inputs.UserInput;
 public class User {
 
     @Id
-    @Field(value="_id")
+    @Field(value="userId")
     @Indexed(unique=true)
-    private String id;
+    private String userId;
 
     @Indexed(unique=true)
     @Field(value="mail")
@@ -27,6 +27,14 @@ public class User {
     public User(UserInput input) {
         mail = input.getMail();
         password = input.getPassword();
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getMail() {

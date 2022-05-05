@@ -10,8 +10,8 @@ public class CV {
     @Field(value="contact")
     private Contact contact;
 
-    @Field(value="summary")
-    private String field;
+    @Field(value="profile")
+    private String profile;
 
     @Field(value="professional_experience")
     private List<ProfessionalExperience> professionalExperience;
@@ -37,11 +37,11 @@ public class CV {
     }
 
     public String getField() {
-        return field;
+        return profile;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public void setField(String profile) {
+        this.profile = profile;
     }
 
     public List<ProfessionalExperience> getProfessionalExperience() {
