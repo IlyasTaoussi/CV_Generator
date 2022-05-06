@@ -1,3 +1,13 @@
+h1
+{
+  color: #606975;
+}
+
+a, a:hover
+{
+  text-decoration: none;
+}
+
 .container
 {
   margin-top: 5%;

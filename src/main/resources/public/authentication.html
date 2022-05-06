@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title> CV generator </title>
+    <title>Authentication</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -13,9 +13,9 @@
 <!-- Website content -->
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #86aeeb;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">CV Generator</a>
+                <a class="navbar-brand" href="index.html"><img src="img/cv_icon_white.png" alt="Logo du site"/>CV Generator</a>
             </div>
         </nav>
     </header>
@@ -25,21 +25,19 @@
             <div>
                 <h1 class="text-center login-title">Sign-in to the CV generator</h1>
                 <div class="account-wall">
-                    <img class="profile-img" src="img/auth.png"
-                         alt="">
+                    <img class="profile-img" src="img/auth.png" alt="">
                     <form class="form-signin">
                         <input type="text" class="form-control" id="email" placeholder="Email" required autofocus>
                         <input type="password" class="form-control" id="password" placeholder="Password" required>
-                        <button class="btn btn-lg btn-primary btn-block" id="signin_btn" type="submit" onclick="OnClickFunction()">
+                        <button class="btn btn-lg text-light btn-block" style="background-color: #e6bc9e" id="signin_btn" type="submit" onclick="OnClickFunction()">
                             Sign in
                         </button>
-                        <a href="#" class="pull-right"> Create an account </a>
+                        <a href="registration.html" class="pull-right"> Create an account </a>
                         <span class="clearfix"></span>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
 </html>

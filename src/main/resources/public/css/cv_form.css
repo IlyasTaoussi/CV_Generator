@@ -12,3 +12,13 @@ button[type="submit"]
 {
   margin-top: 5px;
 }
+
+.nav-link
+{
+  color: #86aeeb;
+}
+
+.active
+{
+  color: #606975;
+}
