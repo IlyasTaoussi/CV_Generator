@@ -1,33 +1,24 @@
 /* dark back : #212529 */
 
-
-body
+a
 {
-  background-color: #212529;
+  color: white;
 }
 
 a, a:hover
 {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 
 .signup
 {
-    margin-right: 6px;
+  display: flex;
+  text-align: center;
+  margin-right: 6px;
 }
 
-.signup a:hover
+a:hover
 {
-    color: #a5a58d;
-}
-
-.collapse
-{
-  float: right;
-}
-
-h1
-{
-  color: #f8f9fa;
+  color: grey;
 }
