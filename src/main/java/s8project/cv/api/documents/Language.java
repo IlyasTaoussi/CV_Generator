@@ -16,6 +16,14 @@ public class Language {
     @Field(value="level")
     private String level;
 
+    public int getId() {
+        return langId;
+    }
+
+    public void setId(int langId) {
+        this.langId = langId;
+    }
+
     public String getName() {
         return name;
     }

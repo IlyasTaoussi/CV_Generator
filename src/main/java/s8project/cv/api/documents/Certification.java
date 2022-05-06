@@ -4,8 +4,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.Date;
-
 @Document("certification")
 public class Certification {
 
@@ -17,13 +15,28 @@ public class Certification {
     private String name;
 
     @Field(value = "start_date")
-    private Date startDate;
+    private String startDate;
 
     @Field(value = "end_date")
-    private Date endDate;
+    private String endDate;
 
     @Field(value = "description")
     private String description;
+
+    public Certification(String name, String startDate, String endDate, String description) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.description = description;
+    }
+
+    public int getId() {
+        return certId;
+    }
+
+    public void setId(int certId) {
+        this.certId = certId;
+    }
 
     public String getName() {
         return name;
@@ -33,19 +46,19 @@ public class Certification {
         this.name = name;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

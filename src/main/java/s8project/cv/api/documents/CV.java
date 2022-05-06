@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document("cv")
@@ -33,6 +34,23 @@ public class CV {
 
     @Field(value="language")
     private List<Language> language;
+
+    public CV(){
+        contact = new Contact();
+        professionalExperience = new ArrayList<>();
+        education = new ArrayList<>();
+        skill = new ArrayList<>();
+        certification = new ArrayList<>();
+        language = new ArrayList<>();
+    }
+
+    public int getId() {
+        return cvId;
+    }
+
+    public void setId(int cvId) {
+        this.cvId = cvId;
+    }
 
     public Contact getContact() {
         return contact;

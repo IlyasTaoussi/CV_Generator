@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document("contact")
@@ -27,6 +28,26 @@ public class Contact {
 
     @Field(value="links")
     private List<String> links;
+
+    public Contact(){
+        links = new ArrayList<>();
+    }
+
+    public Contact(String mail, String name, String address, String phoneNumber, List<String> links) {
+        this.mail = mail;
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.links = links;
+    }
+
+    public int getId() {
+        return contactId;
+    }
+
+    public void setId(int contactId) {
+        this.contactId = contactId;
+    }
 
     public String getMail() {
         return mail;

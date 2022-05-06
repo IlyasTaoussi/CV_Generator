@@ -35,6 +35,14 @@ public class ProfessionalExperience {
     @Field(value="technos")
     private List<String> list;
 
+    public int getId() {
+        return expId;
+    }
+
+    public void setId(int expId) {
+        this.expId = expId;
+    }
+
     public String getPosition() {
         return position;
     }

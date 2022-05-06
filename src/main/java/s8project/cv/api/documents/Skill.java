@@ -17,6 +17,14 @@ public class Skill {
     @Field(value="level")
     private String level;
 
+    public int getId() {
+        return skillId;
+    }
+
+    public void setId(int skillId) {
+        this.skillId = skillId;
+    }
+
     public String getName() {
         return name;
     }
