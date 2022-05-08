@@ -7,6 +7,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.ws.rs.core.Response;
+
 @Document("professional_experience")
 public class ProfessionalExperience {
 
@@ -99,7 +101,7 @@ public class ProfessionalExperience {
         this.technos = technos;
     }
 
-    public static void updateProfExp(List<ProfessionalExperience> profExps, ProfessionalExperience newProfExp){
+    public static int updateProfExp(List<ProfessionalExperience> profExps, ProfessionalExperience newProfExp){
         for(ProfessionalExperience profExp: profExps){
             if(profExp.getId() == newProfExp.getId()) {
                 profExp.setDescription(newProfExp.getDescription());
@@ -109,8 +111,9 @@ public class ProfessionalExperience {
                 profExp.setPosition(newProfExp.getPosition());
                 profExp.setStartDate(newProfExp.getStartDate());
                 profExp.setEndDate(newProfExp.getEndDate());
-                break;
+                return Response.Status.OK.getStatusCode();
             }
         }
+        return Response.Status.NOT_FOUND.getStatusCode();
     }
 }

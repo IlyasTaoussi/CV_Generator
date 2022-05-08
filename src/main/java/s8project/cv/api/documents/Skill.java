@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Document("skill")
@@ -43,13 +44,14 @@ public class Skill {
         this.level = level;
     }
 
-    public static void updateSkill(List<Skill> skills, Skill newSkill){
+    public static int updateSkill(List<Skill> skills, Skill newSkill){
         for(Skill skill: skills){
             if(skill.getId() == newSkill.getId()) {
                 skill.setName(newSkill.getName());
                 skill.setLevel(newSkill.getLevel());
-                break;
+                return Response.Status.OK.getStatusCode();
             }
         }
+        return Response.Status.NOT_FOUND.getStatusCode();
     }
 }

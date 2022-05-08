@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Document("certification")
@@ -72,15 +73,16 @@ public class Certification {
         this.description = description;
     }
 
-    public static void updateCert(List<Certification> certs, Certification newCert){
+    public static int updateCert(List<Certification> certs, Certification newCert){
         for(Certification cert: certs){
             if(cert.getId() == newCert.getId()) {
                 cert.setName(newCert.getName());
                 cert.setDescription(newCert.getDescription());
                 cert.setStartDate(newCert.getStartDate());
                 cert.setEndDate(newCert.getEndDate());
-                break;
-            };
+                return Response.Status.OK.getStatusCode();
+            }
         }
+        return Response.Status.NOT_FOUND.getStatusCode();
     }
 }
