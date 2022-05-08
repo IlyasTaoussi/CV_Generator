@@ -1,6 +1,5 @@
 package s8project.cv.api.repositories;
 
-import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -41,6 +40,48 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
+    public Certification getCert(int userId, int certId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        return Certification.getCert(user.getCV().getCertification(), certId);
+    }
+
+    @Override
+    public Contact getContact(int userId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        return user.getCV().getContact();
+    }
+
+    @Override
+    public Education getEducation(int userId, int eduId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        return Education.getEdu(user.getCV().getEducation(), eduId);
+    }
+
+    @Override
+    public ProfessionalExperience getProfExp(int userId, int profExpId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        return ProfessionalExperience.getProfExp(user.getCV().getProfessionalExperience(), profExpId);
+    }
+
+    @Override
+    public Language getLang(int userId, int langId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        return Language.getLang(user.getCV().getLanguage(), langId);
+    }
+
+    @Override
+    public Skill getSkill(int userId, int skillId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        return Skill.getSkill(user.getCV().getSkill(), skillId);
+    }
+
+    @Override
     public Certification insertCert(int userId, Certification certification){
         int newId = 0;
 
@@ -54,8 +95,13 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         }
         else{
             List<Certification> certs = (List<Certification>) Utilities.copy(cv.getCertification());
-            certs.sort(Comparator.comparing(Certification::getId));
-            newId = certs.get(certs.size() - 1).getId() + 1;
+            if(certs.size() != 0){
+                certs.sort(Comparator.comparing(Certification::getId));
+                newId = certs.get(certs.size() - 1).getId() + 1;
+            }
+            else{
+                newId = 1;
+            }
         }
 
         certification.setId(newId);
@@ -68,7 +114,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public void insertContact(int userId, Contact contact){
+    public Contact insertContact(int userId, Contact contact){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         CV cv = user.getCV();
@@ -79,6 +125,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         Update update = new Update();
         update.set("cv", cv);
         mongoTemplate.updateFirst(query, update, User.class);
+        return contact;
     }
 
     @Override
@@ -95,8 +142,13 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         }
         else{
             List<Education> educations = (List<Education>) Utilities.copy(cv.getEducation());
-            educations.sort(Comparator.comparing(Education::getId));
-            newId = educations.get(educations.size() - 1).getId() + 1;
+            if(educations.size() != 0){
+                educations.sort(Comparator.comparing(Education::getId));
+                newId = educations.get(educations.size() - 1).getId() + 1;
+            }
+            else{
+                newId = 1;
+            }
         }
 
         education.setId(newId);
@@ -122,8 +174,14 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         }
         else{
             List<Language> langs = (List<Language>) Utilities.copy(cv.getLanguage());
-            langs.sort(Comparator.comparing(Language::getId));
-            newId = langs.get(langs.size() - 1).getId() + 1;
+            if(langs.size() != 0){
+                langs.sort(Comparator.comparing(Language::getId));
+                newId = langs.get(langs.size() - 1).getId() + 1;
+            }
+            else{
+                newId = 1;
+            }
+
         }
 
         lang.setId(newId);
@@ -149,8 +207,13 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         }
         else{
             List<Skill> skills = (List<Skill>) Utilities.copy(cv.getSkill());
-            skills.sort(Comparator.comparing(Skill::getId));
-            newId = skills.get(skills.size() - 1).getId() + 1;
+            if(skills.size() != 0){
+                skills.sort(Comparator.comparing(Skill::getId));
+                newId = skills.get(skills.size() - 1).getId() + 1;
+            }
+            else{
+                newId = 1;
+            }
         }
 
         skill.setId(newId);
@@ -190,7 +253,21 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int updateCert(int userId, int certId, Certification newCert){
+    public int updateContact(int userId, Contact contact){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
+        CV cv = user.getCV();
+        cv.setContact(contact);
+
+        Update update = new Update();
+        update.set("cv", cv);
+        mongoTemplate.updateFirst(query, update, User.class);
+        return Response.Status.OK.getStatusCode();
+    }
+
+    @Override
+    public int updateCert(int userId, Certification newCert){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
@@ -205,7 +282,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int updateEducation(int userId, int eduId, Education newEdu){
+    public int updateEducation(int userId, Education newEdu){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
@@ -220,7 +297,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int updateLang(int userId, int langId, Language newLang){
+    public int updateLang(int userId, Language newLang){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
@@ -235,7 +312,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int updateProfExp(int userId, int langId, ProfessionalExperience newProfExp){
+    public int updateProfExp(int userId, ProfessionalExperience newProfExp){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
@@ -262,6 +339,76 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
             return Response.Status.OK.getStatusCode();
         }
         return Response.Status.NOT_FOUND.getStatusCode();
+    }
+
+    @Override
+    public int deleteCert(int userId, int certId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
+
+        CV cv = user.getCV();
+        cv.getCertification().remove(Certification.getCert(cv.getCertification(), certId));
+        Update update = new Update();
+        update.set("cv", cv);
+        mongoTemplate.updateFirst(query, update, User.class);
+        return Response.Status.OK.getStatusCode();
+    }
+
+    @Override
+    public int deleteEducation(int userId, int eduId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
+
+        CV cv = user.getCV();
+        cv.getEducation().remove(Education.getEdu(cv.getEducation(), eduId));
+        Update update = new Update();
+        update.set("cv", cv);
+        mongoTemplate.updateFirst(query, update, User.class);
+        return Response.Status.OK.getStatusCode();
+    }
+
+    @Override
+    public int deleteLang(int userId, int langId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
+
+        CV cv = user.getCV();
+        cv.getLanguage().remove(Language.getLang(cv.getLanguage(), langId));
+        Update update = new Update();
+        update.set("cv", cv);
+        mongoTemplate.updateFirst(query, update, User.class);
+        return Response.Status.OK.getStatusCode();
+    }
+
+    @Override
+    public int deleteProfExp(int userId, int profExpId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
+
+        CV cv = user.getCV();
+        cv.getProfessionalExperience().remove(ProfessionalExperience.getProfExp(cv.getProfessionalExperience(), profExpId));
+        Update update = new Update();
+        update.set("cv", cv);
+        mongoTemplate.updateFirst(query, update, User.class);
+        return Response.Status.OK.getStatusCode();
+    }
+
+    @Override
+    public int deleteSkill(int userId, int skillId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
+
+        CV cv = user.getCV();
+        cv.getSkill().remove(Skill.getSkill(cv.getSkill(), skillId));
+        Update update = new Update();
+        update.set("cv", cv);
+        mongoTemplate.updateFirst(query, update, User.class);
+        return Response.Status.OK.getStatusCode();
     }
 
 }
