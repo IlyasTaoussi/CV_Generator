@@ -15,9 +15,9 @@ public interface UserRepositoryCustom {
     ProfessionalExperience insertProfExp(int userId, ProfessionalExperience profExp);
     Skill insertSkill(int userId, Skill skill);
 
-    Certification updateCert(int userId, int certId, Certification certification);
-    Education updateEducation(int userId, int eduId, Education newEdu);
-    Language updateLang(int userId, int langId, Language newLang);
-    ProfessionalExperience updateProfExp(int userId, int langId, ProfessionalExperience newProfExp);
-    Skill updateSkill(int userId, int skillId, Skill newSkill);
+    int updateCert(int userId, int certId, Certification certification);
+    int updateEducation(int userId, int eduId, Education newEdu);
+    int updateLang(int userId, int langId, Language newLang);
+    int updateProfExp(int userId, int langId, ProfessionalExperience newProfExp);
+    int updateSkill(int userId, Skill newSkill);
 }

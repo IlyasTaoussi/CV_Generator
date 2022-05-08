@@ -12,6 +12,7 @@ import s8project.cv.api.documents.*;
 import s8project.cv.api.utilities.Utilities;
 
 
+import javax.ws.rs.core.Response;
 import java.util.Comparator;
 import java.util.List;
 
@@ -189,68 +190,78 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public Certification updateCert(int userId, int certId, Certification newCert){
+    public int updateCert(int userId, int certId, Certification newCert){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
         CV cv = user.getCV();
-        Certification.updateCert(cv.getCertification(), newCert);
-
-        Update update = new Update();
-        update.set("cv", cv);
-        mongoTemplate.updateFirst(query, update, User.class);
-        return newCert;
+        if(Certification.updateCert(cv.getCertification(), newCert) == Response.Status.OK.getStatusCode()){
+            Update update = new Update();
+            update.set("cv", cv);
+            mongoTemplate.updateFirst(query, update, User.class);
+            return Response.Status.OK.getStatusCode();
+        }
+        return Response.Status.NOT_FOUND.getStatusCode();
     }
 
     @Override
-    public Education updateEducation(int userId, int eduId, Education newEdu){
+    public int updateEducation(int userId, int eduId, Education newEdu){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
         CV cv = user.getCV();
-        Education.updateEdu(cv.getEducation(), newEdu);
-
-        Update update = new Update();
-        update.set("cv", cv);
-        mongoTemplate.updateFirst(query, update, User.class);
-        return newEdu;
+        if(Education.updateEdu(cv.getEducation(), newEdu) == Response.Status.OK.getStatusCode()){
+            Update update = new Update();
+            update.set("cv", cv);
+            mongoTemplate.updateFirst(query, update, User.class);
+            return Response.Status.OK.getStatusCode();
+        }
+        return Response.Status.NOT_FOUND.getStatusCode();
     }
 
     @Override
-    public Language updateLang(int userId, int langId, Language newLang){
+    public int updateLang(int userId, int langId, Language newLang){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
         CV cv = user.getCV();
-        Language.updateLang(cv.getLanguage(), newLang);
-
-        Update update = new Update();
-        update.set("cv", cv);
-        mongoTemplate.updateFirst(query, update, User.class);
-        return newLang;
+        if(Language.updateLang(cv.getLanguage(), newLang) == Response.Status.OK.getStatusCode()){
+            Update update = new Update();
+            update.set("cv", cv);
+            mongoTemplate.updateFirst(query, update, User.class);
+            return Response.Status.OK.getStatusCode();
+        }
+        return Response.Status.NOT_FOUND.getStatusCode();
     }
 
     @Override
-    public ProfessionalExperience updateProfExp(int userId, int langId, ProfessionalExperience newProfExp){
+    public int updateProfExp(int userId, int langId, ProfessionalExperience newProfExp){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
         CV cv = user.getCV();
-        ProfessionalExperience.updateProfExp(cv.getProfessionalExperience(), newProfExp);
-
-        Update update = new Update();
-        update.set("cv", cv);
-        mongoTemplate.updateFirst(query, update, User.class);
-        return newProfExp;
+        if(ProfessionalExperience.updateProfExp(cv.getProfessionalExperience(), newProfExp) == Response.Status.OK.getStatusCode()){
+            Update update = new Update();
+            update.set("cv", cv);
+            mongoTemplate.updateFirst(query, update, User.class);
+            return Response.Status.OK.getStatusCode();
+        }
+        return Response.Status.NOT_FOUND.getStatusCode();
     }
 
     @Override
-    public Skill updateSkill(int userId, int skillId, Skill newSkill){
+    public int updateSkill(int userId, Skill newSkill){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
         CV cv = user.getCV();
-        Skill.updateSkill(cv.getSkill(), newSkill);
-
-        Update update = new Update();
-        update.set("cv", cv);
-        mongoTemplate.updateFirst(query, update, User.class);
-        return newSkill;
+        if(Skill.updateSkill(cv.getSkill(), newSkill) == Response.Status.OK.getStatusCode()){
+            Update update = new Update();
+            update.set("cv", cv);
+            mongoTemplate.updateFirst(query, update, User.class);
+            return Response.Status.OK.getStatusCode();
+        }
+        return Response.Status.NOT_FOUND.getStatusCode();
     }
 
 }
