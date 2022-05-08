@@ -93,7 +93,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
             newId = 1;
         }
         else{
-            List<Education> educations = (List<Education>) Utilities.copy(cv.getCertification());
+            List<Education> educations = (List<Education>) Utilities.copy(cv.getEducation());
             educations.sort(Comparator.comparing(Education::getId));
             newId = educations.get(educations.size() - 1).getId() + 1;
         }
@@ -120,7 +120,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
             newId = 1;
         }
         else{
-            List<Language> langs = (List<Language>) Utilities.copy(cv.getCertification());
+            List<Language> langs = (List<Language>) Utilities.copy(cv.getLanguage());
             langs.sort(Comparator.comparing(Language::getId));
             newId = langs.get(langs.size() - 1).getId() + 1;
         }
@@ -147,7 +147,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
             newId = 1;
         }
         else{
-            List<Skill> skills = (List<Skill>) Utilities.copy(cv.getCertification());
+            List<Skill> skills = (List<Skill>) Utilities.copy(cv.getSkill());
             skills.sort(Comparator.comparing(Skill::getId));
             newId = skills.get(skills.size() - 1).getId() + 1;
         }
@@ -174,8 +174,8 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
             newId = 1;
         }
         else{
-            List<Skill> skills = (List<Skill>) Utilities.copy(cv.getCertification());
-            skills.sort(Comparator.comparing(Skill::getId));
+            List<ProfessionalExperience> skills = (List<ProfessionalExperience>) Utilities.copy(cv.getProfessionalExperience());
+            skills.sort(Comparator.comparing(ProfessionalExperience::getId));
             newId = skills.get(skills.size() - 1).getId() + 1;
         }
 
@@ -186,6 +186,71 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         update.set("cv", cv);
         mongoTemplate.updateFirst(query, update, User.class);
         return profExp;
+    }
+
+    @Override
+    public Certification updateCert(int userId, int certId, Certification newCert){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        CV cv = user.getCV();
+        Certification.updateCert(cv.getCertification(), newCert);
+
+        Update update = new Update();
+        update.set("cv", cv);
+        mongoTemplate.updateFirst(query, update, User.class);
+        return newCert;
+    }
+
+    @Override
+    public Education updateEducation(int userId, int eduId, Education newEdu){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        CV cv = user.getCV();
+        Education.updateEdu(cv.getEducation(), newEdu);
+
+        Update update = new Update();
+        update.set("cv", cv);
+        mongoTemplate.updateFirst(query, update, User.class);
+        return newEdu;
+    }
+
+    @Override
+    public Language updateLang(int userId, int langId, Language newLang){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        CV cv = user.getCV();
+        Language.updateLang(cv.getLanguage(), newLang);
+
+        Update update = new Update();
+        update.set("cv", cv);
+        mongoTemplate.updateFirst(query, update, User.class);
+        return newLang;
+    }
+
+    @Override
+    public ProfessionalExperience updateProfExp(int userId, int langId, ProfessionalExperience newProfExp){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        CV cv = user.getCV();
+        ProfessionalExperience.updateProfExp(cv.getProfessionalExperience(), newProfExp);
+
+        Update update = new Update();
+        update.set("cv", cv);
+        mongoTemplate.updateFirst(query, update, User.class);
+        return newProfExp;
+    }
+
+    @Override
+    public Skill updateSkill(int userId, int skillId, Skill newSkill){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        CV cv = user.getCV();
+        Skill.updateSkill(cv.getSkill(), newSkill);
+
+        Update update = new Update();
+        update.set("cv", cv);
+        mongoTemplate.updateFirst(query, update, User.class);
+        return newSkill;
     }
 
 }
