@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.List;
+
 @Document("education")
 public class Education {
 
@@ -92,5 +94,19 @@ public class Education {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public static void updateEdu(List<Education> educations, Education newEdu){
+        for(Education education: educations){
+            if(education.getId() == newEdu.getId()) {
+                education.setDegree(newEdu.getDegree());
+                education.setField(newEdu.getField());
+                education.setSchool(newEdu.getSchool());
+                education.setLocation(newEdu.getLocation());
+                education.setStartDate(newEdu.getStartDate());
+                education.setEndDate(newEdu.getEndDate());
+                break;
+            }
+        }
     }
 }

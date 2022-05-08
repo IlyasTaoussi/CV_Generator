@@ -33,7 +33,7 @@ public class ProfessionalExperience {
     private String description;
 
     @Field(value="technos")
-    private List<String> list;
+    private List<String> technos;
 
     public int getId() {
         return expId;
@@ -91,11 +91,26 @@ public class ProfessionalExperience {
         this.description = description;
     }
 
-    public List<String> getList() {
-        return list;
+    public List<String> getTechnos() {
+        return technos;
     }
 
-    public void setList(List<String> list) {
-        this.list = list;
+    public void setTechnos(List<String> technos) {
+        this.technos = technos;
+    }
+
+    public static void updateProfExp(List<ProfessionalExperience> profExps, ProfessionalExperience newProfExp){
+        for(ProfessionalExperience profExp: profExps){
+            if(profExp.getId() == newProfExp.getId()) {
+                profExp.setDescription(newProfExp.getDescription());
+                profExp.setTechnos(newProfExp.getTechnos());
+                profExp.setLocalisation(newProfExp.getLocalisation());
+                profExp.setCompany_name(newProfExp.getCompany_name());
+                profExp.setPosition(newProfExp.getPosition());
+                profExp.setStartDate(newProfExp.getStartDate());
+                profExp.setEndDate(newProfExp.getEndDate());
+                break;
+            }
+        }
     }
 }
