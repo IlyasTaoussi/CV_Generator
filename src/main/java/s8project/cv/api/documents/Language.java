@@ -43,14 +43,19 @@ public class Language {
         this.level = level;
     }
 
-    public static int updateLang(List<Language> langs, Language newLang){
+    public static Language getLang(List<Language> langs, int langId){
         for(Language lang: langs){
-            if(lang.getId() == newLang.getId()) {
-                lang.setName(newLang.getName());
-                lang.setLevel(newLang.getLevel());
-                return Response.Status.OK.getStatusCode();
-            }
+            if(lang.getId() == langId) return lang;
         }
-        return Response.Status.NOT_FOUND.getStatusCode();
+        return null;
+    }
+
+    public static int updateLang(List<Language> langs, Language newLang){
+        Language lang = getLang(langs, newLang.getId());
+        if(lang == null) return Response.Status.NOT_FOUND.getStatusCode();
+
+        lang.setName(newLang.getName());
+        lang.setLevel(newLang.getLevel());
+        return Response.Status.OK.getStatusCode();
     }
 }

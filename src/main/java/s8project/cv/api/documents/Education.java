@@ -97,18 +97,23 @@ public class Education {
         this.endDate = endDate;
     }
 
-    public static int updateEdu(List<Education> educations, Education newEdu){
+    public static Education getEdu(List<Education> educations, int eduId){
         for(Education education: educations){
-            if(education.getId() == newEdu.getId()) {
-                education.setDegree(newEdu.getDegree());
-                education.setField(newEdu.getField());
-                education.setSchool(newEdu.getSchool());
-                education.setLocation(newEdu.getLocation());
-                education.setStartDate(newEdu.getStartDate());
-                education.setEndDate(newEdu.getEndDate());
-                return Response.Status.OK.getStatusCode();
-            }
+            if(education.getId() == eduId) return education;
         }
-        return Response.Status.NOT_FOUND.getStatusCode();
+        return null;
+    }
+
+    public static int updateEdu(List<Education> educations, Education newEdu){
+        Education education = getEdu(educations, newEdu.getId());
+        if(education == null) return Response.Status.NOT_FOUND.getStatusCode();
+
+        education.setDegree(newEdu.getDegree());
+        education.setField(newEdu.getField());
+        education.setSchool(newEdu.getSchool());
+        education.setLocation(newEdu.getLocation());
+        education.setStartDate(newEdu.getStartDate());
+        education.setEndDate(newEdu.getEndDate());
+        return Response.Status.OK.getStatusCode();
     }
 }

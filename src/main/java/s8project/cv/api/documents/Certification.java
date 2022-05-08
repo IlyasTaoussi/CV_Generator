@@ -73,16 +73,22 @@ public class Certification {
         this.description = description;
     }
 
-    public static int updateCert(List<Certification> certs, Certification newCert){
-        for(Certification cert: certs){
-            if(cert.getId() == newCert.getId()) {
-                cert.setName(newCert.getName());
-                cert.setDescription(newCert.getDescription());
-                cert.setStartDate(newCert.getStartDate());
-                cert.setEndDate(newCert.getEndDate());
-                return Response.Status.OK.getStatusCode();
-            }
+    public static Certification getCert(List<Certification> certs, int certId){
+        for(Certification cert: certs) {
+            if (cert.getId() == certId) return cert;
         }
-        return Response.Status.NOT_FOUND.getStatusCode();
+        return null;
+    }
+
+    public static int updateCert(List<Certification> certs, Certification newCert){
+        Certification cert = getCert(certs, newCert.getId());
+        if(cert == null) return Response.Status.NOT_FOUND.getStatusCode();
+
+        cert.setName(newCert.getName());
+        cert.setDescription(newCert.getDescription());
+        cert.setStartDate(newCert.getStartDate());
+        cert.setEndDate(newCert.getEndDate());
+        return Response.Status.OK.getStatusCode();
+
     }
 }

@@ -10,10 +10,6 @@ import java.util.List;
 @Document("contact")
 public class Contact {
 
-    @Id
-    @Field(value="contactId")
-    private int contactId;
-
     @Field(value="mail")
     private String mail;
 
@@ -39,14 +35,6 @@ public class Contact {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.links = links;
-    }
-
-    public int getId() {
-        return contactId;
-    }
-
-    public void setId(int contactId) {
-        this.contactId = contactId;
     }
 
     public String getMail() {
