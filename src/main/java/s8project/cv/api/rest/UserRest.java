@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import s8project.cv.api.documents.*;
 import s8project.cv.api.inputs.UserInput;
 import s8project.cv.api.repositories.UserRepository;
-import s8project.cv.api.repositories.UserRepositoryCustom;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -35,7 +34,7 @@ public class UserRest {
     @Path("search")
     public Response searchUser(UserInput input){
         Optional<User> optU = userRepository.findByMailAndPassword(input.getMail(), input.getPassword());
-        if(!optU.isPresent()) return Response.status(Response.Status.NOT_FOUND).build();
+        if(!optU.isPresent()) return Response.status(Response.Status.UNAUTHORIZED).build();
         User user = optU.get();
         return Response.ok(user).build();
     }
@@ -68,7 +67,7 @@ public class UserRest {
 
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
         userRepository.insertCert(userId, certification);
-        return Response.status(Response.Status.OK).build();
+        return Response.ok(certification).build();
     }
 
     @PUT
@@ -80,7 +79,7 @@ public class UserRest {
 
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
         userRepository.insertContact(userId, contact);
-        return Response.status(Response.Status.OK).build();
+        return Response.ok(contact).build();
     }
 
     @PUT
@@ -104,7 +103,7 @@ public class UserRest {
 
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
         userRepository.insertSkill(userId, skill);
-        return Response.status(Response.Status.OK).build();
+        return Response.ok(skill).build();
     }
 
     @PUT
@@ -116,7 +115,7 @@ public class UserRest {
 
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
         userRepository.insertEducation(userId, education);
-        return Response.status(Response.Status.OK).build();
+        return Response.ok(education).build();
     }
 
     @PUT
@@ -128,9 +127,67 @@ public class UserRest {
 
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
         userRepository.insertLang(userId, lang);
-        return Response.status(Response.Status.OK).build();
+        return Response.ok(lang).build();
     }
 
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{userId}/cert/{certId}")
+    public Response updateCert(@PathParam("userId") int userId, @PathParam("certId") int certId, Certification certification){
+        User user = userRepository.findByUserId(userId);
 
+        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
+        userRepository.updateCert(userId, certId, certification);
+        return Response.ok(certification).build();
+    }
+
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{userId}/education/{eduId}")
+    public Response updateEducation(@PathParam("userId") int userId, @PathParam("eduId") int eduId, Education education){
+        User user = userRepository.findByUserId(userId);
+
+        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
+        userRepository.updateEducation(userId, eduId, education);
+        return Response.ok(education).build();
+    }
+
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{userId}/lang/{langId}")
+    public Response updateLang(@PathParam("userId") int userId, @PathParam("langId") int langId, Language lang){
+        User user = userRepository.findByUserId(userId);
+
+        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
+        userRepository.updateLang(userId, langId, lang);
+        return Response.ok(lang).build();
+    }
+
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{userId}/profExp/{profExpId}")
+    public Response updateProfExp(@PathParam("userId") int userId, @PathParam("profExpId") int profExpId, ProfessionalExperience profExp){
+        User user = userRepository.findByUserId(userId);
+
+        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
+        userRepository.updateProfExp(userId, profExpId, profExp);
+        return Response.ok(profExp).build();
+    }
+
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{userId}/skill/{skillId}")
+    public Response updateSkill(@PathParam("userId") int userId, @PathParam("skillId") int skillId, Skill skill){
+        User user = userRepository.findByUserId(userId);
+
+        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
+        userRepository.updateSkill(userId, skillId, skill);
+        return Response.ok(skill).build();
+    }
 
 }
