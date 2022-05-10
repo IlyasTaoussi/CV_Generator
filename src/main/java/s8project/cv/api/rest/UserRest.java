@@ -24,7 +24,7 @@ public class UserRest {
     @Path("search")
     public Response getUserByMail(@QueryParam("mail") String mail){
         Optional<User> optU = userRepository.findByMail(mail);
-        if(!optU.isPresent()) return Response.status(Response.Status.NOT_FOUND).build();
+        if(optU.isEmpty()) return Response.status(Response.Status.NOT_FOUND).build();
         User user = optU.get();
         return Response.ok(user).build();
     }
@@ -40,56 +40,65 @@ public class UserRest {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/cert/{certId}")
-    public Response getCert(@PathParam("userId") int userId, @PathParam("certId") int certId){
+    @Path("{userId}/cert")
+    public Response getCert(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @QueryParam("cert") int certId){
         User user = userRepository.findByUserId(userId);
-        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        return Response.ok(userRepository.getCert(userId, certId)).build();
+        if(user == null || user.getCV(cvId) == null || user.getCV(cvId).getCertification(certId) == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(user.getCV(cvId).getCertification(certId)).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/contact")
-    public Response getContact(@PathParam("userId") int userId){
+    public Response getContact(@PathParam("userId") int userId, @PathParam("cv") int cvId){
         User user = userRepository.findByUserId(userId);
-        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        return Response.ok(userRepository.getContact(userId)).build();
+        if(user == null || user.getCV(cvId) == null || user.getCV(cvId).getContact() == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(user.getCV(cvId).getContact()).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/education/{eduId}")
-    public Response getEducation(@PathParam("userId") int userId, @PathParam("eduId") int eduId){
+    @Path("{userId}/education")
+    public Response getEducation(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @QueryParam("edu") int eduId){
         User user = userRepository.findByUserId(userId);
-        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        return Response.ok(userRepository.getEducation(userId, eduId)).build();
+        if(user == null || user.getCV(cvId) == null || user.getCV(cvId).getEducation(eduId) == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(user.getCV(cvId).getEducation(eduId)).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/language/{langId}")
-    public Response getLang(@PathParam("userId") int userId, @PathParam("langId") int langId){
+    @Path("{userId}/language")
+    public Response getLang(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @QueryParam("langId") int langId){
         User user = userRepository.findByUserId(userId);
-        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        return Response.ok(userRepository.getLang(userId, langId)).build();
+        if(user == null || user.getCV(cvId) == null || user.getCV(cvId).getLanguage(langId) == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(user.getCV(cvId).getLanguage(langId)).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/profExp/{profExpId}")
-    public Response getProfExp(@PathParam("userId") int userId, @PathParam("profExpId") int profExpId){
+    @Path("{userId}/profExp")
+    public Response getProfExp(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @QueryParam("profExp") int profExpId){
         User user = userRepository.findByUserId(userId);
-        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        return Response.ok(userRepository.getProfExp(userId, profExpId)).build();
+        if(user == null || user.getCV(cvId) == null || user.getCV(cvId).getProfessionalExperience(profExpId) == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(user.getCV(cvId).getProfessionalExperience(profExpId)).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/skill/{skillId}")
-    public Response getSkill(@PathParam("userId") int userId, @PathParam("skillId") int skillId){
+    @Path("{userId}/skill")
+    public Response getSkill(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @QueryParam("skill") int skillId){
         User user = userRepository.findByUserId(userId);
-        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        return Response.ok(userRepository.getSkill(userId, skillId)).build();
+        if(user == null || user.getCV(cvId) == null || user.getCV(cvId).getSkill(skillId) == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(user.getCV(cvId).getSkill(skillId)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{userId}/cv")
+    public Response getCV(@PathParam("userId") int userId, @QueryParam("cv") int cvId){
+        User user = userRepository.findByUserId(userId);
+        if(user == null || user.getCV(cvId) == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(user.getCV(cvId)).build();
     }
 
     /**
@@ -101,7 +110,8 @@ public class UserRest {
     @Path("new")
     public Response insertUser(UserInput input){
         int id = userRepository.getMaxUserId() + 1;
-        User user = new User(id, input.getMail(), input.getPassword());
+        User user = new User(input.getMail(), input.getPassword());
+        user.setUserId(id);
         userRepository.insert(user);
         return Response.ok(user).build();
     }
@@ -112,9 +122,19 @@ public class UserRest {
     @Path("search")
     public Response searchUser(UserInput input){
         Optional<User> optU = userRepository.findByMailAndPassword(input.getMail(), input.getPassword());
-        if(!optU.isPresent()) return Response.status(Response.Status.UNAUTHORIZED).build();
+        if(optU.isEmpty()) return Response.status(Response.Status.UNAUTHORIZED).build();
         User user = optU.get();
         return Response.ok(user).build();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("{userId}/cv/new")
+    public Response insertCV(@PathParam("userId") int userId){
+        User user = userRepository.findByUserId(userId);
+        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(userRepository.insertCV(userId)).build();
     }
 
 
@@ -126,10 +146,10 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/cert/new")
-    public Response insertCert(@PathParam("userId") int userId, Certification certification){
+    public Response insertCert(@PathParam("userId") int userId, @QueryParam("cv") int cvId,  Certification certification){
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        userRepository.insertCert(userId, certification);
+        userRepository.insertCert(userId, cvId, certification);
         return Response.ok(certification).build();
     }
 
@@ -137,11 +157,11 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/contact/new")
-    public Response insertContact(@PathParam("userId") int userId, Contact contact){
+    public Response insertContact(@PathParam("userId") int userId, @QueryParam("cv") int cvId, Contact contact){
         User user = userRepository.findByUserId(userId);
 
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        userRepository.insertContact(userId, contact);
+        userRepository.insertContact(userId, cvId, contact);
         return Response.ok(contact).build();
     }
 
@@ -149,11 +169,11 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/profExp/new")
-    public Response insertProfExp(@PathParam("userId") int userId, ProfessionalExperience profExp){
+    public Response insertProfExp(@PathParam("userId") int userId, @QueryParam("cv") int cvId, ProfessionalExperience profExp){
         User user = userRepository.findByUserId(userId);
 
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        userRepository.insertProfExp(userId, profExp);
+        userRepository.insertProfExp(userId, cvId, profExp);
         return Response.status(Response.Status.OK).build();
     }
 
@@ -161,11 +181,11 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/skill/new")
-    public Response insertSkill(@PathParam("userId") int userId, Skill skill){
+    public Response insertSkill(@PathParam("userId") int userId, @QueryParam("cv") int cvId, Skill skill){
         User user = userRepository.findByUserId(userId);
 
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        userRepository.insertSkill(userId, skill);
+        userRepository.insertSkill(userId, cvId, skill);
         return Response.ok(skill).build();
     }
 
@@ -173,11 +193,11 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/education/new")
-    public Response insertEducation(@PathParam("userId") int userId, Education education){
+    public Response insertEducation(@PathParam("userId") int userId, @QueryParam("cv") int cvId, Education education){
         User user = userRepository.findByUserId(userId);
 
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        userRepository.insertEducation(userId, education);
+        userRepository.insertEducation(userId, cvId, education);
         return Response.ok(education).build();
     }
 
@@ -185,11 +205,11 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/lang/new")
-    public Response insertLanguage(@PathParam("userId") int userId, Language lang){
+    public Response insertLanguage(@PathParam("userId") int userId, @QueryParam("cv") int cvId, Language lang){
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
 
-        userRepository.insertLang(userId, lang);
+        userRepository.insertLang(userId, cvId, lang);
         return Response.ok(lang).build();
     }
 
@@ -200,12 +220,12 @@ public class UserRest {
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/contact")
-    public Response updateContact(@PathParam("userId") int userId, Contact contact){
+    @Path("{userId}/contact/update")
+    public Response updateContact(@PathParam("userId") int userId, @QueryParam("cv") int cvId, Contact contact){
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
 
-        int status = userRepository.updateContact(userId, contact);
+        int status = userRepository.updateContact(userId, cvId, contact);
         if(status == Response.Status.OK.getStatusCode()) Response.ok(contact).build();
         return Response.status(status).build();
     }
@@ -213,10 +233,10 @@ public class UserRest {
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/cert/{certId}")
-    public Response updateCert(@PathParam("userId") int userId, @PathParam("certId") int certId, Certification certification){
+    @Path("{userId}/cert/update")
+    public Response updateCert(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("certId") int certId, Certification certification){
         certification.setId(certId);
-        int status = userRepository.updateCert(userId, certification);
+        int status = userRepository.updateCert(userId, cvId, certification);
         if(status == Response.Status.OK.getStatusCode()) Response.ok(certification).build();
         return Response.status(status).build();
     }
@@ -224,10 +244,10 @@ public class UserRest {
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/education/{eduId}")
-    public Response updateEducation(@PathParam("userId") int userId, @PathParam("eduId") int eduId, Education education){
+    @Path("{userId}/education/update")
+    public Response updateEducation(@PathParam("userId") int userId,@QueryParam("cv") int cvId, @PathParam("eduId") int eduId, Education education){
         education.setId(eduId);
-        int status = userRepository.updateEducation(userId, education);
+        int status = userRepository.updateEducation(userId, cvId, education);
         if(status == Response.Status.OK.getStatusCode()) Response.ok(education).build();
         return Response.status(status).build();
     }
@@ -235,10 +255,10 @@ public class UserRest {
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/lang/{langId}")
-    public Response updateLang(@PathParam("userId") int userId, @PathParam("langId") int langId, Language lang){
+    @Path("{userId}/language/update")
+    public Response updateLang(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("langId") int langId, Language lang){
         lang.setId(langId);
-        int status = userRepository.updateLang(userId, lang);
+        int status = userRepository.updateLang(userId, cvId, lang);
         if(status == Response.Status.OK.getStatusCode()) return Response.ok(lang).build();
         return Response.status(status).build();
     }
@@ -246,10 +266,10 @@ public class UserRest {
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/profExp/{profExpId}")
-    public Response updateProfExp(@PathParam("userId") int userId, @PathParam("profExpId") int profExpId, ProfessionalExperience profExp){
+    @Path("{userId}/profExp/update")
+    public Response updateProfExp(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("profExpId") int profExpId, ProfessionalExperience profExp){
         profExp.setId(profExpId);
-        int status = userRepository.updateProfExp(userId, profExp);
+        int status = userRepository.updateProfExp(userId, cvId, profExp);
         if(status == Response.Status.OK.getStatusCode())  Response.ok(profExp).build();
         return Response.status(status).build();
     }
@@ -257,10 +277,10 @@ public class UserRest {
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/skill/{skillId}")
-    public Response updateSkill(@PathParam("userId") int userId, @PathParam("skillId") int skillId, Skill skill){
+    @Path("{userId}/skill/update")
+    public Response updateSkill(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("skillId") int skillId, Skill skill){
         skill.setId(skillId);
-        int status = userRepository.updateSkill(userId, skill);
+        int status = userRepository.updateSkill(userId, cvId, skill);
         if(status == Response.Status.OK.getStatusCode()) return Response.ok(skill).build();
         return Response.status(status).build();
     }
@@ -270,37 +290,37 @@ public class UserRest {
      */
 
     @DELETE
-    @Path("{userId}/cert/{certId}")
-    public Response deleteCert(@PathParam("userId") int userId, @PathParam("certId") int certId){
-        userRepository.deleteCert(userId, certId);
+    @Path("{userId}/cert/del")
+    public Response deleteCert(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("certId") int certId){
+        userRepository.deleteCert(userId, cvId, certId);
         return Response.status(Response.Status.OK).build();
     }
 
     @DELETE
-    @Path("{userId}/edu/{eduId}")
-    public Response deleteEducation(@PathParam("userId") int userId, @PathParam("eduId") int eduId){
-        userRepository.deleteEducation(userId, eduId);
+    @Path("{userId}/education/delete")
+    public Response deleteEducation(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("eduId") int eduId){
+        userRepository.deleteEducation(userId, cvId, eduId);
         return Response.status(Response.Status.OK).build();
     }
 
     @DELETE
-    @Path("{userId}/language/{langId}")
-    public Response deleteLang(@PathParam("userId") int userId, @PathParam("langId") int langId){
-        userRepository.deleteLang(userId, langId);
+    @Path("{userId}/language/delete")
+    public Response deleteLang(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("langId") int langId){
+        userRepository.deleteLang(userId, cvId, langId);
         return Response.status(Response.Status.OK).build();
     }
 
     @DELETE
-    @Path("{userId}/profExp/{profExpId}")
-    public Response deleteProfExp(@PathParam("userId") int userId, @PathParam("ProfExpId") int profExpId){
-        userRepository.deleteProfExp(userId, profExpId);
+    @Path("{userId}/profExp/delete")
+    public Response deleteProfExp(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("ProfExpId") int profExpId){
+        userRepository.deleteProfExp(userId, cvId, profExpId);
         return Response.status(Response.Status.OK).build();
     }
 
     @DELETE
-    @Path("{userId}/skill/{skillId}")
-    public Response deleteSkill(@PathParam("userId") int userId, @PathParam("skillId") int skillId){
-        userRepository.deleteSkill(userId, skillId);
+    @Path("{userId}/skill/delete")
+    public Response deleteSkill(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("skillId") int skillId){
+        userRepository.deleteSkill(userId, cvId, skillId);
         return Response.status(Response.Status.OK).build();
     }
 
