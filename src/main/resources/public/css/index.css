@@ -10,7 +10,6 @@ a, a:hover
   text-decoration: none;
 }
 
-
 .signup
 {
   margin-top: 5px;
@@ -24,5 +23,5 @@ a:hover
 
 p, h1
 {
-  color: #606975;  
+  color: #606975;
 }
