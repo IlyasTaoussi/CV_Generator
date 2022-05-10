@@ -1,3 +1,18 @@
+h1
+{
+  color: #606975;
+}
+
+a, a:hover
+{
+  text-decoration: none;
+}
+
+.container
+{
+  margin-top: 5%;
+}
+
 .form-signin
 {
     max-width: 330px;
@@ -64,12 +79,8 @@
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
-.need-help
+
+.btn
 {
-    margin-top: 10px;
-}
-.new-account
-{
-    display: block;
-    margin-top: 10px;
+    width: 100%;
 }
