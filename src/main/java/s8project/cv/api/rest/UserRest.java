@@ -92,6 +92,15 @@ public class UserRest {
         return Response.ok(userRepository.getSkill(userId, skillId)).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{userId}/cv")
+    public Response getCV(@PathParam("userId") int userId){
+        User user = userRepository.findByUserId(userId);
+        if(user == null || user.getCV() == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(user.getCV()).build();
+    }
+
     /**
      * POST API CALLS
      */
