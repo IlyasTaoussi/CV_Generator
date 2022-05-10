@@ -40,59 +40,31 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public Certification getCert(int userId, int certId){
+    public CV insertCV(int userId){
+        int newId ;
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
-        return Certification.getCert(user.getCV().getCertification(), certId);
-    }
-
-    @Override
-    public Contact getContact(int userId){
-        Query query = new Query(Criteria.where("userId").is(userId));
-        User user = mongoTemplate.findOne(query, User.class);
-        return user.getCV().getContact();
-    }
-
-    @Override
-    public Education getEducation(int userId, int eduId){
-        Query query = new Query(Criteria.where("userId").is(userId));
-        User user = mongoTemplate.findOne(query, User.class);
-        return Education.getEdu(user.getCV().getEducation(), eduId);
-    }
-
-    @Override
-    public ProfessionalExperience getProfExp(int userId, int profExpId){
-        Query query = new Query(Criteria.where("userId").is(userId));
-        User user = mongoTemplate.findOne(query, User.class);
-        return ProfessionalExperience.getProfExp(user.getCV().getProfessionalExperience(), profExpId);
-    }
-
-    @Override
-    public Language getLang(int userId, int langId){
-        Query query = new Query(Criteria.where("userId").is(userId));
-        User user = mongoTemplate.findOne(query, User.class);
-        return Language.getLang(user.getCV().getLanguage(), langId);
-    }
-
-    @Override
-    public Skill getSkill(int userId, int skillId){
-        Query query = new Query(Criteria.where("userId").is(userId));
-        User user = mongoTemplate.findOne(query, User.class);
-        return Skill.getSkill(user.getCV().getSkill(), skillId);
-    }
-
-    @Override
-    public Certification insertCert(int userId, Certification certification){
-        int newId = 0;
-
-        Query query = new Query(Criteria.where("userId").is(userId));
-        User user = mongoTemplate.findOne(query, User.class);
-        CV cv = user.getCV();
-
-        if(cv == null) {
-            cv = new CV();
-            newId = 1;
+        if(user == null) return null;
+        if(user.getCV().size() == 0 ) newId = 1;
+        else{
+            newId = user.getCVMaxId() + 1;
         }
+        CV cv = new CV();
+        cv.setId(newId);
+        user.getCV().add(cv);
+        return cv;
+    }
+
+    @Override
+    public Certification insertCert(int userId, int cvId, Certification certification){
+        int newId;
+
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return null;
+        CV cv = user.getCV(cvId);
+        if(cv == null) return null;
+
         else{
             List<Certification> certs = (List<Certification>) Utilities.copy(cv.getCertification());
             if(certs.size() != 0){
@@ -114,12 +86,12 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public Contact insertContact(int userId, Contact contact){
+    public Contact insertContact(int userId, int cvId, Contact contact){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
-        CV cv = user.getCV();
-
-        if(cv == null) cv = new CV();
+        if(user == null) return null;
+        CV cv = user.getCV(cvId);
+        if(cv == null) return null;
         cv.setContact(contact);
 
         Update update = new Update();
@@ -129,17 +101,15 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public Education insertEducation(int userId, Education education){
-        int newId = 0;
+    public Education insertEducation(int userId, int cvId, Education education){
+        int newId;
 
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
-        CV cv = user.getCV();
+        if(user == null) return null;
+        CV cv = user.getCV(cvId);
+        if(cv == null) return null;
 
-        if(cv == null) {
-            cv = new CV();
-            newId = 1;
-        }
         else{
             List<Education> educations = (List<Education>) Utilities.copy(cv.getEducation());
             if(educations.size() != 0){
@@ -161,17 +131,15 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public Language insertLang(int userId, Language lang){
-        int newId = 0;
+    public Language insertLang(int userId, int cvId, Language lang){
+        int newId;
 
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
-        CV cv = user.getCV();
+        if(user == null) return null;
+        CV cv = user.getCV(cvId);
+        if(cv == null) return null;
 
-        if(cv == null) {
-            cv = new CV();
-            newId = 1;
-        }
         else{
             List<Language> langs = (List<Language>) Utilities.copy(cv.getLanguage());
             if(langs.size() != 0){
@@ -194,17 +162,15 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public Skill insertSkill(int userId, Skill skill){
-        int newId = 0;
+    public Skill insertSkill(int userId, int cvId, Skill skill){
+        int newId;
 
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
-        CV cv = user.getCV();
+        if(user == null) return null;
+        CV cv = user.getCV(cvId);
+        if(cv == null) return null;
 
-        if(cv == null) {
-            cv = new CV();
-            newId = 1;
-        }
         else{
             List<Skill> skills = (List<Skill>) Utilities.copy(cv.getSkill());
             if(skills.size() != 0){
@@ -226,17 +192,15 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public ProfessionalExperience insertProfExp(int userId, ProfessionalExperience profExp){
-        int newId = 0;
+    public ProfessionalExperience insertProfExp(int userId, int cvId, ProfessionalExperience profExp){
+        int newId;
 
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
-        CV cv = user.getCV();
+        if(user == null) return null;
+        CV cv = user.getCV(cvId);
+        if(cv == null) return null;
 
-        if(cv == null) {
-            cv = new CV();
-            newId = 1;
-        }
         else{
             List<ProfessionalExperience> skills = (List<ProfessionalExperience>) Utilities.copy(cv.getProfessionalExperience());
             skills.sort(Comparator.comparing(ProfessionalExperience::getId));
@@ -253,11 +217,11 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int updateContact(int userId, Contact contact){
+    public int updateContact(int userId, int cvId, Contact contact){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
-        CV cv = user.getCV();
+        CV cv = user.getCV(cvId);
         cv.setContact(contact);
 
         Update update = new Update();
@@ -267,12 +231,12 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int updateCert(int userId, Certification newCert){
+    public int updateCert(int userId, int cvId, Certification newCert){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
-        CV cv = user.getCV();
-        if(Certification.updateCert(cv.getCertification(), newCert) == Response.Status.OK.getStatusCode()){
+        CV cv = user.getCV(cvId);
+        if(cv.updateCert(newCert) == Response.Status.OK.getStatusCode()){
             Update update = new Update();
             update.set("cv", cv);
             mongoTemplate.updateFirst(query, update, User.class);
@@ -282,12 +246,12 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int updateEducation(int userId, Education newEdu){
+    public int updateEducation(int userId, int cvId, Education newEdu){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
-        CV cv = user.getCV();
-        if(Education.updateEdu(cv.getEducation(), newEdu) == Response.Status.OK.getStatusCode()){
+        CV cv = user.getCV(cvId);
+        if(cv.updateEdu(newEdu) == Response.Status.OK.getStatusCode()){
             Update update = new Update();
             update.set("cv", cv);
             mongoTemplate.updateFirst(query, update, User.class);
@@ -297,12 +261,12 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int updateLang(int userId, Language newLang){
+    public int updateLang(int userId, int cvId, Language newLang){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
-        CV cv = user.getCV();
-        if(Language.updateLang(cv.getLanguage(), newLang) == Response.Status.OK.getStatusCode()){
+        CV cv = user.getCV(cvId);
+        if(cv.updateLang(newLang) == Response.Status.OK.getStatusCode()){
             Update update = new Update();
             update.set("cv", cv);
             mongoTemplate.updateFirst(query, update, User.class);
@@ -312,12 +276,12 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int updateProfExp(int userId, ProfessionalExperience newProfExp){
+    public int updateProfExp(int userId, int cvId, ProfessionalExperience newProfExp){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
-        CV cv = user.getCV();
-        if(ProfessionalExperience.updateProfExp(cv.getProfessionalExperience(), newProfExp) == Response.Status.OK.getStatusCode()){
+        CV cv = user.getCV(cvId);
+        if(cv.updateProfExp(newProfExp) == Response.Status.OK.getStatusCode()){
             Update update = new Update();
             update.set("cv", cv);
             mongoTemplate.updateFirst(query, update, User.class);
@@ -327,12 +291,12 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int updateSkill(int userId, Skill newSkill){
+    public int updateSkill(int userId, int cvId, Skill newSkill){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
-        CV cv = user.getCV();
-        if(Skill.updateSkill(cv.getSkill(), newSkill) == Response.Status.OK.getStatusCode()){
+        CV cv = user.getCV(cvId);
+        if(cv.updateSkill(newSkill) == Response.Status.OK.getStatusCode()){
             Update update = new Update();
             update.set("cv", cv);
             mongoTemplate.updateFirst(query, update, User.class);
@@ -342,13 +306,13 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int deleteCert(int userId, int certId){
+    public int deleteCert(int userId, int cvId, int certId){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
 
-        CV cv = user.getCV();
-        cv.getCertification().remove(Certification.getCert(cv.getCertification(), certId));
+        CV cv = user.getCV(cvId);
+        cv.getCertification().remove(cv.getCertification(certId));
         Update update = new Update();
         update.set("cv", cv);
         mongoTemplate.updateFirst(query, update, User.class);
@@ -356,13 +320,13 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int deleteEducation(int userId, int eduId){
+    public int deleteEducation(int userId, int cvId, int eduId){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
 
-        CV cv = user.getCV();
-        cv.getEducation().remove(Education.getEdu(cv.getEducation(), eduId));
+        CV cv = user.getCV(cvId);
+        cv.getEducation().remove(cv.getEducation(eduId));
         Update update = new Update();
         update.set("cv", cv);
         mongoTemplate.updateFirst(query, update, User.class);
@@ -370,13 +334,13 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int deleteLang(int userId, int langId){
+    public int deleteLang(int userId, int cvId, int langId){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
 
-        CV cv = user.getCV();
-        cv.getLanguage().remove(Language.getLang(cv.getLanguage(), langId));
+        CV cv = user.getCV(cvId);
+        cv.getLanguage().remove(cv.getLanguage(langId));
         Update update = new Update();
         update.set("cv", cv);
         mongoTemplate.updateFirst(query, update, User.class);
@@ -384,13 +348,13 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int deleteProfExp(int userId, int profExpId){
+    public int deleteProfExp(int userId, int cvId, int profExpId){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
 
-        CV cv = user.getCV();
-        cv.getProfessionalExperience().remove(ProfessionalExperience.getProfExp(cv.getProfessionalExperience(), profExpId));
+        CV cv = user.getCV(cvId);
+        cv.getProfessionalExperience().remove(cv.getProfessionalExperience(profExpId));
         Update update = new Update();
         update.set("cv", cv);
         mongoTemplate.updateFirst(query, update, User.class);
@@ -398,13 +362,13 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public int deleteSkill(int userId, int skillId){
+    public int deleteSkill(int userId, int cvId, int skillId){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
         if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
 
-        CV cv = user.getCV();
-        cv.getSkill().remove(Skill.getSkill(cv.getSkill(), skillId));
+        CV cv = user.getCV(cvId);
+        cv.getSkill().remove(cv.getSkill(skillId));
         Update update = new Update();
         update.set("cv", cv);
         mongoTemplate.updateFirst(query, update, User.class);
