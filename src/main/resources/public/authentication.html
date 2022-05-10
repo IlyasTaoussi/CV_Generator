@@ -7,6 +7,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/authentication.css">
+    <script src="js/webtoolkit.sha256.js"></script>
     <script src="js/authentication.js"></script>
 </head>
 
@@ -26,15 +27,15 @@
                 <h1 class="text-center login-title">Sign-in to the CV generator</h1>
                 <div class="account-wall">
                     <img class="profile-img" src="img/auth.png" alt="">
-                    <form class="form-signin">
+                    <!--<form class="form-signin">-->
                         <input type="text" class="form-control" id="email" placeholder="Email" required autofocus>
                         <input type="password" class="form-control" id="password" placeholder="Password" required>
-                        <button class="btn btn-lg text-light btn-block" style="background-color: #e6bc9e" id="signin_btn" type="submit" onclick="OnClickFunction()">
+                        <button class="btn btn-lg text-light btn-block" style="background-color: #e6bc9e" id="signin_btn" onclick="OnClickFunctionAuth()">
                             Sign in
                         </button>
                         <a href="registration.html" class="pull-right"> Create an account </a>
                         <span class="clearfix"></span>
-                    </form>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
