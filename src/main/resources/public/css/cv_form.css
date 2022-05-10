@@ -11,6 +11,7 @@ input[required="required"]
 button[type="submit"]
 {
   margin-top: 5px;
+  margin-bottom: 5%;
 }
 
 .nav-link
