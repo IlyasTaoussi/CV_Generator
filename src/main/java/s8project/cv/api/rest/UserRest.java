@@ -161,7 +161,8 @@ public class UserRest {
         User user = userRepository.findByUserId(userId);
 
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-        userRepository.insertContact(userId, cvId, contact);
+        contact = userRepository.insertContact(userId, cvId, contact);
+        if(contact == null) return Response.status(Response.Status.NOT_FOUND).build();
         return Response.ok(contact).build();
     }
 
