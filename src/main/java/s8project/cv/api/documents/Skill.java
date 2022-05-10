@@ -43,20 +43,4 @@ public class Skill {
     public void setLevel(String level) {
         this.level = level;
     }
-
-    public static Skill getSkill(List<Skill> skills, int skillId){
-        for(Skill skill: skills){
-            if(skill.getId() == skillId) return skill;
-        }
-        return null;
-    }
-
-    public static int updateSkill(List<Skill> skills, Skill newSkill){
-        Skill skill = getSkill(skills, newSkill.getId());
-        if(skill == null) return Response.Status.NOT_FOUND.getStatusCode();
-
-        skill.setName(newSkill.getName());
-        skill.setLevel(newSkill.getLevel());
-        return Response.Status.OK.getStatusCode();
-    }
 }

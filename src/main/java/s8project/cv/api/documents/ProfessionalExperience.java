@@ -100,25 +100,4 @@ public class ProfessionalExperience {
     public void setTechnos(List<String> technos) {
         this.technos = technos;
     }
-
-    public static ProfessionalExperience getProfExp(List<ProfessionalExperience> profExps, int profExpId){
-        for(ProfessionalExperience profExp: profExps) {
-            if (profExp.getId() == profExpId) return profExp;
-        }
-        return null;
-    }
-
-    public static int updateProfExp(List<ProfessionalExperience> profExps, ProfessionalExperience newProfExp){
-        ProfessionalExperience profExp = getProfExp(profExps, newProfExp.getId());
-        if(profExp == null) return Response.Status.NOT_FOUND.getStatusCode();
-        profExp.setDescription(newProfExp.getDescription());
-        profExp.setTechnos(newProfExp.getTechnos());
-        profExp.setLocalisation(newProfExp.getLocalisation());
-        profExp.setCompany_name(newProfExp.getCompany_name());
-        profExp.setPosition(newProfExp.getPosition());
-        profExp.setStartDate(newProfExp.getStartDate());
-        profExp.setEndDate(newProfExp.getEndDate());
-        return Response.Status.OK.getStatusCode();
-
-    }
 }

@@ -103,17 +103,4 @@ public class Education {
         }
         return null;
     }
-
-    public static int updateEdu(List<Education> educations, Education newEdu){
-        Education education = getEdu(educations, newEdu.getId());
-        if(education == null) return Response.Status.NOT_FOUND.getStatusCode();
-
-        education.setDegree(newEdu.getDegree());
-        education.setField(newEdu.getField());
-        education.setSchool(newEdu.getSchool());
-        education.setLocation(newEdu.getLocation());
-        education.setStartDate(newEdu.getStartDate());
-        education.setEndDate(newEdu.getEndDate());
-        return Response.Status.OK.getStatusCode();
-    }
 }
