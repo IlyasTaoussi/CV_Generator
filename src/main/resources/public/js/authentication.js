@@ -20,12 +20,12 @@ function CallWebAPI() {
     let username = sessionStorage.getItem('username')
     let hash = sessionStorage.getItem('hashPassword')
     // POST request
-    fetch('http://10.4.31.160:8080/api/user', {
+    fetch('http://10.4.31.160:8080/api/user/search', {
         Method: 'POST',
         Headers: {'Content-Type': 'application/json; charset=UTF-8'},
         Body: JSON.stringify({
             mail:username,
-            password:hash,
+            password:hash
         })
     }).then(response => {
         // Handling the response
