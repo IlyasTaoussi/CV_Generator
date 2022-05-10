@@ -52,6 +52,10 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         CV cv = new CV();
         cv.setId(newId);
         user.getCV().add(cv);
+
+        Update update = new Update();
+        update.set("cv", user.getCV());
+        mongoTemplate.updateFirst(query, update, User.class);
         return cv;
     }
 
@@ -80,7 +84,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         cv.getCertification().add(certification);
 
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return certification;
     }
@@ -95,7 +99,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         cv.setContact(contact);
 
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return contact;
     }
@@ -125,7 +129,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         cv.getEducation().add(education);
 
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return education;
     }
@@ -156,7 +160,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         cv.getLanguage().add(lang);
 
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return lang;
     }
@@ -186,7 +190,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         cv.getSkill().add(skill);
 
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return skill;
     }
@@ -211,7 +215,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         cv.getProfessionalExperience().add(profExp);
 
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return profExp;
     }
@@ -225,7 +229,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         cv.setContact(contact);
 
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return Response.Status.OK.getStatusCode();
     }
@@ -238,7 +242,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         CV cv = user.getCV(cvId);
         if(cv.updateCert(newCert) == Response.Status.OK.getStatusCode()){
             Update update = new Update();
-            update.set("cv", cv);
+            update.set("cv", user.getCV());
             mongoTemplate.updateFirst(query, update, User.class);
             return Response.Status.OK.getStatusCode();
         }
@@ -253,7 +257,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         CV cv = user.getCV(cvId);
         if(cv.updateEdu(newEdu) == Response.Status.OK.getStatusCode()){
             Update update = new Update();
-            update.set("cv", cv);
+            update.set("cv", user.getCV());
             mongoTemplate.updateFirst(query, update, User.class);
             return Response.Status.OK.getStatusCode();
         }
@@ -268,7 +272,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         CV cv = user.getCV(cvId);
         if(cv.updateLang(newLang) == Response.Status.OK.getStatusCode()){
             Update update = new Update();
-            update.set("cv", cv);
+            update.set("cv", user.getCV());
             mongoTemplate.updateFirst(query, update, User.class);
             return Response.Status.OK.getStatusCode();
         }
@@ -283,7 +287,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         CV cv = user.getCV(cvId);
         if(cv.updateProfExp(newProfExp) == Response.Status.OK.getStatusCode()){
             Update update = new Update();
-            update.set("cv", cv);
+            update.set("cv", user.getCV());
             mongoTemplate.updateFirst(query, update, User.class);
             return Response.Status.OK.getStatusCode();
         }
@@ -298,7 +302,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         CV cv = user.getCV(cvId);
         if(cv.updateSkill(newSkill) == Response.Status.OK.getStatusCode()){
             Update update = new Update();
-            update.set("cv", cv);
+            update.set("cv", user.getCV());
             mongoTemplate.updateFirst(query, update, User.class);
             return Response.Status.OK.getStatusCode();
         }
@@ -314,7 +318,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         CV cv = user.getCV(cvId);
         cv.getCertification().remove(cv.getCertification(certId));
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return Response.Status.OK.getStatusCode();
     }
@@ -328,7 +332,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         CV cv = user.getCV(cvId);
         cv.getEducation().remove(cv.getEducation(eduId));
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return Response.Status.OK.getStatusCode();
     }
@@ -342,7 +346,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         CV cv = user.getCV(cvId);
         cv.getLanguage().remove(cv.getLanguage(langId));
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return Response.Status.OK.getStatusCode();
     }
@@ -356,7 +360,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         CV cv = user.getCV(cvId);
         cv.getProfessionalExperience().remove(cv.getProfessionalExperience(profExpId));
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return Response.Status.OK.getStatusCode();
     }
@@ -370,7 +374,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         CV cv = user.getCV(cvId);
         cv.getSkill().remove(cv.getSkill(skillId));
         Update update = new Update();
-        update.set("cv", cv);
+        update.set("cv", user.getCV());
         mongoTemplate.updateFirst(query, update, User.class);
         return Response.Status.OK.getStatusCode();
     }
