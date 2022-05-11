@@ -34,7 +34,7 @@ public class ProfessionalExperience {
     private String description;
 
     @Field(value="technos")
-    private List<String> technos;
+    private String technos;
 
     public int getId() {
         return expId;
@@ -92,11 +92,11 @@ public class ProfessionalExperience {
         this.description = description;
     }
 
-    public List<String> getTechnos() {
+    public String getTechnos() {
         return technos;
     }
 
-    public void setTechnos(List<String> technos) {
+    public void setTechnos(String technos) {
         this.technos = technos;
     }
 }
