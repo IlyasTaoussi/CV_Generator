@@ -31,11 +31,9 @@ function CallWebAPIReg(username, hash) {
     }).then(response => {
         // Handling the response
         if(response.status === 200){
-            // Success : move on to the next page
             window.location.href = "../authentication.html"
         } else {
-            // Reload authentication page
-            window.location.href = "../registration.html"
+            window.location.reload()
         }
     }).catch(error => console.error(error))
 }
@@ -56,12 +54,11 @@ function CallWebAPIAuth(username, hash) {
         if(response.status === 200){
             return response.json()
         } else {
-            // Reload authentication page
-            window.location.href = "../authentication.html"
+            window.location.reload()
         }
     }).then((data) => {
         // Store credentials in session
-        sessionStorage.setItem('userData', data)
+        sessionStorage.setItem('userData', JSON.stringify(data))
         // Move on to the next page
         window.location.href = "../list_cv.html"
     }).catch(error => console.error(error))
