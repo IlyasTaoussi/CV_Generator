@@ -45,8 +45,7 @@ function CallWebAPIAuth(username, hash) {
     fetch('http://localhost:8080/api/user/search', {
         method: 'POST',
         headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json; charset=utf8'
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
             },
         body: JSON.stringify({
             "mail":username,
@@ -55,15 +54,18 @@ function CallWebAPIAuth(username, hash) {
     }).then(response => {
         // Handling the response
         if(response.status === 200){
-            // Store credentials in session
-            sessionStorage.setItem('username', username)
-            sessionStorage.setItem('hashPassword', hash)
-            // Success : move on to the next page
-            window.location.href = "../cv_form.html"
+            return response.json()
         } else {
             // Reload authentication page
             window.location.href = "../authentication.html"
         }
+    }).then((data) => {
+        console.log(data)
+        // Store credentials in session
+        sessionStorage.setItem('userData', data)
+        let test = sessionStorage.getItem('data')
+        // Move on to the next page
+        window.location.href = "../cv_form.html"
     }).catch(error => console.error(error))
 }
 
