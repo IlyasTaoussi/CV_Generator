@@ -293,36 +293,43 @@ public class UserRest {
     @DELETE
     @Path("{userId}/cert/del")
     public Response deleteCert(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("certId") int certId){
-        userRepository.deleteCert(userId, cvId, certId);
-        return Response.status(Response.Status.OK).build();
+        int status = userRepository.deleteCert(userId, cvId, certId);
+        return Response.status(status).build();
     }
 
     @DELETE
     @Path("{userId}/education/delete")
     public Response deleteEducation(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("eduId") int eduId){
-        userRepository.deleteEducation(userId, cvId, eduId);
-        return Response.status(Response.Status.OK).build();
+        int status = userRepository.deleteEducation(userId, cvId, eduId);
+        return Response.status(status).build();
     }
 
     @DELETE
     @Path("{userId}/language/delete")
     public Response deleteLang(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("langId") int langId){
-        userRepository.deleteLang(userId, cvId, langId);
-        return Response.status(Response.Status.OK).build();
+        int status = userRepository.deleteLang(userId, cvId, langId);
+        return Response.status(status).build();
     }
 
     @DELETE
     @Path("{userId}/profExp/delete")
     public Response deleteProfExp(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("ProfExpId") int profExpId){
-        userRepository.deleteProfExp(userId, cvId, profExpId);
-        return Response.status(Response.Status.OK).build();
+        int status = userRepository.deleteProfExp(userId, cvId, profExpId);
+        return Response.status(status).build();
     }
 
     @DELETE
     @Path("{userId}/skill/delete")
     public Response deleteSkill(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @PathParam("skillId") int skillId){
-        userRepository.deleteSkill(userId, cvId, skillId);
-        return Response.status(Response.Status.OK).build();
+        int status = userRepository.deleteSkill(userId, cvId, skillId);
+        return Response.status(status).build();
+    }
+
+    @DELETE
+    @Path("{userId}/cv/delete")
+    public Response deleteCV(@PathParam("userId") int userId, @QueryParam("cv") int cvId){
+        int status = userRepository.deleteCV(userId, cvId);
+        return Response.status(status).build();
     }
 
 }
