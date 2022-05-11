@@ -36,303 +36,948 @@
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
+
+
+    <!-- Contact info -->
         <div class="tab-pane fade show active" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
             <div class="container">
-                <!-- Contact info -->
                 <div id="contact_form">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_contact_popup" style="background-color: #ff6d6a" id="add_contact_btn" onclick="OnClickContactFunction()">
+                        Add
+                    </button>
                     <h2>Contact</h2>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-xs text-light" style="background-color: #86aeeb" id="modify_contact_btn" type="button" onclick="OnClickContactFunction()">
-                            Modify
-                        </button>
-                    </div>
-                    <div class="row">
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">Name :</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required="required">
+                        <!-- Pop-up add contact info -->
+                        <div class="modal fade" id="add_contact_popup" tabindex="-1" aria-labelledby="add-popup-contact-label" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="add-popup-contact-label">Contact informations</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">Name :</label>
+                                                    <input type="text" class="form-control" id="name" placeholder="Enter your full name" required="required">
+                                                </div>
+                                            </article>
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">Phone number :</label>
+                                                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required="required">
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div class="row">
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">Address</label>
+                                                    <input type="text" class="form-control" id="address" placeholder="Enter your full address" required="required">
+                                                </div>
+                                            </article>
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">Email address</label>
+                                                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label mt-4">Links</label>
+                                            <textarea class="form-control" id="links" rows="3" placeholder="Links to your social network"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
                             </div>
-                        </article>
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">Phone number :</label>
-                                <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required="required">
-                            </div>
-                        </article>
+                        </div>
                     </div>
-                    <div class="row">
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">Address</label>
-                                <input type="text" class="form-control" id="address" placeholder="Enter your full address" required="required">
+                    <ul class="list-group" id="list_contact">
+                        <li class="list-group-item">
+                            <!-- Pop-up button -->
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_contact_popup" style="background-color: #86aeeb" id="modify_contact_btn" type="button" onclick="OnClickContactFunction()">
+                                Modify
+                            </button>
+                            <button type="button" class="btn btn-danger float-end mx-2">Delete</button>
+                            <div class="row">
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>Name : </label>
+                                        <label id="contact_name">Tantot Lilian</label>
+                                    </div>
+                                </article>
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>Phone number : </label>
+                                        <label id="contact_phoneNumber">0678985430</label>
+                                    </div>
+                                </article>
                             </div>
-                        </article>
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">Email address</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email">
+                            <div class="row">
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>City : </label>
+                                        <label id="contact_address">132 avenue du sheesh</label>
+                                    </div>
+                                </article>
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>From : </label>
+                                        <label id="contact_email">sheesh@mail.com</label>
+                                    </div>
+                                </article>
                             </div>
-                        </article>
+                            <div>
+                                <label>Certification's description : </label>
+                                <p id="contact_links">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod dolor quis odio elementum malesuada. Praesent laoreet congue neque, eu interdum augue convallis eget. Praesent tempor quis arcu sit amet mollis. Nullam a nulla arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam ullamcorper, risus sed scelerisque eleifend, magna lorem pellentesque metus, eu consequat ligula massa et mauris. Nam mollis fermentum egestas.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- Pop-up add contact info -->
+                    <div class="modal fade" id="modify_contact_popup" tabindex="-1" aria-labelledby="modify-popup-contact-label" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modify-popup-contact-label">Edit panel</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <article class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Name :</label>
+                                                <input type="text" class="form-control" id="edit_name" placeholder="Tantot Lilian">
+                                            </div>
+                                        </article>
+                                        <article class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Phone number :</label>
+                                                <input type="tel" class="form-control" id="edit_phoneNumber" placeholder="0678985430">
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="row">
+                                        <article class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Address</label>
+                                                <input type="text" class="form-control" id="edit_address" placeholder="132 avenue du sheesh">
+                                            </div>
+                                        </article>
+                                        <article class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Email address</label>
+                                                <input type="email" class="form-control" id="edit_email" placeholder="sheesh@mail.com">
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label mt-4">Links</label>
+                                        <textarea class="form-control" id="edit_links" rows="3" placeholder="Links"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label mt-4">Links</label>
-                        <textarea class="form-control" id="links" rows="3" placeholder="Links to your social network"></textarea>
-                    </div>
-                    <button class="btn btn-xs text-light btn-block" style="background-color: #e6bc9e" id="submit_contact_btn" type="submit" onclick="OnClickContactFunction()">
-                        Submit contact informations
-                    </button>
                 </div>
-                <!-- End contact info -->
             </div>
         </div>
+    <!-- End contact info -->
 
+
+    <!-- Summary -->
         <div class="tab-pane fade" id="nav-summary" role="tabpanel" aria-labelledby="nav-summary-tab">
             <div class="container">
-                <!-- Summary -->
                 <div id="summary_form">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_summary_popup" style="background-color: #ff6d6a" id="add_summary_btn" onclick="OnClickContactFunction()">
+                        Add
+                    </button>
                     <h2>Summary</h2>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-xs text-light" style="background-color: #86aeeb" id="modify_summary_btn" type="button" onclick="OnClickContactFunction()">
-                            Modify
-                        </button>
+                        <!-- Pop-up add summary -->
+                        <div class="modal fade" id="add_summary_popup" tabindex="-1" aria-labelledby="add-popup-summary-label" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="add-popup-summary-label">Summary</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Summary</label>
+                                                <textarea class="form-control" id="summary" rows="3" placeholder="Quick personal description"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label mt-4">Summary</label>
-                        <textarea class="form-control" id="summary" rows="3" placeholder="Quick personal description"></textarea>
+                    <ul class="list-group" id="list_summary">
+                        <li class="list-group-item">
+                            <!-- Pop-up button -->
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_summary_popup" style="background-color: #86aeeb" id="modify_summary_btn" type="button" onclick="OnClickContactFunction()">
+                                Modify
+                            </button>
+                            <button type="button" class="btn btn-danger float-end mx-2">Delete</button>
+                            <div>
+                                <label>Summary : </label>
+                                <p id="summary_description">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod dolor quis odio elementum malesuada. Praesent laoreet congue neque, eu interdum augue convallis eget. Praesent tempor quis arcu sit amet mollis. Nullam a nulla arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam ullamcorper, risus sed scelerisque eleifend, magna lorem pellentesque metus, eu consequat ligula massa et mauris. Nam mollis fermentum egestas.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- Pop-up modify summary -->
+                    <div class="modal fade" id="modify_summary_popup" tabindex="-1" aria-labelledby="modify-popup-summary-label" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modify-popup-summary-label">Edit panel</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="form-label mt-4">Summary</label>
+                                            <textarea class="form-control" id="edit_summary" rows="3" placeholder="Summary"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn btn-xs text-light btn-block" style="background-color: #e6bc9e" id="submit_summary_btn" type="submit" onclick="OnClickSummaryFunction()">
-                        Submit summary
-                    </button>
+
                 </div>
-                <!-- End summary -->
             </div>
         </div>
+    <!-- End summary -->
+
+
+    <!-- Professional experience -->
         <div class="tab-pane fade" id="nav-experience" role="tabpanel" aria-labelledby="nav-experience-tab">
             <div class="container">
-                <!-- Professional experience -->
                 <div id="experience_form">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_experience_popup" style="background-color: #ff6d6a" id="add_experience_btn" onclick="OnClickContactFunction()">
+                        Add
+                    </button>
                     <h2>Professional experience</h2>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-xs text-light" style="background-color: #86aeeb" id="modify_experience_btn" type="button" onclick="OnClickContactFunction()">
-                            Modify
-                        </button>
-                        <button class="btn btn-xs text-light" style="background-color: #ff6d6a" id="add_experience_btn" type="button" onclick="OnClickContactFunction()">
-                            Add
-                        </button>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label mt-4">Position</label>
-                        <input type="text" class="form-control" id="position" placeholder="Enter position's name" required="required">
-                    </div>
-                    <div class="row">
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">Company</label>
-                                <input type="text" class="form-control" id="company" placeholder="Enter company's name" required="required">
+                        <!-- Pop-up add professional experience -->
+                        <div class="modal fade" id="add_experience_popup" tabindex="-1" aria-labelledby="add-popup-experience-label" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="add-popup-experience-label">Professional experience</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Position</label>
+                                                <input type="text" class="form-control" id="position" placeholder="Enter position's name" required="required">
+                                            </div>
+                                            <div class="row">
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">Company</label>
+                                                        <input type="text" class="form-control" id="company" placeholder="Enter company's name" required="required">
+                                                    </div>
+                                                </article>
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">City</label>
+                                                        <input type="text" class="form-control" id="city" placeholder="City" required="required">
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <div class="row">
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">From</label>
+                                                        <input type="date" class="form-control" id="startDate" placeholder="From" required="required">
+                                                    </div>
+                                                </article>
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">To</label>
+                                                        <input type="date" class="form-control" id="endDate" placeholder="To" required="required">
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Job's description</label>
+                                                <textarea class="form-control" id="jobDescription" rows="3" placeholder="Job's description" required="required"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Used technologies</label>
+                                                <textarea class="form-control" id="techno" rows="3" placeholder="Used technologies"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
                             </div>
-                        </article>
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">City</label>
-                                <input type="text" class="form-control" id="city" placeholder="City" required="required">
+                        </div>
+                        <ul class="list-group" id="list_experience">
+                            <li class="list-group-item">
+                                <!-- Pop-up button -->
+                                <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_experience_popup" style="background-color: #86aeeb" id="modify_experience_btn" type="button" onclick="OnClickContactFunction()">
+                                    Modify
+                                </button>
+                                <button type="button" class="btn btn-danger float-end mx-2">Delete</button>
+                                <div>
+                                    <label>Position : </label>
+                                    <label id="experience_position">Intern</label>
+                                </div>
+                                <div class="row">
+                                    <article class="col-md-4">
+                                        <div>
+                                            <label>Company : </label>
+                                            <label id="experience_company">Ericsson</label>
+                                        </div>
+                                    </article>
+                                    <article class="col-md-4">
+                                        <div>
+                                            <label>City : </label>
+                                            <label id="experience_city">Paname zoo</label>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="row">
+                                    <article class="col-md-4">
+                                        <div>
+                                            <label>From : </label>
+                                            <label id="experience_startDate">09/06/2019</label>
+                                        </div>
+                                    </article>
+                                    <article class="col-md-4">
+                                        <div>
+                                            <label>To : </label>
+                                            <label id="experience_endDate">09/06/2019</label>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div>
+                                    <label>Certification's description : </label>
+                                    <p id="formation_description">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod dolor quis odio elementum malesuada. Praesent laoreet congue neque, eu interdum augue convallis eget. Praesent tempor quis arcu sit amet mollis. Nullam a nulla arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam ullamcorper, risus sed scelerisque eleifend, magna lorem pellentesque metus, eu consequat ligula massa et mauris. Nam mollis fermentum egestas.
+                                    </p>
+                                </div>
+                                <div>
+                                    <label>Certification's description : </label>
+                                    <p id="formation_technology">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod dolor quis odio elementum malesuada. Praesent laoreet congue neque, eu interdum augue convallis eget. Praesent tempor quis arcu sit amet mollis. Nullam a nulla arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam ullamcorper, risus sed scelerisque eleifend, magna lorem pellentesque metus, eu consequat ligula massa et mauris. Nam mollis fermentum egestas.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                A second item
+                            </li>
+                        </ul>
+                        <!-- Pop-up modify professional experience -->
+                        <div class="modal fade" id="modify_experience_popup" tabindex="-1" aria-labelledby="modify-popup-experience-label" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modify-popup-experience-label">Edit panel</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Position</label>
+                                                <input type="text" class="form-control" id="edit_position" placeholder="Enter position's name">
+                                            </div>
+                                            <div class="row">
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">Company</label>
+                                                        <input type="text" class="form-control" id="edit_company" placeholder="Enter company's name">
+                                                    </div>
+                                                </article>
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">City</label>
+                                                        <input type="text" class="form-control" id="edit_city" placeholder="City">
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <div class="row">
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">From</label>
+                                                        <input type="date" class="form-control" id="edit_startDate" placeholder="From">
+                                                    </div>
+                                                </article>
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">To</label>
+                                                        <input type="date" class="form-control" id="edit_endDate" placeholder="To">
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Job's description</label>
+                                                <textarea class="form-control" id="edit_jobDescription" rows="3" placeholder="Job's description"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Used technologies</label>
+                                                <textarea class="form-control" id="edit_techno" rows="3" placeholder="Used technologies"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
                             </div>
-                        </article>
+                        </div>
                     </div>
-                    <div class="row">
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">From</label>
-                                <input type="date" class="form-control" id="startDate" placeholder="From" required="required">
-                            </div>
-                        </article>
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">To</label>
-                                <input type="date" class="form-control" id="endDate" placeholder="To" required="required">
-                            </div>
-                        </article>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label mt-4">Job's description</label>
-                        <textarea class="form-control" id="jobDescription" rows="3" placeholder="Job's description" required="required"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label mt-4">Used technologies</label>
-                        <textarea class="form-control" id="techno" rows="3" placeholder="Used technologies"></textarea>
-                    </div>
-                    <button class="btn btn-xs text-light btn-block" style="background-color: #e6bc9e" id="submit_experience_btn" type="submit" onclick="OnClickPEFunction()">
-                        Submit professional experience
-                    </button>
                 </div>
-                <!-- End professional experience -->
             </div>
         </div>
+    <!-- End professional experience -->
+
+
+    <!-- Formation -->
         <div class="tab-pane fade" id="nav-formation" role="tabpanel" aria-labelledby="nav-formation-tab">
             <div class="container">
-                <!-- Formation -->
                 <div id="formation_form">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_formation_popup" style="background-color: #ff6d6a" id="add_formation_btn" onclick="OnClickContactFunction()">
+                        Add
+                    </button>
                     <h2>Formation</h2>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-xs text-light" style="background-color: #86aeeb" id="modify_formation_btn" type="button" onclick="OnClickContactFunction()">
-                            Modify
-                        </button>
-                        <button class="btn btn-xs text-light" style="background-color: #ff6d6a" id="add_formation_btn" type="button" onclick="OnClickContactFunction()">
-                            Add
-                        </button>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label mt-4">Schooling level</label>
-                        <input type="text" class="form-control" id="schoolingLevel" placeholder="Your level of schooling" required="required">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label mt-4">Domain</label>
-                        <input type="text" class="form-control" id="domain" placeholder="Enter the domain of your schooling" required="required">
-                    </div>
-                    <div class="row">
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">School</label>
-                                <input type="text" class="form-control" id="school" placeholder="Which school ?" required="required">
+                        <!-- Pop-up add formation -->
+                        <div class="modal fade" id="add_formation_popup" tabindex="-1" aria-labelledby="add-popup-formation-label" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="add-popup-formation-label">Skills</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Schooling level</label>
+                                                <input type="text" class="form-control" id="schoolingLevel" placeholder="Your level of schooling" required="required">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Domain</label>
+                                                <input type="text" class="form-control" id="domain" placeholder="Enter the domain of your schooling" required="required">
+                                            </div>
+                                            <div class="row">
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">School</label>
+                                                        <input type="text" class="form-control" id="school" placeholder="Which school ?" required="required">
+                                                    </div>
+                                                </article>
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">School city</label>
+                                                        <input type="text" class="form-control" id="schoolCity" placeholder="Which city ?">
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <div class="row">
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">From</label>
+                                                        <input type="date" class="form-control" id="formationStartDate" placeholder="From">
+                                                    </div>
+                                                </article>
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">To</label>
+                                                        <input type="date" class="form-control" id="formationEndDate" placeholder="To">
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
                             </div>
-                        </article>
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">School city</label>
-                                <input type="text" class="form-control" id="schoolCity" placeholder="Which city ?">
-                            </div>
-                        </article>
+                        </div>
                     </div>
-                    <div class="row">
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">From</label>
-                                <input type="date" class="form-control" id="formationStartDate" placeholder="From">
+                    <ul class="list-group" id="list_formation">
+                        <li class="list-group-item">
+                            <!-- Pop-up button -->
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_formation_popup" style="background-color: #86aeeb" id="modify_formation_btn" type="button" onclick="OnClickContactFunction()">
+                                Modify
+                            </button>
+                            <button type="button" class="btn btn-danger float-end mx-2">Delete</button>
+                            <div>
+                                <label>Schooling level : </label>
+                                <label id="formation_schoolingLevel">PhD</label>
                             </div>
-                        </article>
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">To</label>
-                                <input type="date" class="form-control" id="formationEndDate" placeholder="To">
+                            <div>
+                                <label>Domain : </label>
+                                <label id="formation_domain">computer science</label>
                             </div>
-                        </article>
+                            <div class="row">
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>School : </label>
+                                        <label id="formation_school">INSA HdF</label>
+                                    </div>
+                                </article>
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>City : </label>
+                                        <label id="formation_schoolCity">Valenciennes</label>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="row">
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>From : </label>
+                                        <label id="formation_startDate">09/06/2019</label>
+                                    </div>
+                                </article>
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>To : </label>
+                                        <label id="formation_endDate">09/06/2019</label>
+                                    </div>
+                                </article>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            A second item
+                        </li>
+                    </ul>
+                    <!-- Pop-up modify formation -->
+                    <div class="modal fade" id="modify_formation_popup" tabindex="-1" aria-labelledby="modify-popup-formation-label" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modify-popup-formation-label">Edit panel</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="form-label mt-4">Schooling level</label>
+                                            <input type="text" class="form-control" id="edit_schoolingLevel" placeholder="PhD">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label mt-4">Domain</label>
+                                            <input type="text" class="form-control" id="edit_domain" placeholder="Computer science">
+                                        </div>
+                                        <div class="row">
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">School</label>
+                                                    <input type="text" class="form-control" id="edit_school" placeholder="INSA HdF">
+                                                </div>
+                                            </article>
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">School city</label>
+                                                    <input type="text" class="form-control" id="edit_schoolCity" placeholder="Valenciennes">
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div class="row">
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">From</label>
+                                                    <input type="date" class="form-control" id="edit_formationStartDate">
+                                                </div>
+                                            </article>
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">To</label>
+                                                    <input type="date" class="form-control" id="edit_formationEndDate">
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn btn-xs text-light btn-block" style="background-color: #e6bc9e" id="submit_formation_btn" type="submit" onclick="OnClickEducationFunction()">
-                        Submit formation
-                    </button>
                 </div>
-                <!-- End formation -->
             </div>
         </div>
+    <!-- End formation -->
+
+
+    <!-- skills -->
         <div class="tab-pane fade" id="nav-skill" role="tabpanel" aria-labelledby="nav-skill-tab">
             <div class="container">
-                <!-- skills -->
                 <div id="skills_form">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_skill_popup" style="background-color: #ff6d6a" id="add_skills_btn" onclick="OnClickContactFunction()">
+                        Add
+                    </button>
                     <h2>Skills</h2>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-xs text-light" style="background-color: #86aeeb" id="modify_skills_btn" type="button" onclick="OnClickContactFunction()">
-                            Modify
-                        </button>
-                        <button class="btn btn-xs text-light" style="background-color: #ff6d6a" id="add_skills_btn" type="button" onclick="OnClickContactFunction()">
-                            Add
-                        </button>
-                    </div>
-                    <div class="row">
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">Skill's name</label>
-                                <input type="text" class="form-control" id="skills" placeholder="Skills" required="required">
+                        <!-- Pop-up add skills -->
+                        <div class="modal fade" id="add_skill_popup" tabindex="-1" aria-labelledby="add-popup-skill-label" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="add-popup-skill-label">Skills</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">Skill's name</label>
+                                                    <input type="text" class="form-control" id="skills" placeholder="Skills" required="required">
+                                                </div>
+                                            </article>
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">Level</label>
+                                                    <input type="text" class="form-control" id="skillsLevel" placeholder="At what level ?">
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
                             </div>
-                        </article>
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">Level</label>
-                                <input type="text" class="form-control" id="skillsLevel" placeholder="At what level ?">
-                            </div>
-                        </article>
+                        </div>
                     </div>
-                    <button class="btn btn-xs text-light btn-block" style="background-color: #e6bc9e" id="submit_skills_btn" type="submit" onclick="OnClickSkillsFunction()">
-                        Submit skills
-                    </button>
+                    <ul class="list-group" id="list_skill">
+                        <li class="list-group-item">
+                            <!-- Pop-up button -->
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_skill_popup" style="background-color: #86aeeb" id="modify_skill_btn" type="button" onclick="OnClickContactFunction()">
+                                Modify
+                            </button>
+                            <button type="button" class="btn btn-danger float-end mx-2">Delete</button>
+                            <div class="row">
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>Skill's name : </label>
+                                        <label id="skill_name">Developer front</label>
+                                    </div>
+                                </article>
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>Level : </label>
+                                        <label id="skill_level">Sheesh</label>
+                                    </div>
+                                </article>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            A second item
+                        </li>
+                    </ul>
+
+                    <!-- Pop-up modify skill -->
+                    <div class="modal fade" id="modify_skill_popup" tabindex="-1" aria-labelledby="modify-popup-skill-label" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modify-popup-skill-label">Edit panel</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <article class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Skill's name</label>
+                                                <input type="text" class="form-control" id="edit_skill" placeholder="Developer front">
+                                            </div>
+                                        </article>
+                                        <article class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Level</label>
+                                                <input type="text" class="form-control" id="edit_skillLevel">
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- End skills -->
             </div>
         </div>
+    <!-- End skills -->
+
+
+    <!-- Certifications -->
         <div class="tab-pane fade" id="nav-certification" role="tabpanel" aria-labelledby="nav-certification-tab">
             <div class="container">
-                <!-- Certifications -->
                 <div id="certification_form">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_certification_popup" style="background-color: #ff6d6a" id="add_certification_btn" onclick="OnClickContactFunction()">
+                        Add
+                    </button>
                     <h2>Certifications</h2>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-xs text-light" style="background-color: #86aeeb" id="modify_certification_btn" type="button" onclick="OnClickContactFunction()">
-                            Modify
-                        </button>
-                        <button class="btn btn-xs text-light" style="background-color: #ff6d6a" id="add_certification_btn" type="button" onclick="OnClickContactFunction()">
-                            Add
-                        </button>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label mt-4">Title</label>
-                        <input type="text" class="form-control" id="certifTitle" placeholder="Title" required="required">
-                    </div>
-                    <div class="row">
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">Date of acquisition</label>
-                                <input type="date" class="form-control" id="certifStartDate" placeholder="Date of start" required="required">
+                        <!-- Pop-up add certif -->
+                        <div class="modal fade" id="add_certification_popup" tabindex="-1" aria-labelledby="add-popup-certification-label" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="add-popup-certification-label">Language</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Title</label>
+                                                <input type="text" class="form-control" id="certifTitle" placeholder="Title" required="required">
+                                            </div>
+                                            <div class="row">
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">Date of acquisition</label>
+                                                        <input type="date" class="form-control" id="certifStartDate" placeholder="Date of start" required="required">
+                                                    </div>
+                                                </article>
+                                                <article class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label mt-4">Expiration</label>
+                                                        <input type="date" class="form-control" id="certifEndDate" placeholder="Date of end" required="required">
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label mt-4">Certification's description</label>
+                                                <textarea class="form-control" id="certifDescription" rows="3" placeholder="Certification's description"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
                             </div>
-                        </article>
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">Expiration</label>
-                                <input type="date" class="form-control" id="certifEndDate" placeholder="Date of end" required="required">
+                        </div>
+                    </div>
+                    <ul class="list-group" id="list_certification">
+                        <li class="list-group-item">
+                            <!-- Pop-up button -->
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_certification_popup" style="background-color: #86aeeb" id="modify_certification_btn" type="button" onclick="OnClickContactFunction()">
+                                Modify
+                            </button>
+                            <button type="button" class="btn btn-danger text-light float-end mx-2">Delete</button>
+                            <label>Title : </label>
+                            <label id="certification_title">Developer front</label>
+                            <div class="row">
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>Date of acquisition : </label>
+                                        <label id="certification_start_date">05/02/2022</label>
+                                    </div>
+                                </article>
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>Date of expiration : </label>
+                                        <label id="certification_end_date">05/02/2022</label>
+                                    </div>
+                                </article>
+                                <label>Certification's description : </label>
+                                <p id="certification_description">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod dolor quis odio elementum malesuada. Praesent laoreet congue neque, eu interdum augue convallis eget. Praesent tempor quis arcu sit amet mollis. Nullam a nulla arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam ullamcorper, risus sed scelerisque eleifend, magna lorem pellentesque metus, eu consequat ligula massa et mauris. Nam mollis fermentum egestas.
+                                </p>
                             </div>
-                        </article>
+                        </li>
+                        <li class="list-group-item">
+                            A second item
+                        </li>
+                    </ul>
+                    <!-- Pop-up modify certif -->
+                    <div class="modal fade" id="modify_certification_popup" tabindex="-1" aria-labelledby="modify-popup-certification-label" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modify-popup-certification-label">Edit panel</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="form-label mt-4">Title</label>
+                                            <input type="text" class="form-control" id="edit_certifTitle" placeholder="Developer front">
+                                        </div>
+                                        <div class="row">
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">Date of acquisition</label>
+                                                    <input type="date" class="form-control" id="edit_certifStartDate">
+                                                </div>
+                                            </article>
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">Expiration</label>
+                                                    <input type="date" class="form-control" id="edit_certifEndDate">
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label mt-4">Certification's description</label>
+                                            <textarea class="form-control" id="edit_certifDescription" rows="3" placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label mt-4">Certification's description</label>
-                        <textarea class="form-control" id="certifDescription" rows="3" placeholder="Certification's description"></textarea>
-                    </div>
-                    <button class="btn btn-xs text-light btn-block" style="background-color: #e6bc9e" id="submit_certification_btn" type="submit" onclick="OnClickCertificationsFunction()">
-                        Submit certification
-                    </button>
                 </div>
-                <!-- End certifications -->
             </div>
         </div>
+    <!-- End certifications -->
+
+
+    <!-- Language -->
         <div class="tab-pane fade" id="nav-language" role="tabpanel" aria-labelledby="nav-language-tab">
             <div class="container">
-                <!-- Language -->
                 <div id="language_form">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_language_popup" style="background-color: #ff6d6a" id="add_language_btn" onclick="OnClickContactFunction()">
+                        Add
+                    </button>
                     <h2>Language</h2>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-xs text-light" style="background-color: #86aeeb" id="modify_language_btn" type="button" onclick="OnClickContactFunction()">
-                            Modify
-                        </button>
-                        <button class="btn btn-xs text-light" style="background-color: #ff6d6a" id="add_language_btn" type="button" onclick="OnClickContactFunction()">
-                            Add
-                        </button>
-                    </div>
-                    <div class="row">
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">Language</label>
-                                <input type="text" class="form-control" id="languageName" placeholder="Which one ?" required="required">
+                        <!-- Pop-up add language -->
+                        <div class="modal fade" id="add_language_popup" tabindex="-1" aria-labelledby="add-popup-language-label" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="add-popup-language-label">Certifications</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">Language</label>
+                                                    <input type="text" class="form-control" id="languageName" placeholder="Which one ?" required="required">
+                                                </div>
+                                            </article>
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">Level</label>
+                                                    <input type="text" class="form-control" id="languageLevel" placeholder="At what level ?">
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
                             </div>
-                        </article>
-                        <article class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label mt-4">Level</label>
-                                <input type="text" class="form-control" id="languageLevel" placeholder="At what level ?">
-                            </div>
-                        </article>
+                        </div>
                     </div>
-                    <button class="btn btn-xs text-light btn-block" style="background-color: #e6bc9e" id="submit_language_btn" type="submit" onclick="OnClickLanguageFunction()">
-                        Submit language
-                    </button>
+                    <ul class="list-group" id="list_language">
+                        <li class="list-group-item">
+                            <!-- Pop-up button -->
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_language_popup" style="background-color: #86aeeb" id="modify_language_btn" type="button" onclick="OnClickContactFunction()">
+                                Modify
+                            </button>
+                            <button type="button" class="btn btn-danger text-light float-end mx-2">Delete</button>
+                            <div class="row">
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>Language : </label>
+                                        <label id="language_name">Japanese</label>
+                                    </div>
+                                </article>
+                                <article class="col-md-4">
+                                    <div>
+                                        <label>Level : </label>
+                                        <label id="language_level">Beginner</label>
+                                    </div>
+                                </article>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            A second item
+                        </li>
+                    </ul>
+                    <!-- Pop-up modify language -->
+                    <div class="modal fade" id="modify_language_popup" tabindex="-1" aria-labelledby="modify-popup-language-label" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modify-popup-language-label">Edit panel</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="form-label mt-4">Title</label>
+                                            <input type="text" class="form-control" id="edit_languageName" placeholder="Japanese">
+                                        </div>
+                                        <div class="row">
+                                            <article class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label mt-4">Level</label>
+                                                    <input type="text" class="form-control" id="edit_languageLevel" placeholder="Beginner">
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-                <!-- End Language -->
             </div>
         </div>
+    <!-- End Language -->
+
+
     </div>
 
 <!--Bootstrap Js-->
