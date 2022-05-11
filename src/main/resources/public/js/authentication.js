@@ -60,12 +60,10 @@ function CallWebAPIAuth(username, hash) {
             window.location.href = "../authentication.html"
         }
     }).then((data) => {
-        console.log(data)
         // Store credentials in session
         sessionStorage.setItem('userData', data)
-        let test = sessionStorage.getItem('data')
         // Move on to the next page
-        window.location.href = "../cv_form.html"
+        window.location.href = "../list_cv.html"
     }).catch(error => console.error(error))
 }
 
