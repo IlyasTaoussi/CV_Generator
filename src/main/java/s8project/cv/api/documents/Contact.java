@@ -16,7 +16,7 @@ public class Contact {
     @Field(value="name")
     private String name;
 
-    @Field(value="adress")
+    @Field(value="address")
     private String address;
 
     @Field(value="phone_number")
@@ -26,10 +26,14 @@ public class Contact {
     private String links;
 
     public Contact(){
-        links = new ArrayList<>();
+        mail = "";
+        name = "";
+        address = "";
+        phoneNumber = "";
+        links = "";
     }
 
-    public Contact(String mail, String name, String address, String phoneNumber, List<String> links) {
+    public Contact(String mail, String name, String address, String phoneNumber, String links) {
         this.mail = mail;
         this.name = name;
         this.address = address;
