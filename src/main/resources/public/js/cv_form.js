@@ -1,226 +1,220 @@
 function OnClickContactFunction(){
     // Contact
-    var Mail = document.getElementById("email")
-    var Name = document.getElementById("name")
-    var Address = document.getElementById("address")
-    var Number = document.getElementById("phoneNumber")
-    var Links = document.getElementById("links")
-    // Reset all inputs
-    document.getElementById("contact_form").reset()
-    // API request
-    CallWebAPIContact()
+    var Mail = document.getElementById("email").value
+    var Name = document.getElementById("name").value
+    var Address = document.getElementById("address").value
+    var Number = document.getElementById("phoneNumber").value
+    var Links = document.getElementById("links").value
+    // Ids
+    let user_Data = sessionStorage.getItem("userData")
+    let id_CV = sessionStorage.getItem("id_CV")
+    // API Request
+    Contact(user_Data.idUser, id_CV, Mail, Name, Address, Number, Links)
 }
-function OnClickSummaryFunction(){
-    // Summary
-    var Summary = document.getElementById("summary")
-    // Reset all inputs
-    document.getElementById("summary_form").reset()
-    // API request
-    CallWebAPISummary()
-}
-function OnClickPEFunction(){
-    // Professional experience
-    var Position = document.getElementById("position")
-    var Company = document.getElementById("company")
-    var City = document.getElementById("city")
-    var StartDate = document.getElementById("startDate")
-    var EndDate = document.getElementById("endDate")
-    var JobDescription = document.getElementById("jobDescription")
-    var Techno = document.getElementById("techno")
-    // Reset all inputs
-    document.getElementById("experience_form").reset()
-    // API request
-    CallWebAPIPE()
-}
-function OnClickEducationFunction(){
-    // Graduation
-    var SchoolingLevel = document.getElementById("schoolingLevel")
-    var Domain = document.getElementById("domain")
-    var School = document.getElementById("school")
-    var SchoolCity = document.getElementById("schoolCity")
-    var FormationStartDate = document.getElementById("formationStartDate")
-    var FormationEndDate = document.getElementById("formationEndDate")
-    // Reset all inputs
-    document.getElementById("formation_form").reset()
-    // API request
-    CallWebAPIEducation()
-}
-function OnClickSkillsFunction(){
-    // Skills
-    var Skill = document.getElementById("skills")
-    var SkillLevel = document.getElementById("skillsLevel")
-    // Reset all inputs
-    document.getElementById("skills_form").reset()
-    // API request
-    CallWebAPISkill()
-}
-function OnClickCertificationsFunction(){
-    // Certifications
-    var CertifTitle = document.getElementById("certifTitle")
-    var CertifStartDate = document.getElementById("certifStartDate")
-    var CertifDescription = document.getElementById("certifDescription")
-    // Reset all inputs
-    document.getElementById("certification_form").reset()
-    // API request
-    CallWebAPICertification()
-}
-function OnClickLanguagesFunction(){
-    // Languages
-    var LanguageName = document.getElementById("languageName")
-    var LanguageLevel = document.getElementById("languageLevel")
-    // Reset all inputs
-    document.getElementById("language_form").reset()
-    // API request
-    CallWebAPILanguage()
+function Contact(Id_User,Id_Cv,Mail,Name,Address,Number,Links){
+    fetch('http://localhost:8080/api/user/' + Id_User + '/contact/new?cv=' + Id_Cv, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        },
+        body: JSON.stringify({
+             "mail":Mail,
+             "name":Name,
+             "address":Address,
+             "phone_number":Number,
+             "links":Links
+        })
+    }).then(response => {
+         if(response.status === 200){
+            // Success : reloading current page
+            //window.location.href = "../public/cv_form.html"
+         }
+    }).catch(error => console.error(error))
 }
 
-function CallWebAPIContact() {
-    // POST request
-    fetch('https://test.com/api/user_id/user', {
-        Method: 'POST',
-        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-        Body: JSON.stringify({
-            cv:{
-                contact:{
-                    mail:Mail,
-                    name:Name,
-                    address:Address,
-                    phone_number:Number,
-                    links:Links,
-                }
-            }
+function OnClickSummaryFunction(){
+    // Summary
+    var Summary = document.getElementById("summary").value
+    // Ids
+    let user_Data = sessionStorage.getItem("userData")
+    let id_CV = sessionStorage.getItem("id_CV")
+    // API request
+    Summary(user_Data.idUser, id_CV, Summary)
+}
+function Summary(Id_User,Id_Cv, Summary) {
+    fetch('http://localhost:8080/api/user/' + Id_User + '/summary/new?cv=' + Id_Cv, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        },
+        body: JSON.stringify({
+            "summary":Summary
         })
     }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
-             window.location.href = "../public/cv_form.html"
+             //window.location.href = "../public/cv_form.html"
          }
     }).catch(error => console.error(error))
 }
-function CallWebAPISummary() {
-    // POST request
-    fetch('https://test.com/api/user_id/user', {
-        Method: 'POST',
-        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-        Body: JSON.stringify({
-            cv:{
-                summary:Summary
-            }
+
+function OnClickPEFunction(){
+    // Professional experience
+    var Position = document.getElementById("position").value
+    var Company = document.getElementById("company").value
+    var City = document.getElementById("city").value
+    var StartDate = document.getElementById("startDate").value
+    var EndDate = document.getElementById("endDate").value
+    var JobDescription = document.getElementById("jobDescription").value
+    var Techno = document.getElementById("techno").value
+    // Ids
+    let user_Data = sessionStorage.getItem("userData")
+    let id_CV = sessionStorage.getItem("id_CV")
+    // API request
+    ProfessionalExperience(user_Data.idUser, id_CV, Position, Company, City, StartDate, EndDate, JobDescription, Techno)
+}
+function ProfessionalExperience(Id_User, Id_Cv, Position, Company, City, StartDate, EndDate, JobDescription, Techno) {
+    fetch('http://localhost:8080/api/user/' + Id_User + '/profExp/new?cv=' + Id_Cv, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        },
+        body: JSON.stringify({
+            "position":Position,
+            "company_name":Company,
+            "localisation":City,
+            "start_date":startDate,
+            "end_date":EndDate,
+            "technos":Techno
         })
     }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
-             window.location.href = "../public/cv_form.html"
+             //window.location.href = "../public/cv_form.html"
          }
     }).catch(error => console.error(error))
 }
-function CallWebAPIPE() {
-    // POST request
-    fetch('https://test.com/api/user_id/user', {
-        Method: 'POST',
-        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-        Body: JSON.stringify({
-            cv:{
-                professional_experience:{
-                    position:Position,
-                    company_name:Company,
-                    localisation:City,
-                    start_date:startDate,
-                    end_date:EndDate,
-                    technos:Techno,
-                }
-            }
+
+function OnClickEducationFunction(){
+    // Graduation
+    var SchoolingLevel = document.getElementById("schoolingLevel").value
+    var Domain = document.getElementById("domain").value
+    var School = document.getElementById("school").value
+    var SchoolCity = document.getElementById("schoolCity").value
+    var FormationStartDate = document.getElementById("formationStartDate").value
+    var FormationEndDate = document.getElementById("formationEndDate").value
+    // Ids
+    let user_Data = sessionStorage.getItem("userData")
+    let id_CV = sessionStorage.getItem("id_CV")
+    // API request
+    Education(user_Data.idUser, id_CV, SchoolingLevel, Domain, School, SchoolCity, FormationStartDate, FormationEndDate)
+}
+function Education(Id_User, Id_Cv, SchoolingLevel, Domain, School, SchoolCity, FormationStartDate, FormationEndDate) {
+    fetch('http://localhost:8080/api/user/' + Id_User + '/education/new?cv=' + Id_Cv, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        },
+        body: JSON.stringify({
+            "degree":SchoolingLevel,
+            "field":Domain,
+            "school":School,
+            "location":SchoolCity,
+            "start_date":FormationStartDate,
+            "end_date":FormationEndDate
         })
     }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
-             window.location.href = "../public/cv_form.html"
+             //window.location.href = "../public/cv_form.html"
          }
     }).catch(error => console.error(error))
 }
-function CallWebAPIEducation() {
-    // POST request
-    fetch('https://test.com/api/user_id/user', {
-        Method: 'POST',
-        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-        Body: JSON.stringify({
-            cv:{
-                education:{
-                    degree:SchoolingLevel,
-                    field:Domain,
-                    school:School,
-                    location:SchoolCity,
-                    start_date:FormationStartDate,
-                    end_date:FormationEndDate,
-                }
-            }
+
+function OnClickSkillsFunction(){
+    // Skills
+    var Skill = document.getElementById("skills").value
+    var SkillLevel = document.getElementById("skillsLevel").value
+    // Ids
+    let user_Data = sessionStorage.getItem("userData")
+    let id_CV = sessionStorage.getItem("id_CV")
+    // API request
+    Skills(user_Data.idUser, id_CV, Skill, SkillLevel)
+}
+function Skills(Id_User, Id_Cv, Skill, SkillLevel) {
+    fetch('http://localhost:8080/api/user/' + Id_User + '/skill/new?cv=' + Id_Cv, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        },
+        body: JSON.stringify({
+            "name":Skill,
+            "level":SkillLevel
         })
     }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
-             window.location.href = "../public/cv_form.html"
+             //window.location.href = "../public/cv_form.html"
          }
     }).catch(error => console.error(error))
 }
-function CallWebAPISkill() {
-    // POST request
-    fetch('https://test.com/api/user_id/user', {
-        Method: 'POST',
-        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-        Body: JSON.stringify({
-            cv:{
-                skill:{
-                    name:Skill,
-                    level:SkillLevel,
-                }
-            }
+
+function OnClickCertificationsFunction(){
+    // Certifications
+    var CertifTitle = document.getElementById("certifTitle").value
+    var CertifStartDate = document.getElementById("certifStartDate").value
+    var CertifEndDate = document.getElementById("certifEndDate").value
+    var CertifDescription = document.getElementById("certifDescription").value
+    // Ids
+    let user_Data = sessionStorage.getItem("userData")
+    let id_CV = sessionStorage.getItem("id_CV")
+    // API request
+    Certifications(user_Data.idUser, id_CV, CertifTitle, CertifStartDate, CertifEndDate, CertifDescription)
+}
+function Certifications(Id_User, Id_Cv, CertifTitle, CertifStartDate, CertifEndDate, CertifDescription) {
+    fetch('http://localhost:8080/api/user/' + Id_User + '/cert/new?cv=' + Id_Cv, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        },
+        body: JSON.stringify({
+            "name":CertifTitle,
+            "start_date":CertifStartDate,
+            "end_date":CertifEndDate,
+            "description":CertifDescription
         })
     }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
-             window.location.href = "../public/cv_form.html"
+             //window.location.href = "../public/cv_form.html"
          }
     }).catch(error => console.error(error))
 }
-function CallWebAPICertification() {
-    // POST request
-    fetch('https://test.com/api/user_id/user', {
-        Method: 'POST',
-        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-        Body: JSON.stringify({
-            cv:{
-                certification:{
-                    name:CertifTitle,
-                    start_date:CertifStartDate,
-                    end_date:CertifEndDate,
-                    description:CertifDescription,
-                }
-            }
-        })
-    }).then(response => {
-         if(response.status === 200){
-             // Success : reloading current page
-             window.location.href = "../public/cv_form.html"
-         }
-    }).catch(error => console.error(error))
+
+function OnClickLanguagesFunction(){
+    // Languages
+    var LanguageName = document.getElementById("languageName").value
+    var LanguageLevel = document.getElementById("languageLevel").value
+    // Ids
+    let user_Data = sessionStorage.getItem("userData")
+    let id_CV = sessionStorage.getItem("id_CV")
+    // API request
+    Language(user_Data.idUser, id_CV, LanguageName, LanguageLevel)
 }
-function CallWebAPILanguage() {
-    // POST request
-    fetch('https://test.com/api/user_id/user', {
-        Method: 'POST',
-        Headers: {'Content-Type': 'application/json; charset=UTF-8'},
-        Body: JSON.stringify({
-            cv:{
-                language:{
-                    name:LanguageName,
-                    level:LanguageLevel,
-                }
-            }
+function Language(Id_User, Id_Cv, LanguageName, LanguageLevel) {
+    fetch('http://localhost:8080/api/user/' + Id_User + '/lang/new?cv=' + Id_Cv, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        },
+        body: JSON.stringify({
+            "name":LanguageName,
+            "level":LanguageLevel
         })
     }).then(response => {
          if(response.status === 200){
              // Success : reloading current page
-             window.location.href = "../public/cv_form.html"
+             //window.location.href = "../public/cv_form.html"
          }
     }).catch(error => console.error(error))
 }
