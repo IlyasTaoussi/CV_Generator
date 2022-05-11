@@ -14,7 +14,7 @@
     <script src="js/list_cv.js"></script>
     <title>CV List</title>
 </head>
-<body>
+<body onload="OnLoadFunction()">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #86aeeb;">
             <div class="container-fluid">
@@ -24,32 +24,15 @@
     </header>
 
     <div class="container-fluid col-md-8">
-        <button type="button" class="btn btn-danger text-light float-end mt-2">Add</button>
+        <button type="button" class="btn btn-danger text-light float-end mt-2" onclick="OnClickAddFunction()">Add</button>
         <table class="table table-hover">
             <thead>
             <tr>
                 <th scope="col">CV name</th>
             </tr>
             </thead>
-            <tbody>
-            <tr class="table-secondary">
-                <th scope="row">CV name</th>
-                <td>
-                    <a href="cv.html">Open</a>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger text-light float-end mx-2">Delete</button>
-                </td>
-            </tr>
-            <tr class="table-secondary">
-                <th scope="row">CV name</th>
-                <td>
-                    <a href="cv.html">Open</a>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger text-light float-end mx-2">Delete</button>
-                </td>
-            </tr>
+            <tbody id="my_tbody">
+
             </tbody>
         </table>
     </div>
