@@ -1,6 +1,5 @@
 package s8project.cv.api.documents;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,10 +17,10 @@ public class ProfessionalExperience {
     private String localisation;
 
     @Field(value="start_date")
-    private Date startDate;
+    private String startDate;
 
     @Field(value="end_date")
-    private Date endDate;
+    private String endDate;
 
     @Field(value="description")
     private String description;
@@ -53,19 +52,19 @@ public class ProfessionalExperience {
         this.localisation = localisation;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
