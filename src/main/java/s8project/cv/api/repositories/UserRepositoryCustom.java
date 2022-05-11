@@ -28,4 +28,5 @@ public interface UserRepositoryCustom {
     int deleteLang(int userId, int cvId, int langId);
     int deleteProfExp(int userId, int cvId, int profExpId);
     int deleteSkill(int userId, int cvId, int skillId);
+    int deleteCV(int userId, int cvId);
 }

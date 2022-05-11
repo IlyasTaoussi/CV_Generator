@@ -384,4 +384,17 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         return Response.Status.OK.getStatusCode();
     }
 
+    @Override
+    public int deleteCV(int userId, int cvId){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
+
+        user.getCV().remove(user.getCV(cvId));
+        Update update = new Update();
+        update.set("cv", user.getCV());
+        mongoTemplate.updateFirst(query, update, User.class);
+        return Response.Status.OK.getStatusCode();
+    }
+
 }
