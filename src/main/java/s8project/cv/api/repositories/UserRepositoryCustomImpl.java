@@ -207,8 +207,13 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
 
         else{
             List<ProfessionalExperience> skills = (List<ProfessionalExperience>) Utilities.copy(cv.getProfessionalExperience());
-            skills.sort(Comparator.comparing(ProfessionalExperience::getId));
-            newId = skills.get(skills.size() - 1).getId() + 1;
+            if(skills.size() != 0) {
+                skills.sort(Comparator.comparing(ProfessionalExperience::getId));
+                newId = skills.get(skills.size() - 1).getId() + 1;
+            }
+            else{
+                newId = 1;
+            }
         }
 
         profExp.setId(newId);
