@@ -23,7 +23,7 @@ public class Contact {
     private String phoneNumber;
 
     @Field(value="links")
-    private List<String> links;
+    private String links;
 
     public Contact(){
         links = new ArrayList<>();
@@ -69,11 +69,11 @@ public class Contact {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<String> getLinks() {
+    public String getLinks() {
         return links;
     }
 
-    public void setLinks(List<String> links) {
+    public void setLinks(String links) {
         this.links = links;
     }
 }
