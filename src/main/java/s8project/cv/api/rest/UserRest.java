@@ -95,10 +95,10 @@ public class UserRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/cv")
-    public Response getCV(@PathParam("userId") int userId, @QueryParam("cv") int cvId){
+    public Response getCV(@PathParam("userId") int userId/*, @QueryParam("cv") int cvId*/){
         User user = userRepository.findByUserId(userId);
-        if(user == null || user.getCV(cvId) == null) return Response.status(Response.Status.NOT_FOUND).build();
-        return Response.ok(user.getCV(cvId)).build();
+        if(user == null || user.getCV(/*cvId*/) == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(user.getCV(/*cvId*/)).build();
     }
 
     /**
