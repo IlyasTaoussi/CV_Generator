@@ -101,6 +101,15 @@ public class UserRest {
         return Response.ok(user.getCV(cvId)).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{userId}/summary")
+    public Response getSummary(@PathParam("userId") int userId, @PathParam("cv") int cvId){
+        User user = userRepository.findByUserId(userId);
+        if(user == null || user.getCV(cvId) == null || user.getCV(cvId).getSummary() == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(user.getCV(cvId).getSummary()).build();
+    }
+
     /**
      * POST API CALLS
      */
@@ -214,6 +223,18 @@ public class UserRest {
         return Response.ok(lang).build();
     }
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{userId}/summary/new")
+    public Response insertProfile(@PathParam("userId") int userId, @QueryParam("cv") int cvId, String summary){
+        User user = userRepository.findByUserId(userId);
+        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
+
+        userRepository.insertSummary(userId, cvId, summary);
+        return Response.ok(summary).build();
+    }
+
     /**
      * PATCH API CALLS
      */
@@ -283,6 +304,19 @@ public class UserRest {
         skill.setId(skillId);
         int status = userRepository.updateSkill(userId, cvId, skill);
         if(status == Response.Status.OK.getStatusCode()) return Response.ok(skill).build();
+        return Response.status(status).build();
+    }
+
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{userId}/contact/update")
+    public Response updateSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId, String summary){
+        User user = userRepository.findByUserId(userId);
+        if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
+
+        int status = userRepository.updateSummary(userId, cvId, summary);
+        if(status == Response.Status.OK.getStatusCode()) Response.ok(summary).build();
         return Response.status(status).build();
     }
 

@@ -221,6 +221,21 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
+    public String insertSummary(int userId, int cvId, String summary){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return null;
+        CV cv = user.getCV(cvId);
+        if(cv == null) return null;
+        cv.setSummary(summary);
+
+        Update update = new Update();
+        update.set("cv", user.getCV());
+        mongoTemplate.updateFirst(query, update, User.class);
+        return summary;
+    }
+
+    @Override
     public int updateContact(int userId, int cvId, Contact contact){
         Query query = new Query(Criteria.where("userId").is(userId));
         User user = mongoTemplate.findOne(query, User.class);
@@ -308,6 +323,24 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         }
         return Response.Status.NOT_FOUND.getStatusCode();
     }
+
+    @Override
+    public int updateSummary(int userId, int cvId, String summary){
+        Query query = new Query(Criteria.where("userId").is(userId));
+        User user = mongoTemplate.findOne(query, User.class);
+        if(user == null) return Response.Status.NOT_FOUND.getStatusCode();
+        CV cv = user.getCV(cvId);
+        cv.setSummary(summary);
+
+        Update update = new Update();
+        update.set("cv", user.getCV());
+        mongoTemplate.updateFirst(query, update, User.class);
+        return Response.Status.OK.getStatusCode();
+    }
+
+    /**
+     * Delete Queries
+     */
 
     @Override
     public int deleteCert(int userId, int cvId, int certId){
