@@ -14,7 +14,6 @@ function OnLoadFunction(){
             let cv = queryString[4]
             for(let i = 0; i < data.length; i++){
                 if(data[i].id == cv){
-                    //console.log(data)
                     const name = document.getElementById("contact_name")
                     name.innerHTML = data[i].contact.name
                     const phoneNumber = document.getElementById("contact_phoneNumber")
@@ -35,6 +34,9 @@ function OnLoadFunction(){
                     for(let i = 0; i < E.length; i++){ Education(E[i]) }
                     let S = data[i].skill
                     for(let i = 0; i < S.length; i++){ Skills(S[i]) }
+
+                    let L = data[i].language
+                    for(let i = 0; i < L.length; i++){ Languages(L[i]) }
 
                     break
                 }
@@ -279,6 +281,55 @@ function SkillsDelete(id){
         }).catch(error => console.error(error))
 }
 
+function OnClickLanguagesFunction(){
+    // Languages
+    var LanguageName = document.getElementById("languageName").value
+    var LanguageLevel = document.getElementById("languageLevel").value
+    // Ids
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    // API request
+    Language(data.userId, cv, LanguageName, LanguageLevel)
+}
+function Language(Id_User, Id_Cv, LanguageName, LanguageLevel) {
+    fetch('http://localhost:8080/api/user/' + Id_User + '/lang/new?cv=' + Id_Cv, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        },
+        body: JSON.stringify({
+            "name":LanguageName,
+            "level":LanguageLevel
+        })
+    }).then(response => {
+         if(response.status === 200){
+             return response.json()
+         }
+    }).then(data => {
+        Languages(data)
+    }).catch(error => console.error(error))
+}
+function Languages(data){
+    document.getElementById("list_language").innerHTML += '<li class="list-group-item" id="skill' + data.id + '><button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_language_popup" id="modify_language_btn" type="button""><img src="img/edit_icon.png"></button><button type="button" class="btn text-light float-end mx-2" id='+ data.id +' onclick="LanguagesDelete(this.id)"><img src="img/delete_icon.png"> </button><div class="row"><article class="col-md-4"><div>' +
+    '<label>Language : </label><label id="language_name"> ' + data.name + '</label></div></article><article class="col-md-4"><div>'+
+    '<label>Level : </label><label id="language_level"> '+ data.level + '</label></div></article></div></li>'
+}
+function LanguagesDelete(id){
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    fetch('http://localhost:8080/api/user/'+data.userId+'/language/delete?cv='+cv+'&langId='+id, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        }
+        }).then(response => {
+             if(response.status === 200){
+                window.location.reload()
+             }
+        }).catch(error => console.error(error))
+}
 /*
 function OnClickCertificationsFunction(){
     // Certifications
@@ -311,32 +362,5 @@ function Certifications(Id_User, Id_Cv, CertifTitle, CertifStartDate, CertifEndD
          }
     }).catch(error => console.error(error))
 }
-
-function OnClickLanguagesFunction(){
-    // Languages
-    var LanguageName = document.getElementById("languageName").value
-    var LanguageLevel = document.getElementById("languageLevel").value
-    // Ids
-    let user_Data = sessionStorage.getItem("userData")
-    let id_CV = sessionStorage.getItem("id_CV")
-    // API request
-    Language(user_Data.idUser, id_CV, LanguageName, LanguageLevel)
-}
-function Language(Id_User, Id_Cv, LanguageName, LanguageLevel) {
-    fetch('http://localhost:8080/api/user/' + Id_User + '/lang/new?cv=' + Id_Cv, {
-        method: 'PUT',
-        headers: {
-            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
-        },
-        body: JSON.stringify({
-            "name":LanguageName,
-            "level":LanguageLevel
-        })
-    }).then(response => {
-         if(response.status === 200){
-             // Success : reloading current page
-             //window.location.href = "../public/cv_form.html"
-         }
-    }).catch(error => console.error(error))
-}
 */
+
