@@ -27,22 +27,11 @@ function OnLoadFunction(){
 
                     const summary = document.getElementById("summary_description")
                     summary.innerHTML = data[i].summary
-                    /*
-                    const position = document.getElementById("experience_position")
-                    position.innerHTML = data.position
-                    const company = document.getElementById("experience_company")
-                    company.innerHTML = data.company
-                    const city = document.getElementById("experience_city")
-                    city.innerHTML = data.city
-                    const startDate = document.getElementById("experience_startDate")
-                    startDate.innerHTML = data.startDate
-                    const endDate = document.getElementById("experience_endDate")
-                    endDate.innerHTML = data.endDate
-                    const jobDescription = document.getElementById("formation_description")
-                    jobDescription.innerHTML = data.jobDescription
-                    const techno = document.getElementById("formation_technology")
-                    techno.innerHTML = data.technos
-                    */
+
+                    let PE = data[i].professionalExperience
+                    for(let i = 0; i < PE.length; i++){
+                        Experience(PE[i])
+                    }
                     break
                 }
             }
@@ -147,10 +136,9 @@ function ProfessionalExperience(Id_User, Id_Cv, Position, Company, City, StartDa
         Experience(data)
     }).catch(error => console.error(error))
 }
-
 function Experience(data){
     document.getElementById("list_experience").innerHTML += '<li class="list-group-item" id="exp'+ data.id +'"><button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_experience_popup" id="modify_experience_btn" type="button"><img src="img/edit_icon.png"></button>'+
-         '<button type="button" class="btn float-end mx-2"><img src="img/delete_icon.png"> </button>'+
+         '<button type="button" id='+ data.id +' class="btn float-end mx-2" onclick="ProfessionalExperienceDelete(this.id)"><img src="img/delete_icon.png"> </button>'+
          '<div><label>Position : </label><label id="experience_position">'+ data.position +'</label></div>'+
          '<div class="row"><article class="col-md-4"><div><label>Company : </label><label id="experience_company">'+ data.company +'</label></div></article>'+
          '<article class="col-md-4"><div><label>City : </label><label id="experience_city">'+ data.localisation +'</label></div></article>'+
@@ -158,6 +146,21 @@ function Experience(data){
          '<article class="col-md-4"><div><label>To : </label><label id="experience_endDate">'+ data.endDate +'</label></div></article></div>'+
          '<div><label>Certifications description : </label><p id="formation_description">'+ data.description +'</p></div>'+
          '<div><label>Certifications description : </label><p id="formation_technology">'+ data.technos +'</p></div></li>'
+}
+function ProfessionalExperienceDelete(id){
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    fetch('http://localhost:8080/api/user/'+data.userId+'/profExp/delete?cv='+cv+'&ProfExpId='+id, {
+        method: 'DELETE',
+        headers: {
+        Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        }
+        }).then(response => {
+         if(response.status === 200){
+            window.location.reload()
+         }
+        }).catch(error => console.error(error))
 }
 /*
 function OnClickEducationFunction(){

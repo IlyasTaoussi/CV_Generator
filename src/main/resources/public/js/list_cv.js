@@ -20,7 +20,6 @@ function OnLoadFunction(){
 function OnClickDeleteFunction(){
     let userData = JSON.parse(sessionStorage.getItem("userData"))
     let Id_CV = event.target.value
-    console.log(Id_CV)
     Delete(userData.userId, Id_CV)
 }
 function Delete(Id_User, Id_Cv){
