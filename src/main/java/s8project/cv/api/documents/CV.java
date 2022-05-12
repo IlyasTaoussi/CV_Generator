@@ -38,6 +38,7 @@ public class CV {
 
     public CV(){
         contact = new Contact();
+        summary = "";
         professionalExperience = new ArrayList<>();
         education = new ArrayList<>();
         skill = new ArrayList<>();
