@@ -128,7 +128,7 @@ function ProfessionalExperience(Id_User, Id_Cv, Position, Company, City, StartDa
         },
         body: JSON.stringify({
             "position":Position,
-            "companyName":Company,
+            "company":Company,
             "localisation":City,
             "startDate":StartDate,
             "endDate":EndDate,
@@ -144,7 +144,7 @@ function ProfessionalExperience(Id_User, Id_Cv, Position, Company, City, StartDa
     }).catch(error => console.error(error))
 }
 function Experience(data){
-    document.getElementById("list_experience").innerHTML += '<li class="list-group-item" id="exp'+ data.id +'"><button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_experience_popup" id="modify_experience_btn" type="button"><img src="img/edit_icon.png"></button>'+
+    document.getElementById("list_experience").innerHTML += '<li class="list-group-item" id="exp'+ data.id +'">'+
          '<button type="button" id='+ data.id +' class="btn float-end mx-2" onclick="ProfessionalExperienceDelete(this.id)"><img src="img/delete_icon.png"> </button>'+
          '<div><label>Position : </label><label id="experience_position">'+ data.position +'</label></div>'+
          '<div class="row"><article class="col-md-4"><div><label>Company : </label><label id="experience_company">'+ data.company +'</label></div></article>'+
@@ -208,7 +208,7 @@ function CallWebAPIEducation(Id_User, Id_Cv, SchoolingLevel, Domain, School, Sch
     }).catch(error => console.error(error))
 }
 function Education(data){
-    document.getElementById("list_formation").innerHTML += '<li class="list-group-item" id='+ data.id +'><button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_formation_popup" id="modify_formation_btn" type="button"><img src="img/edit_icon.png"></button><button type="button" class="btn float-end mx-2" id='+ data.id +' onclick="EducationDelete(this.id)"><img src="img/delete_icon.png"></button>' +
+    document.getElementById("list_formation").innerHTML += '<li class="list-group-item" id='+ data.id +'><button type="button" class="btn float-end mx-2" id='+ data.id +' onclick="EducationDelete(this.id)"><img src="img/delete_icon.png"></button>' +
         '<div><label>Schooling level : </label><label id="formation_schoolingLevel">'+ data.degree +'</label></div><div>' +
         '<label>Domain : </label><label id="formation_domain">'+ data.field +'</label></div><div class="row"><article class="col-md-4">' +
         '<div><label>School : </label><label id="formation_school">'+ data.school +'</label></div></article><article class="col-md-4">' +
@@ -262,7 +262,7 @@ function CallWebAPISkills(Id_User, Id_Cv, Skill, SkillLevel) {
     }).catch(error => console.error(error))
 }
 function Skills(data){
-    document.getElementById("list_skill").innerHTML += '<li class="list-group-item" id="skill'+ data.id +'><button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_skill_popup" id="modify_skill_btn" type="button"><img src="img/edit_icon.png"></button><button type="button" class="btn float-end mx-2" id='+ data.id +' onclick="SkillsDelete(this.id)"><img src="img/delete_icon.png"></button><div class="row"><article class="col-md-4"><div>' +
+    document.getElementById("list_skill").innerHTML += '<li class="list-group-item" id='+ data.id +'><button type="button" class="btn float-end mx-2" id='+ data.id +' onclick="SkillsDelete(this.id)"><img src="img/delete_icon.png"></button><div class="row"><article class="col-md-4"><div>' +
         '<label>Skill\'s name : </label><label id="skill_name">'+ data.name +'</label></div></article><article class="col-md-4"><div>' +
         '<label>Level : </label><label id="skill_level">'+ data.level +'</label></div></article></div></li>'
 }
@@ -312,7 +312,7 @@ function CallWebAPILanguage(Id_User, Id_Cv, LanguageName, LanguageLevel) {
     }).catch(error => console.error(error))
 }
 function Languages(data){
-    document.getElementById("list_language").innerHTML += '<li class="list-group-item" id="skill' + data.id + '><button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_language_popup" id="modify_language_btn" type="button""><img src="img/edit_icon.png"></button><button type="button" class="btn text-light float-end mx-2" id='+ data.id +' onclick="LanguagesDelete(this.id)"><img src="img/delete_icon.png"> </button><div class="row"><article class="col-md-4"><div>' +
+    document.getElementById("list_language").innerHTML += '<li class="list-group-item" id='+ data.id +'><button type="button" class="btn text-light float-end mx-2" id='+ data.id +' onclick="LanguagesDelete(this.id)"><img src="img/delete_icon.png"> </button><div class="row"><article class="col-md-4"><div>' +
     '<label>Language : </label><label id="language_name"> ' + data.name + '</label></div></article><article class="col-md-4"><div>'+
     '<label>Level : </label><label id="language_level"> '+ data.level + '</label></div></article></div></li>'
 }
@@ -366,7 +366,7 @@ function CallWebAPICertifications(Id_User, Id_Cv, CertifTitle, CertifStartDate, 
     }).catch(error => console.error(error))
 }
 function Certifications(data){
-     document.getElementById("list_certification").innerHTML += '<li class="list-group-item" id="cert'+ data.id + '><button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_certification_popup" id="modify_certification_btn" type="button"><img src="img/edit_icon.png"></button><button type="button" class="btn text-light float-end mx-2" id='+ data.id +' onclick="CertificationsDelete(this.id)"><img src="img/delete_icon.png"></button>' +
+     document.getElementById("list_certification").innerHTML += '<li class="list-group-item" id='+ data.id + '><button type="button" class="btn text-light float-end mx-2" id='+ data.id +' onclick="CertificationsDelete(this.id)"><img src="img/delete_icon.png"></button>' +
         '<label>Title : </label><label id="certification_title">'+ data.name +'</label><div class="row"><article class="col-md-4"><div> ' +
         '<label>Date of acquisition : </label><label id="certification_start_date">' + data.startDate + '</label></div></article><article class="col-md-4">' +
         '<div><label>Date of expiration : </label><label id="certification_end_date">' + data.endDate + '</label></div></article>' +
