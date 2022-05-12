@@ -184,7 +184,7 @@ public class UserRest {
 
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
         userRepository.insertProfExp(userId, cvId, profExp);
-        return Response.status(Response.Status.OK).build();
+        return Response.ok(profExp).build();
     }
 
     @PUT
