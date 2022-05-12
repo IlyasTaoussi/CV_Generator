@@ -33,6 +33,8 @@ function OnLoadFunction(){
                     for(let i = 0; i < PE.length; i++){ Experience(PE[i]) }
                     let E = data[i].education
                     for(let i = 0; i < E.length; i++){ Education(E[i]) }
+                    let S = data[i].skill
+                    for(let i = 0; i < S.length; i++){ Skills(S[i]) }
 
                     break
                 }
@@ -65,7 +67,7 @@ function Contact(Id_User,Id_Cv,Mail,Name,Address,Number,Links){
              "mail":Mail,
              "name":Name,
              "address":Address,
-             "phone_number":Number,
+             "phoneNumber":Number,
              "links":Links
         })
     }).then(response => {
@@ -226,18 +228,19 @@ function EducationDelete(id){
              }
         }).catch(error => console.error(error))
 }
-/*
+
 function OnClickSkillsFunction(){
     // Skills
     var Skill = document.getElementById("skills").value
     var SkillLevel = document.getElementById("skillsLevel").value
     // Ids
-    let user_Data = sessionStorage.getItem("userData")
-    let id_CV = sessionStorage.getItem("id_CV")
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
     // API request
-    Skills(user_Data.idUser, id_CV, Skill, SkillLevel)
+    CallWebAPISkills(data.userId, cv, Skill, SkillLevel)
 }
-function Skills(Id_User, Id_Cv, Skill, SkillLevel) {
+function CallWebAPISkills(Id_User, Id_Cv, Skill, SkillLevel) {
     fetch('http://localhost:8080/api/user/' + Id_User + '/skill/new?cv=' + Id_Cv, {
         method: 'PUT',
         headers: {
@@ -249,12 +252,34 @@ function Skills(Id_User, Id_Cv, Skill, SkillLevel) {
         })
     }).then(response => {
          if(response.status === 200){
-             // Success : reloading current page
-             //window.location.href = "../public/cv_form.html"
+            return response.json()
          }
+    }).then(data => {
+        Skills(data)
     }).catch(error => console.error(error))
 }
+function Skills(data){
+    document.getElementById("list_skill").innerHTML += '<li class="list-group-item" id="skill'+ data.id +'><button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_skill_popup" id="modify_skill_btn" type="button"><img src="img/edit_icon.png"></button><button type="button" class="btn float-end mx-2" id='+ data.id +' onclick="SkillsDelete(this.id)"><img src="img/delete_icon.png"></button><div class="row"><article class="col-md-4"><div>' +
+        '<label>Skill\'s name : </label><label id="skill_name">'+ data.name +'</label></div></article><article class="col-md-4"><div>' +
+        '<label>Level : </label><label id="skill_level">'+ data.level +'</label></div></article></div></li>'
+}
+function SkillsDelete(id){
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    fetch('http://localhost:8080/api/user/'+data.userId+'/skill/delete?cv='+cv+'&skillId='+id, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        }
+        }).then(response => {
+             if(response.status === 200){
+                window.location.reload()
+             }
+        }).catch(error => console.error(error))
+}
 
+/*
 function OnClickCertificationsFunction(){
     // Certifications
     var CertifTitle = document.getElementById("certifTitle").value

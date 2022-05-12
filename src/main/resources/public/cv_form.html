@@ -459,7 +459,7 @@
         <div class="tab-pane fade" id="nav-skill" role="tabpanel" aria-labelledby="nav-skill-tab">
             <div class="container">
                 <div id="skills_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_skill_popup" id="add_skills_btn" onclick="OnClickContactFunction()">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_skill_popup" id="add_skills_btn">
                         <img src="img/add_icon.png">
                     </button>
                     <h2>Skills</h2>
@@ -490,39 +490,13 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="OnClickSkillsFunction()">Save changes</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <ul class="list-group" id="list_skill">
-                        <li class="list-group-item">
-                            <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_skill_popup" id="modify_skill_btn" type="button" onclick="OnClickContactFunction()">
-                                <img src="img/edit_icon.png">
-                            </button>
-                            <button type="button" class="btn float-end mx-2">
-                                <img src="img/delete_icon.png">
-                            </button>
-                            <div class="row">
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>Skill's name : </label>
-                                        <label id="skill_name">Developer front</label>
-                                    </div>
-                                </article>
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>Level : </label>
-                                        <label id="skill_level">Sheesh</label>
-                                    </div>
-                                </article>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            A second item
-                        </li>
                     </ul>
 
                     <!-- Pop-up modify skill -->
@@ -551,7 +525,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e">Save changes</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e" data-bs-dismiss="modal" onclick="OnClickSkillsFunction()">Save changes</button>
                                 </div>
                             </div>
                         </div>
