@@ -228,12 +228,12 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/summary/new")
-    public Response insertProfile(@PathParam("userId") int userId, @QueryParam("cv") int cvId, String summary){
+    public Response insertProfile(@PathParam("userId") int userId, @QueryParam("cv") int cvId, SummaryInput summary){
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
 
-        userRepository.insertSummary(userId, cvId, summary);
-        return Response.ok(summary).build();
+        userRepository.insertSummary(userId, cvId, summary.getSummary());
+        return Response.ok(summary.getSummary()).build();
     }
 
     /**
@@ -317,7 +317,7 @@ public class UserRest {
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
 
         int status = userRepository.updateSummary(userId, cvId, summary.getSummary());
-        if(status == Response.Status.OK.getStatusCode()) Response.ok(summary).build();
+        if(status == Response.Status.OK.getStatusCode()) Response.ok(summary.getSummary()).build();
         return Response.status(status).build();
     }
 
