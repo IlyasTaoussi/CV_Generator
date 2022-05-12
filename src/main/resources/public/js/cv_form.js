@@ -1,15 +1,89 @@
+function OnLoadFunction(){
+    let data = JSON.parse(sessionStorage.getItem('userData'))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    //------------------------------------------------------------------------------------------------------------------
+    fetch('http://localhost:8080/api/user/' + data.userId + '/contact?cv=' + cv, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        }
+        }).then(response => {
+             if(response.status === 200){
+                return response.json()
+             }
+        }).then((data) => {
+            const name = document.getElementById("contact_name")
+            name.innerHTML = data.name
+            const phoneNumber = document.getElementById("contact_phoneNumber")
+            phoneNumber.innerHTML = data.phoneNumber
+            const address = document.getElementById("contact_address")
+            address.innerHTML = data.address
+            const email = document.getElementById("contact_email")
+            email.innerHTML = data.mail
+            const links = document.getElementById("contact_links")
+            links.innerHTML = data.links
+        }).catch(error => console.error(error))
+    //------------------------------------------------------------------------------------------------------------------
+    fetch('http://localhost:8080/api/user/' + data.userId + '/summary?cv=' + cv, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        }
+        }).then(response => {
+             if(response.status === 200){
+                return response.text()
+             }
+        }).then((data) => {
+            const summary = document.getElementById("summary_description")
+            summary.innerHTML = data
+        }).catch(error => console.error(error))
+
+    //------------------------------------------------------------------------------------------------------------------
+    /*
+    fetch('http://localhost:8080/api/user/' + data.userId + '/profExp?cv=' + cv, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        }
+        }).then(response => {
+             if(response.status === 200){
+                return response.json()
+             }
+        }).then((data) => {
+            const position = document.getElementById("position")
+            position.innerHTML = data.position
+            const company = document.getElementById("company")
+            company.innerHTML = data.company
+            const city = document.getElementById("city")
+            city.innerHTML = data.city
+            const startDate = document.getElementById("startDate")
+            startDate.innerHTML = data.startDate
+            const endDate = document.getElementById("endDate")
+            endDate.innerHTML = data.endDate
+            const jobDescription = document.getElementById("jobDescription")
+            jobDescription.innerHTML = data.jobDescription
+            const techno = document.getElementById("techno")
+            techno.innerHTML = data.technos
+        }).catch(error => console.error(error))
+        */
+    //------------------------------------------------------------------------------------------------------------------
+
+}
+
 function OnClickContactFunction(){
     // Contact
-    var Mail = document.getElementById("email").value
-    var Name = document.getElementById("name").value
-    var Address = document.getElementById("address").value
-    var Number = document.getElementById("phoneNumber").value
-    var Links = document.getElementById("links").value
+    var Mail = document.getElementById("edit_email").value
+    var Name = document.getElementById("edit_name").value
+    var Address = document.getElementById("edit_address").value
+    var Number = document.getElementById("edit_phoneNumber").value
+    var Links = document.getElementById("edit_links").value
     // Ids
-    let user_Data = sessionStorage.getItem("userData")
-    let id_CV = sessionStorage.getItem("id_CV")
+    let queryString = window.location.search
+    let cv = queryString[4]
+    let userData = JSON.parse(sessionStorage.getItem("userData"))
     // API Request
-    Contact(user_Data.idUser, id_CV, Mail, Name, Address, Number, Links)
+    Contact(userData.userId, cv, Mail, Name, Address, Number, Links)
 }
 function Contact(Id_User,Id_Cv,Mail,Name,Address,Number,Links){
     fetch('http://localhost:8080/api/user/' + Id_User + '/contact/new?cv=' + Id_Cv, {
@@ -28,6 +102,7 @@ function Contact(Id_User,Id_Cv,Mail,Name,Address,Number,Links){
          if(response.status === 200){
             // Success : reloading current page
             //window.location.href = "../public/cv_form.html"
+            window.location.reload()
          }
     }).catch(error => console.error(error))
 }

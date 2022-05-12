@@ -1,7 +1,10 @@
 package s8project.cv.api.rest;
 
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import s8project.cv.api.documents.*;
+import s8project.cv.api.inputs.SummaryInput;
 import s8project.cv.api.inputs.UserInput;
 import s8project.cv.api.repositories.UserRepository;
 
@@ -50,7 +53,7 @@ public class UserRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/contact")
-    public Response getContact(@PathParam("userId") int userId, @PathParam("cv") int cvId){
+    public Response getContact(@PathParam("userId") int userId, @QueryParam("cv") int cvId){
         User user = userRepository.findByUserId(userId);
         if(user == null || user.getCV(cvId) == null || user.getCV(cvId).getContact() == null) return Response.status(Response.Status.NOT_FOUND).build();
         return Response.ok(user.getCV(cvId).getContact()).build();
@@ -104,7 +107,7 @@ public class UserRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/summary")
-    public Response getSummary(@PathParam("userId") int userId, @PathParam("cv") int cvId){
+    public Response getSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId){
         User user = userRepository.findByUserId(userId);
         if(user == null || user.getCV(cvId) == null || user.getCV(cvId).getSummary() == null) return Response.status(Response.Status.NOT_FOUND).build();
         return Response.ok(user.getCV(cvId).getSummary()).build();
@@ -227,12 +230,12 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/summary/new")
-    public Response insertProfile(@PathParam("userId") int userId, @QueryParam("cv") int cvId, String summary){
+    public Response insertProfile(@PathParam("userId") int userId, @QueryParam("cv") int cvId, JSONObject summary) throws JSONException{
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
 
-        userRepository.insertSummary(userId, cvId, summary);
-        return Response.ok(summary).build();
+        userRepository.insertSummary(userId, cvId, summary.getString("summary"));
+        return Response.ok(summary.getString("summary")).build();
     }
 
     /**
@@ -310,13 +313,13 @@ public class UserRest {
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/contact/update")
-    public Response updateSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId, String summary){
+    @Path("{userId}/summary/update")
+    public Response updateSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId, JSONObject summary) throws JSONException {
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
 
-        int status = userRepository.updateSummary(userId, cvId, summary);
-        if(status == Response.Status.OK.getStatusCode()) Response.ok(summary).build();
+        int status = userRepository.updateSummary(userId, cvId, summary.getString("summary"));
+        if(status == Response.Status.OK.getStatusCode()) Response.ok(summary.getString("summary")).build();
         return Response.status(status).build();
     }
 
