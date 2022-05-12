@@ -128,7 +128,7 @@ function ProfessionalExperience(Id_User, Id_Cv, Position, Company, City, StartDa
         },
         body: JSON.stringify({
             "position":Position,
-            "company_name":Company,
+            "companyName":Company,
             "localisation":City,
             "startDate":StartDate,
             "endDate":EndDate,
@@ -353,8 +353,8 @@ function CallWebAPICertifications(Id_User, Id_Cv, CertifTitle, CertifStartDate, 
         },
         body: JSON.stringify({
             "name":CertifTitle,
-            "start_date":CertifStartDate,
-            "end_date":CertifEndDate,
+            "startDate":CertifStartDate,
+            "endDate":CertifEndDate,
             "description":CertifDescription
         })
     }).then(response => {
