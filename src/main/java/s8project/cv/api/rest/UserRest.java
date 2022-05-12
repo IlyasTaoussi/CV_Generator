@@ -2,6 +2,7 @@ package s8project.cv.api.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import s8project.cv.api.documents.*;
+import s8project.cv.api.inputs.SummaryInput;
 import s8project.cv.api.inputs.UserInput;
 import s8project.cv.api.repositories.UserRepository;
 
@@ -311,11 +312,11 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/summary/update")
-    public Response updateSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId, String summary){
+    public Response updateSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId, SummaryInput summary){
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
 
-        int status = userRepository.updateSummary(userId, cvId, summary);
+        int status = userRepository.updateSummary(userId, cvId, summary.getSummary());
         if(status == Response.Status.OK.getStatusCode()) Response.ok(summary).build();
         return Response.status(status).build();
     }
