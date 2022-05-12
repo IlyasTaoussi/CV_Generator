@@ -21,6 +21,9 @@
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #86aeeb;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html"><img src="img/cv_icon_white.png" alt="Logo du site"/>CV Generator</a>
+                <div class="d-flex">
+                    <a class="btn text-light" style="background-color: #e6bc9e;" href="list_cv.html" role="button">List page</a>
+                </div>
             </div>
         </nav>
     </header>
@@ -42,68 +45,16 @@
         <div class="tab-pane fade show active" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
             <div class="container">
                 <div id="contact_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_contact_popup" style="background-color: #ff6d6a" id="add_contact_btn" onclick="OnClickContactFunction()">
-                        Add
-                    </button>
                     <h2>Contact</h2>
-                    <div class="d-grid gap-2 d-md-block">
-                        <!-- Pop-up add contact info -->
-                        <div class="modal fade" id="add_contact_popup" tabindex="-1" aria-labelledby="add-popup-contact-label" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="add-popup-contact-label">Contact informations</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <article class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label mt-4">Name :</label>
-                                                    <input type="text" class="form-control" id="name" placeholder="Enter your full name" required="required">
-                                                </div>
-                                            </article>
-                                            <article class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label mt-4">Phone number :</label>
-                                                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required="required">
-                                                </div>
-                                            </article>
-                                        </div>
-                                        <div class="row">
-                                            <article class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label mt-4">Address</label>
-                                                    <input type="text" class="form-control" id="address" placeholder="Enter your full address" required="required">
-                                                </div>
-                                            </article>
-                                            <article class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label mt-4">Email address</label>
-                                                    <input type="email" class="form-control" id="email" placeholder="Enter email">
-                                                </div>
-                                            </article>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label mt-4">Links</label>
-                                            <textarea class="form-control" id="links" rows="3" placeholder="Links to your social network"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <ul class="list-group" id="list_contact">
                         <li class="list-group-item">
                             <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_contact_popup" style="background-color: #86aeeb" id="modify_contact_btn" type="button" onclick="OnClickContactFunction()">
-                                Modify
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_contact_popup" id="modify_contact_btn" type="button" onclick="OnClickContactFunction()">
+                                <img src="img/edit_icon.png">
                             </button>
-                            <button type="button" class="btn btn-danger float-end mx-2">Delete</button>
+                            <button type="button" class="btn float-end mx-2">
+                                <img src="img/delete_icon.png">
+                            </button>
                             <div class="row">
                                 <article class="col-md-4">
                                     <div>
@@ -199,42 +150,16 @@
         <div class="tab-pane fade" id="nav-summary" role="tabpanel" aria-labelledby="nav-summary-tab">
             <div class="container">
                 <div id="summary_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_summary_popup" style="background-color: #ff6d6a" id="add_summary_btn" onclick="OnClickContactFunction()">
-                        Add
-                    </button>
                     <h2>Summary</h2>
-                    <div class="d-grid gap-2 d-md-block">
-                        <!-- Pop-up add summary -->
-                        <div class="modal fade" id="add_summary_popup" tabindex="-1" aria-labelledby="add-popup-summary-label" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="add-popup-summary-label">Summary</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <label class="form-label mt-4">Summary</label>
-                                                <textarea class="form-control" id="summary" rows="3" placeholder="Quick personal description"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <ul class="list-group" id="list_summary">
                         <li class="list-group-item">
                             <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_summary_popup" style="background-color: #86aeeb" id="modify_summary_btn" type="button" onclick="OnClickContactFunction()">
-                                Modify
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_summary_popup" id="modify_summary_btn" type="button" onclick="OnClickContactFunction()">
+                                <img src="img/edit_icon.png">
                             </button>
-                            <button type="button" class="btn btn-danger float-end mx-2">Delete</button>
+                            <button type="button" class="btn float-end mx-2">
+                                <img src="img/delete_icon.png">
+                            </button>
                             <div>
                                 <label>Summary : </label>
                                 <p id="summary_description">
@@ -266,7 +191,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -277,8 +201,8 @@
         <div class="tab-pane fade" id="nav-experience" role="tabpanel" aria-labelledby="nav-experience-tab">
             <div class="container">
                 <div id="experience_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_experience_popup" style="background-color: #ff6d6a" id="add_experience_btn" onclick="OnClickContactFunction()">
-                        Add
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_experience_popup" id="add_experience_btn" onclick="OnClickContactFunction()">
+                        <img src="img/add_icon.png">
                     </button>
                     <h2>Professional experience</h2>
                     <div class="d-grid gap-2 d-md-block">
@@ -344,10 +268,12 @@
                         <ul class="list-group" id="list_experience">
                             <li class="list-group-item">
                                 <!-- Pop-up button -->
-                                <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_experience_popup" style="background-color: #86aeeb" id="modify_experience_btn" type="button" onclick="OnClickContactFunction()">
-                                    Modify
+                                <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_experience_popup" id="modify_experience_btn" type="button" onclick="OnClickContactFunction()">
+                                    <img src="img/edit_icon.png">
                                 </button>
-                                <button type="button" class="btn btn-danger float-end mx-2">Delete</button>
+                                <button type="button" class="btn float-end mx-2">
+                                    <img src="img/delete_icon.png">
+                                </button>
                                 <div>
                                     <label>Position : </label>
                                     <label id="experience_position">Intern</label>
@@ -467,8 +393,8 @@
         <div class="tab-pane fade" id="nav-formation" role="tabpanel" aria-labelledby="nav-formation-tab">
             <div class="container">
                 <div id="formation_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_formation_popup" style="background-color: #ff6d6a" id="add_formation_btn" onclick="OnClickContactFunction()">
-                        Add
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_formation_popup" id="add_formation_btn" onclick="OnClickContactFunction()">
+                        <img src="img/add_icon.png">
                     </button>
                     <h2>Formation</h2>
                     <div class="d-grid gap-2 d-md-block">
@@ -531,10 +457,12 @@
                     <ul class="list-group" id="list_formation">
                         <li class="list-group-item">
                             <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_formation_popup" style="background-color: #86aeeb" id="modify_formation_btn" type="button" onclick="OnClickContactFunction()">
-                                Modify
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_formation_popup" id="modify_formation_btn" type="button" onclick="OnClickContactFunction()">
+                                <img src="img/edit_icon.png">
                             </button>
-                            <button type="button" class="btn btn-danger float-end mx-2">Delete</button>
+                            <button type="button" class="btn float-end mx-2">
+                                <img src="img/delete_icon.png">
+                            </button>
                             <div>
                                 <label>Schooling level : </label>
                                 <label id="formation_schoolingLevel">PhD</label>
@@ -641,8 +569,8 @@
         <div class="tab-pane fade" id="nav-skill" role="tabpanel" aria-labelledby="nav-skill-tab">
             <div class="container">
                 <div id="skills_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_skill_popup" style="background-color: #ff6d6a" id="add_skills_btn" onclick="OnClickContactFunction()">
-                        Add
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_skill_popup" id="add_skills_btn" onclick="OnClickContactFunction()">
+                        <img src="img/add_icon.png">
                     </button>
                     <h2>Skills</h2>
                     <div class="d-grid gap-2 d-md-block">
@@ -681,10 +609,12 @@
                     <ul class="list-group" id="list_skill">
                         <li class="list-group-item">
                             <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_skill_popup" style="background-color: #86aeeb" id="modify_skill_btn" type="button" onclick="OnClickContactFunction()">
-                                Modify
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_skill_popup" id="modify_skill_btn" type="button" onclick="OnClickContactFunction()">
+                                <img src="img/edit_icon.png">
                             </button>
-                            <button type="button" class="btn btn-danger float-end mx-2">Delete</button>
+                            <button type="button" class="btn float-end mx-2">
+                                <img src="img/delete_icon.png">
+                            </button>
                             <div class="row">
                                 <article class="col-md-4">
                                     <div>
@@ -704,7 +634,6 @@
                             A second item
                         </li>
                     </ul>
-
                     <!-- Pop-up modify skill -->
                     <div class="modal fade" id="modify_skill_popup" tabindex="-1" aria-labelledby="modify-popup-skill-label" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
@@ -746,8 +675,8 @@
         <div class="tab-pane fade" id="nav-certification" role="tabpanel" aria-labelledby="nav-certification-tab">
             <div class="container">
                 <div id="certification_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_certification_popup" style="background-color: #ff6d6a" id="add_certification_btn" onclick="OnClickContactFunction()">
-                        Add
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_certification_popup" id="add_certification_btn" onclick="OnClickContactFunction()">
+                        <img src="img/add_icon.png">
                     </button>
                     <h2>Certifications</h2>
                     <div class="d-grid gap-2 d-md-block">
@@ -796,10 +725,12 @@
                     <ul class="list-group" id="list_certification">
                         <li class="list-group-item">
                             <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_certification_popup" style="background-color: #86aeeb" id="modify_certification_btn" type="button" onclick="OnClickContactFunction()">
-                                Modify
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_certification_popup" id="modify_certification_btn" type="button" onclick="OnClickContactFunction()">
+                                <img src="img/edit_icon.png">
                             </button>
-                            <button type="button" class="btn btn-danger text-light float-end mx-2">Delete</button>
+                            <button type="button" class="btn text-light float-end mx-2">
+                                <img src="img/delete_icon.png">
+                            </button>
                             <label>Title : </label>
                             <label id="certification_title">Developer front</label>
                             <div class="row">
@@ -876,8 +807,8 @@
         <div class="tab-pane fade" id="nav-language" role="tabpanel" aria-labelledby="nav-language-tab">
             <div class="container">
                 <div id="language_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_language_popup" style="background-color: #ff6d6a" id="add_language_btn" onclick="OnClickContactFunction()">
-                        Add
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_language_popup" id="add_language_btn" onclick="OnClickContactFunction()">
+                        <img src="img/add_icon.png">
                     </button>
                     <h2>Language</h2>
                     <div class="d-grid gap-2 d-md-block">
@@ -916,10 +847,12 @@
                     <ul class="list-group" id="list_language">
                         <li class="list-group-item">
                             <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_language_popup" style="background-color: #86aeeb" id="modify_language_btn" type="button" onclick="OnClickContactFunction()">
-                                Modify
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_language_popup" id="modify_language_btn" type="button" onclick="OnClickContactFunction()">
+                                <img src="img/edit_icon.png">
                             </button>
-                            <button type="button" class="btn btn-danger text-light float-end mx-2">Delete</button>
+                            <button type="button" class="btn text-light float-end mx-2">
+                                <img src="img/delete_icon.png">
+                            </button>
                             <div class="row">
                                 <article class="col-md-4">
                                     <div>
