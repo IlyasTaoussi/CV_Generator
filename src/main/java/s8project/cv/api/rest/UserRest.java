@@ -310,7 +310,7 @@ public class UserRest {
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{userId}/contact/update")
+    @Path("{userId}/summary/update")
     public Response updateSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId, String summary){
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
