@@ -34,7 +34,8 @@ function OnLoadFunction(){
                     for(let i = 0; i < E.length; i++){ Education(E[i]) }
                     let S = data[i].skill
                     for(let i = 0; i < S.length; i++){ Skills(S[i]) }
-
+                    let C = data[i].certification
+                    for(let i = 0; i < C.length; i++){ Certifications(C[i]) }
                     let L = data[i].language
                     for(let i = 0; i < L.length; i++){ Languages(L[i]) }
 
@@ -290,9 +291,9 @@ function OnClickLanguagesFunction(){
     let queryString = window.location.search
     let cv = queryString[4]
     // API request
-    Language(data.userId, cv, LanguageName, LanguageLevel)
+    CallWebAPILanguage(data.userId, cv, LanguageName, LanguageLevel)
 }
-function Language(Id_User, Id_Cv, LanguageName, LanguageLevel) {
+function CallWebAPILanguage(Id_User, Id_Cv, LanguageName, LanguageLevel) {
     fetch('http://localhost:8080/api/user/' + Id_User + '/lang/new?cv=' + Id_Cv, {
         method: 'PUT',
         headers: {
@@ -330,7 +331,7 @@ function LanguagesDelete(id){
              }
         }).catch(error => console.error(error))
 }
-/*
+
 function OnClickCertificationsFunction(){
     // Certifications
     var CertifTitle = document.getElementById("certifTitle").value
@@ -338,12 +339,13 @@ function OnClickCertificationsFunction(){
     var CertifEndDate = document.getElementById("certifEndDate").value
     var CertifDescription = document.getElementById("certifDescription").value
     // Ids
-    let user_Data = sessionStorage.getItem("userData")
-    let id_CV = sessionStorage.getItem("id_CV")
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
     // API request
-    Certifications(user_Data.idUser, id_CV, CertifTitle, CertifStartDate, CertifEndDate, CertifDescription)
+    CallWebAPICertifications(data.userId, cv, CertifTitle, CertifStartDate, CertifEndDate, CertifDescription)
 }
-function Certifications(Id_User, Id_Cv, CertifTitle, CertifStartDate, CertifEndDate, CertifDescription) {
+function CallWebAPICertifications(Id_User, Id_Cv, CertifTitle, CertifStartDate, CertifEndDate, CertifDescription) {
     fetch('http://localhost:8080/api/user/' + Id_User + '/cert/new?cv=' + Id_Cv, {
         method: 'PUT',
         headers: {
@@ -357,10 +359,32 @@ function Certifications(Id_User, Id_Cv, CertifTitle, CertifStartDate, CertifEndD
         })
     }).then(response => {
          if(response.status === 200){
-             // Success : reloading current page
-             //window.location.href = "../public/cv_form.html"
+             return response.json()
          }
+    }).then(data => {
+        Certifications(data)
     }).catch(error => console.error(error))
 }
-*/
+function Certifications(data){
+     document.getElementById("list_certification").innerHTML += '<li class="list-group-item" id="cert'+ data.id + '><button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_certification_popup" id="modify_certification_btn" type="button"><img src="img/edit_icon.png"></button><button type="button" class="btn text-light float-end mx-2" id='+ data.id +' onclick="CertificationsDelete(this.id)"><img src="img/delete_icon.png"></button>' +
+        '<label>Title : </label><label id="certification_title">'+ data.name +'</label><div class="row"><article class="col-md-4"><div> ' +
+        '<label>Date of acquisition : </label><label id="certification_start_date">' + data.startDate + '</label></div></article><article class="col-md-4">' +
+        '<div><label>Date of expiration : </label><label id="certification_end_date">' + data.endDate + '</label></div></article>' +
+        '<label>Certification\'s description : </label><p id="certification_description">' + data.description + '</p></div></li>';
+}
+function CertificationsDelete(id){
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    fetch('http://localhost:8080/api/user/'+data.userId+'/cert/delete?cv='+cv+'&certId='+id, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        }
+        }).then(response => {
+             if(response.status === 200){
+                window.location.reload()
+             }
+        }).catch(error => console.error(error))
+}
 

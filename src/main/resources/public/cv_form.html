@@ -581,45 +581,13 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="OnClickCertificationsFunction()">Save changes</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <ul class="list-group" id="list_certification">
-                        <li class="list-group-item">
-                            <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_certification_popup" id="modify_certification_btn" type="button">
-                                <img src="img/edit_icon.png">
-                            </button>
-                            <button type="button" class="btn text-light float-end mx-2">
-                                <img src="img/delete_icon.png">
-                            </button>
-                            <label>Title : </label>
-                            <label id="certification_title">Developer front</label>
-                            <div class="row">
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>Date of acquisition : </label>
-                                        <label id="certification_start_date">05/02/2022</label>
-                                    </div>
-                                </article>
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>Date of expiration : </label>
-                                        <label id="certification_end_date">05/02/2022</label>
-                                    </div>
-                                </article>
-                                <label>Certification's description : </label>
-                                <p id="certification_description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod dolor quis odio elementum malesuada. Praesent laoreet congue neque, eu interdum augue convallis eget. Praesent tempor quis arcu sit amet mollis. Nullam a nulla arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam ullamcorper, risus sed scelerisque eleifend, magna lorem pellentesque metus, eu consequat ligula massa et mauris. Nam mollis fermentum egestas.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            A second item
-                        </li>
                     </ul>
                     <!-- Pop-up modify certif -->
                     <div class="modal fade" id="modify_certification_popup" tabindex="-1" aria-labelledby="modify-popup-certification-label" aria-hidden="true">
@@ -657,7 +625,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e">Save changes</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e" data-bs-dismiss="modal" onclick="OnClickCertificationsFunction()">Save changes</button>
                                 </div>
                             </div>
                         </div>
