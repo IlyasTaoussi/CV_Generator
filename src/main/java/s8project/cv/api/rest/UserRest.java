@@ -345,7 +345,7 @@ public class UserRest {
 
     @DELETE
     @Path("{userId}/profExp/delete")
-    public Response deleteProfExp(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @QueryParam("ProfExpId") int profExpId){
+    public Response deleteProfExp(@PathParam("userId") int userId, @QueryParam("cv") int cvId, @QueryParam("profExpId") int profExpId){
         int status = userRepository.deleteProfExp(userId, cvId, profExpId);
         return Response.status(status).build();
     }
