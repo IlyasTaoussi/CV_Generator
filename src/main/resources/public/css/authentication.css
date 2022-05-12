@@ -8,6 +8,11 @@ a, a:hover
   text-decoration: none;
 }
 
+label, p
+{
+  color: #606975;
+}
+
 .container
 {
   margin-top: 5%;
