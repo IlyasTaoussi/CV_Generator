@@ -16,7 +16,7 @@
     <title>CV Creation</title>
 </head>
 
-<body>
+<body onload="OnLoadFunction()">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #86aeeb;">
             <div class="container-fluid">
@@ -49,10 +49,10 @@
                     <ul class="list-group" id="list_contact">
                         <li class="list-group-item">
                             <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_contact_popup" id="modify_contact_btn" type="button" onclick="OnClickContactFunction()">
+                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_contact_popup" id="modify_contact_btn" type="button">
                                 <img src="img/edit_icon.png">
                             </button>
-                            <button type="button" class="btn float-end mx-2">
+                            <button type="button" class="btn float-end mx-2" onclick="">
                                 <img src="img/delete_icon.png">
                             </button>
                             <div class="row">
@@ -84,7 +84,7 @@
                                 </article>
                             </div>
                             <div>
-                                <label>Certification's description : </label>
+                                <label>Links : </label>
                                 <p id="contact_links">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod dolor quis odio elementum malesuada. Praesent laoreet congue neque, eu interdum augue convallis eget. Praesent tempor quis arcu sit amet mollis. Nullam a nulla arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam ullamcorper, risus sed scelerisque eleifend, magna lorem pellentesque metus, eu consequat ligula massa et mauris. Nam mollis fermentum egestas.
                                 </p>
@@ -135,7 +135,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="OnClickContactFunction()">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -634,6 +634,7 @@
                             A second item
                         </li>
                     </ul>
+
                     <!-- Pop-up modify skill -->
                     <div class="modal fade" id="modify_skill_popup" tabindex="-1" aria-labelledby="modify-popup-skill-label" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
