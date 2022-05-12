@@ -14,6 +14,7 @@ function OnLoadFunction(){
             let cv = queryString[4]
             for(let i = 0; i < data.length; i++){
                 if(data[i].id == cv){
+                    //console.log(data)
                     const name = document.getElementById("contact_name")
                     name.innerHTML = data[i].contact.name
                     const phoneNumber = document.getElementById("contact_phoneNumber")
@@ -29,9 +30,10 @@ function OnLoadFunction(){
                     summary.innerHTML = data[i].summary
 
                     let PE = data[i].professionalExperience
-                    for(let i = 0; i < PE.length; i++){
-                        Experience(PE[i])
-                    }
+                    for(let i = 0; i < PE.length; i++){ Experience(PE[i]) }
+                    let E = data[i].education
+                    for(let i = 0; i < E.length; i++){ Education(E[i]) }
+
                     break
                 }
             }
@@ -151,18 +153,18 @@ function ProfessionalExperienceDelete(id){
     let data = JSON.parse(sessionStorage.getItem("userData"))
     let queryString = window.location.search
     let cv = queryString[4]
-    fetch('http://localhost:8080/api/user/'+data.userId+'/profExp/delete?cv='+cv+'&ProfExpId='+id, {
+    fetch('http://localhost:8080/api/user/'+data.userId+'/profExp/delete?cv='+cv+'&profExpId='+id, {
         method: 'DELETE',
         headers: {
-        Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
         }
         }).then(response => {
-         if(response.status === 200){
-            window.location.reload()
-         }
+             if(response.status === 200){
+                window.location.reload()
+             }
         }).catch(error => console.error(error))
 }
-/*
+
 function OnClickEducationFunction(){
     // Graduation
     var SchoolingLevel = document.getElementById("schoolingLevel").value
@@ -172,12 +174,13 @@ function OnClickEducationFunction(){
     var FormationStartDate = document.getElementById("formationStartDate").value
     var FormationEndDate = document.getElementById("formationEndDate").value
     // Ids
-    let user_Data = sessionStorage.getItem("userData")
-    let id_CV = sessionStorage.getItem("id_CV")
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
     // API request
-    Education(user_Data.idUser, id_CV, SchoolingLevel, Domain, School, SchoolCity, FormationStartDate, FormationEndDate)
+    CallWebAPIEducation(data.userId, cv, SchoolingLevel, Domain, School, SchoolCity, FormationStartDate, FormationEndDate)
 }
-function Education(Id_User, Id_Cv, SchoolingLevel, Domain, School, SchoolCity, FormationStartDate, FormationEndDate) {
+function CallWebAPIEducation(Id_User, Id_Cv, SchoolingLevel, Domain, School, SchoolCity, FormationStartDate, FormationEndDate) {
     fetch('http://localhost:8080/api/user/' + Id_User + '/education/new?cv=' + Id_Cv, {
         method: 'PUT',
         headers: {
@@ -188,17 +191,42 @@ function Education(Id_User, Id_Cv, SchoolingLevel, Domain, School, SchoolCity, F
             "field":Domain,
             "school":School,
             "location":SchoolCity,
-            "start_date":FormationStartDate,
-            "end_date":FormationEndDate
+            "startDate":FormationStartDate,
+            "endDate":FormationEndDate
         })
     }).then(response => {
          if(response.status === 200){
-             // Success : reloading current page
-             //window.location.href = "../public/cv_form.html"
+            return response.json()
          }
+    }).then(data =>{
+        Education(data)
     }).catch(error => console.error(error))
 }
-
+function Education(data){
+    document.getElementById("list_formation").innerHTML += '<li class="list-group-item" id='+ data.id +'><button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_formation_popup" id="modify_formation_btn" type="button"><img src="img/edit_icon.png"></button><button type="button" class="btn float-end mx-2" id='+ data.id +' onclick="EducationDelete(this.id)"><img src="img/delete_icon.png"></button>' +
+        '<div><label>Schooling level : </label><label id="formation_schoolingLevel">'+ data.degree +'</label></div><div>' +
+        '<label>Domain : </label><label id="formation_domain">'+ data.field +'</label></div><div class="row"><article class="col-md-4">' +
+        '<div><label>School : </label><label id="formation_school">'+ data.school +'</label></div></article><article class="col-md-4">' +
+        '<div><label>City : </label><label id="formation_schoolCity"> '+ data.location +' </label></div></article></div><div class="row">' +
+        '<article class="col-md-4"><div><label>From : </label><label id="formation_startDate"> '+ data.startDate +' </label></div></article>' +
+        '<article class="col-md-4"><div><label>To : </label><label id="formation_endDate">' + data.endDate + '</label></div></article></div></li>'
+}
+function EducationDelete(id){
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    fetch('http://localhost:8080/api/user/'+data.userId+'/education/delete?cv='+cv+'&eduId='+id, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        }
+        }).then(response => {
+             if(response.status === 200){
+                window.location.reload()
+             }
+        }).catch(error => console.error(error))
+}
+/*
 function OnClickSkillsFunction(){
     // Skills
     var Skill = document.getElementById("skills").value
