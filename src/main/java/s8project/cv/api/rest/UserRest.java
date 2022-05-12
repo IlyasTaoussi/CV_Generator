@@ -50,7 +50,7 @@ public class UserRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/contact")
-    public Response getContact(@PathParam("userId") int userId, @PathParam("cv") int cvId){
+    public Response getContact(@PathParam("userId") int userId, @QueryParam("cv") int cvId){
         User user = userRepository.findByUserId(userId);
         if(user == null || user.getCV(cvId) == null || user.getCV(cvId).getContact() == null) return Response.status(Response.Status.NOT_FOUND).build();
         return Response.ok(user.getCV(cvId).getContact()).build();
@@ -104,7 +104,7 @@ public class UserRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/summary")
-    public Response getSummary(@PathParam("userId") int userId, @PathParam("cv") int cvId){
+    public Response getSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId){
         User user = userRepository.findByUserId(userId);
         if(user == null || user.getCV(cvId) == null || user.getCV(cvId).getSummary() == null) return Response.status(Response.Status.NOT_FOUND).build();
         return Response.ok(user.getCV(cvId).getSummary()).build();
