@@ -15,6 +15,7 @@ public interface UserRepositoryCustom {
     Language insertLang(int userId, int cvId, Language lang);
     ProfessionalExperience insertProfExp(int userId, int cvId, ProfessionalExperience profExp);
     Skill insertSkill(int userId, int cvId, Skill skill);
+    String insertSummary(int userId, int cvId, String summary);
 
     int updateCert(int userId, int cvId, Certification certification);
     int updateContact(int userid, int cvId, Contact contact);
@@ -22,6 +23,7 @@ public interface UserRepositoryCustom {
     int updateLang(int userId, int cvId, Language newLang);
     int updateProfExp(int userId, int cvId, ProfessionalExperience newProfExp);
     int updateSkill(int userId, int cvId, Skill newSkill);
+    int updateSummary(int userId, int cvId, String summary);
 
     int deleteCert(int userId, int cvId, int certId);
     int deleteEducation(int userId, int cvId, int eduId);
