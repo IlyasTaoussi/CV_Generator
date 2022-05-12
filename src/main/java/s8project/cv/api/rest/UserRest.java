@@ -1,5 +1,7 @@
 package s8project.cv.api.rest;
 
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import s8project.cv.api.documents.*;
 import s8project.cv.api.inputs.SummaryInput;
@@ -228,12 +230,12 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/summary/new")
-    public Response insertProfile(@PathParam("userId") int userId, @QueryParam("cv") int cvId, SummaryInput summary){
+    public Response insertProfile(@PathParam("userId") int userId, @QueryParam("cv") int cvId, JSONObject summary) throws JSONException{
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
 
-        userRepository.insertSummary(userId, cvId, summary.getSummary());
-        return Response.ok(summary.getSummary()).build();
+        userRepository.insertSummary(userId, cvId, summary.getString("summary"));
+        return Response.ok(summary.getString("summary")).build();
     }
 
     /**
@@ -312,12 +314,12 @@ public class UserRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/summary/update")
-    public Response updateSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId, SummaryInput summary){
+    public Response updateSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId, JSONObject summary) throws JSONException {
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
 
-        int status = userRepository.updateSummary(userId, cvId, summary.getSummary());
-        if(status == Response.Status.OK.getStatusCode()) Response.ok(summary.getSummary()).build();
+        int status = userRepository.updateSummary(userId, cvId, summary.getString("summary"));
+        if(status == Response.Status.OK.getStatusCode()) Response.ok(summary.getString("summary")).build();
         return Response.status(status).build();
     }
 
