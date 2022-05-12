@@ -4,7 +4,6 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import s8project.cv.api.documents.*;
-import s8project.cv.api.inputs.SummaryInput;
 import s8project.cv.api.inputs.UserInput;
 import s8project.cv.api.repositories.UserRepository;
 
@@ -98,10 +97,10 @@ public class UserRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/cv")
-    public Response getCV(@PathParam("userId") int userId/*, @QueryParam("cv") int cvId*/){
+    public Response getCV(@PathParam("userId") int userId){
         User user = userRepository.findByUserId(userId);
-        if(user == null || user.getCV(/*cvId*/) == null) return Response.status(Response.Status.NOT_FOUND).build();
-        return Response.ok(user.getCV(/*cvId*/)).build();
+        if(user == null || user.getCV() == null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(user.getCV()).build();
     }
 
     @GET
@@ -227,15 +226,13 @@ public class UserRest {
     }
 
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/summary/new")
-    public Response insertProfile(@PathParam("userId") int userId, @QueryParam("cv") int cvId, JSONObject summary) throws JSONException{
+    public Response insertProfile(@PathParam("userId") int userId, @QueryParam("cv") int cvId, String summary) throws JSONException{
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
-
-        userRepository.insertSummary(userId, cvId, summary.getString("summary"));
-        return Response.ok(summary.getString("summary")).build();
+        System.out.println(summary);
+        userRepository.insertSummary(userId, cvId, summary);
+        return Response.ok(summary).build();
     }
 
     /**
@@ -311,15 +308,13 @@ public class UserRest {
     }
 
     @PATCH
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("{userId}/summary/update")
-    public Response updateSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId, JSONObject summary) throws JSONException {
+    public Response updateSummary(@PathParam("userId") int userId, @QueryParam("cv") int cvId, String summary) throws JSONException {
         User user = userRepository.findByUserId(userId);
         if(user == null) return Response.status(Response.Status.NOT_FOUND).build();
 
-        int status = userRepository.updateSummary(userId, cvId, summary.getString("summary"));
-        if(status == Response.Status.OK.getStatusCode()) Response.ok(summary.getString("summary")).build();
+        int status = userRepository.updateSummary(userId, cvId, summary);
+        if(status == Response.Status.OK.getStatusCode()) Response.ok(summary).build();
         return Response.status(status).build();
     }
 
