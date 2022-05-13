@@ -128,7 +128,7 @@ function ProfessionalExperience(Id_User, Id_Cv, Position, Company, City, StartDa
         },
         body: JSON.stringify({
             "position":Position,
-            "company":Company,
+            "company_name":Company,
             "localisation":City,
             "startDate":StartDate,
             "endDate":EndDate,
@@ -147,7 +147,7 @@ function Experience(data){
     document.getElementById("list_experience").innerHTML += '<li class="list-group-item" id="exp'+ data.id +'">'+
          '<button type="button" id='+ data.id +' class="btn float-end mx-2" onclick="ProfessionalExperienceDelete(this.id)"><img src="img/delete_icon.png"> </button>'+
          '<div><label>Position : </label><label id="experience_position">'+ data.position +'</label></div>'+
-         '<div class="row"><article class="col-md-4"><div><label>Company : </label><label id="experience_company">'+ data.company +'</label></div></article>'+
+         '<div class="row"><article class="col-md-4"><div><label>Company : </label><label id="experience_company">'+ data.company_name +'</label></div></article>'+
          '<article class="col-md-4"><div><label>City : </label><label id="experience_city">'+ data.localisation +'</label></div></article>'+
          '</div><div class="row"><article class="col-md-4"><div><label>From : </label><label id="experience_startDate">'+ data.startDate +'</label></div></article>'+
          '<article class="col-md-4"><div><label>To : </label><label id="experience_endDate">'+ data.endDate +'</label></div></article></div>'+
