@@ -76,7 +76,7 @@ function createMenuItem(cv_id) {
     //------------------------------------------------------------------------------------------------------------------
     let td2 = document.createElement('td')
     let a2 = document.createElement('a')
-    a2.href = 'http://localhost:5000/pdf/'+data.userId+'/cv/'+cv_id
+    a2.href = 'http://localhost:5000/html/'+data.userId+'/cv/'+cv_id
     let img2 = document.createElement('img')
     img2.src = "img/visualize_icon.png"
     img2.title = "click to visualize CV"
