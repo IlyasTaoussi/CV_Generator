@@ -56,6 +56,8 @@ function Add(Id_User){
 }
 
 function createMenuItem(cv_id) {
+    let data = JSON.parse(sessionStorage.getItem('userData'))
+
     let tr = document.createElement('tr')
     let th = document.createElement('th')
     th.scope = "row"
@@ -74,7 +76,7 @@ function createMenuItem(cv_id) {
     //------------------------------------------------------------------------------------------------------------------
     let td2 = document.createElement('td')
     let a2 = document.createElement('a')
-    a2.href = "cv.html?cv="+cv_id
+    a2.href = 'http://localhost:5000/pdf/'+data.userId+'/cv/'+cv_id
     let img2 = document.createElement('img')
     img2.src = "img/visualize_icon.png"
     img2.title = "click to visualize CV"
@@ -84,7 +86,7 @@ function createMenuItem(cv_id) {
     //------------------------------------------------------------------------------------------------------------------
     let td3 = document.createElement('td')
     let a3 = document.createElement('a')
-    a3.href = "cv.html?cv="+cv_id
+    a3.href = 'http://localhost:5000/pdf/'+data.userId+'/cv/'+cv_id
     let img3 = document.createElement('img')
     img3.src = "img/download_icon.png"
     img3.title = "click to download CV"
@@ -99,12 +101,6 @@ function createMenuItem(cv_id) {
     button.value = cv_id
     button.addEventListener('click', function() { OnClickDeleteFunction() })
     button.textContent ="delete"
-    /*
-    let img4 = document.createElement('img')
-    img4.src = "img/delete_icon.png"
-    img4.title = "click to delete CV"
-    button.appendChild(img4)
-    */
     td4.appendChild(button)
     tr.appendChild(td4)
     return tr
