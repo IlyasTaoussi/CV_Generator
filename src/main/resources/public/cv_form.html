@@ -327,11 +327,11 @@
     <!-- End professional experience -->
 
 
-    <!-- Formation -->
+    <!-- Education -->
         <div class="tab-pane fade" id="nav-formation" role="tabpanel" aria-labelledby="nav-formation-tab">
             <div class="container">
                 <div id="formation_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_formation_popup" id="add_formation_btn" onclick="OnClickContactFunction()">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_formation_popup" id="add_formation_btn">
                         <img src="img/add_icon.png">
                     </button>
                     <h2>Formation</h2>
@@ -386,61 +386,13 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="OnClickEducationFunction()">Save changes</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <ul class="list-group" id="list_formation">
-                        <li class="list-group-item">
-                            <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_formation_popup" id="modify_formation_btn" type="button" onclick="OnClickContactFunction()">
-                                <img src="img/edit_icon.png">
-                            </button>
-                            <button type="button" class="btn float-end mx-2">
-                                <img src="img/delete_icon.png">
-                            </button>
-                            <div>
-                                <label>Schooling level : </label>
-                                <label id="formation_schoolingLevel">PhD</label>
-                            </div>
-                            <div>
-                                <label>Domain : </label>
-                                <label id="formation_domain">computer science</label>
-                            </div>
-                            <div class="row">
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>School : </label>
-                                        <label id="formation_school">INSA HdF</label>
-                                    </div>
-                                </article>
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>City : </label>
-                                        <label id="formation_schoolCity">Valenciennes</label>
-                                    </div>
-                                </article>
-                            </div>
-                            <div class="row">
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>From : </label>
-                                        <label id="formation_startDate">09/06/2019</label>
-                                    </div>
-                                </article>
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>To : </label>
-                                        <label id="formation_endDate">09/06/2019</label>
-                                    </div>
-                                </article>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            A second item
-                        </li>
                     </ul>
                     <!-- Pop-up modify formation -->
                     <div class="modal fade" id="modify_formation_popup" tabindex="-1" aria-labelledby="modify-popup-formation-label" aria-hidden="true">
@@ -492,7 +444,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e">Save changes</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e" data-bs-dismiss="modal" onclick="OnClickEducationFunction()">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -507,7 +459,7 @@
         <div class="tab-pane fade" id="nav-skill" role="tabpanel" aria-labelledby="nav-skill-tab">
             <div class="container">
                 <div id="skills_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_skill_popup" id="add_skills_btn" onclick="OnClickContactFunction()">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_skill_popup" id="add_skills_btn">
                         <img src="img/add_icon.png">
                     </button>
                     <h2>Skills</h2>
@@ -538,39 +490,13 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="OnClickSkillsFunction()">Save changes</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <ul class="list-group" id="list_skill">
-                        <li class="list-group-item">
-                            <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_skill_popup" id="modify_skill_btn" type="button" onclick="OnClickContactFunction()">
-                                <img src="img/edit_icon.png">
-                            </button>
-                            <button type="button" class="btn float-end mx-2">
-                                <img src="img/delete_icon.png">
-                            </button>
-                            <div class="row">
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>Skill's name : </label>
-                                        <label id="skill_name">Developer front</label>
-                                    </div>
-                                </article>
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>Level : </label>
-                                        <label id="skill_level">Sheesh</label>
-                                    </div>
-                                </article>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            A second item
-                        </li>
                     </ul>
 
                     <!-- Pop-up modify skill -->
@@ -599,7 +525,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e">Save changes</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e" data-bs-dismiss="modal" onclick="OnClickSkillsFunction()">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -614,7 +540,7 @@
         <div class="tab-pane fade" id="nav-certification" role="tabpanel" aria-labelledby="nav-certification-tab">
             <div class="container">
                 <div id="certification_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_certification_popup" id="add_certification_btn" onclick="OnClickContactFunction()">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_certification_popup" id="add_certification_btn">
                         <img src="img/add_icon.png">
                     </button>
                     <h2>Certifications</h2>
@@ -655,45 +581,13 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="OnClickCertificationsFunction()">Save changes</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <ul class="list-group" id="list_certification">
-                        <li class="list-group-item">
-                            <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_certification_popup" id="modify_certification_btn" type="button" onclick="OnClickContactFunction()">
-                                <img src="img/edit_icon.png">
-                            </button>
-                            <button type="button" class="btn text-light float-end mx-2">
-                                <img src="img/delete_icon.png">
-                            </button>
-                            <label>Title : </label>
-                            <label id="certification_title">Developer front</label>
-                            <div class="row">
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>Date of acquisition : </label>
-                                        <label id="certification_start_date">05/02/2022</label>
-                                    </div>
-                                </article>
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>Date of expiration : </label>
-                                        <label id="certification_end_date">05/02/2022</label>
-                                    </div>
-                                </article>
-                                <label>Certification's description : </label>
-                                <p id="certification_description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod dolor quis odio elementum malesuada. Praesent laoreet congue neque, eu interdum augue convallis eget. Praesent tempor quis arcu sit amet mollis. Nullam a nulla arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam ullamcorper, risus sed scelerisque eleifend, magna lorem pellentesque metus, eu consequat ligula massa et mauris. Nam mollis fermentum egestas.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            A second item
-                        </li>
                     </ul>
                     <!-- Pop-up modify certif -->
                     <div class="modal fade" id="modify_certification_popup" tabindex="-1" aria-labelledby="modify-popup-certification-label" aria-hidden="true">
@@ -731,7 +625,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e">Save changes</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e" data-bs-dismiss="modal" onclick="OnClickCertificationsFunction()">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -742,11 +636,11 @@
     <!-- End certifications -->
 
 
-    <!-- Language -->
+    <!-- Languages -->
         <div class="tab-pane fade" id="nav-language" role="tabpanel" aria-labelledby="nav-language-tab">
             <div class="container">
                 <div id="language_form">
-                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_language_popup" id="add_language_btn" onclick="OnClickContactFunction()">
+                    <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#add_language_popup" id="add_language_btn">
                         <img src="img/add_icon.png">
                     </button>
                     <h2>Language</h2>
@@ -777,39 +671,13 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="OnClickLanguagesFunction()">Save changes</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <ul class="list-group" id="list_language">
-                        <li class="list-group-item">
-                            <!-- Pop-up button -->
-                            <button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_language_popup" id="modify_language_btn" type="button" onclick="OnClickContactFunction()">
-                                <img src="img/edit_icon.png">
-                            </button>
-                            <button type="button" class="btn text-light float-end mx-2">
-                                <img src="img/delete_icon.png">
-                            </button>
-                            <div class="row">
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>Language : </label>
-                                        <label id="language_name">Japanese</label>
-                                    </div>
-                                </article>
-                                <article class="col-md-4">
-                                    <div>
-                                        <label>Level : </label>
-                                        <label id="language_level">Beginner</label>
-                                    </div>
-                                </article>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            A second item
-                        </li>
                     </ul>
                     <!-- Pop-up modify language -->
                     <div class="modal fade" id="modify_language_popup" tabindex="-1" aria-labelledby="modify-popup-language-label" aria-hidden="true">
@@ -837,13 +705,11 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e">Save changes</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #e6bc9e" data-bs-dismiss="modal" onclick="OnClickLanguagesFunction()">Save changes</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

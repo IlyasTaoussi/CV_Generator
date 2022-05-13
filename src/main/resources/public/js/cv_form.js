@@ -29,9 +29,16 @@ function OnLoadFunction(){
                     summary.innerHTML = data[i].summary
 
                     let PE = data[i].professionalExperience
-                    for(let i = 0; i < PE.length; i++){
-                        Experience(PE[i])
-                    }
+                    for(let i = 0; i < PE.length; i++){ Experience(PE[i]) }
+                    let E = data[i].education
+                    for(let i = 0; i < E.length; i++){ Education(E[i]) }
+                    let S = data[i].skill
+                    for(let i = 0; i < S.length; i++){ Skills(S[i]) }
+                    let C = data[i].certification
+                    for(let i = 0; i < C.length; i++){ Certifications(C[i]) }
+                    let L = data[i].language
+                    for(let i = 0; i < L.length; i++){ Languages(L[i]) }
+
                     break
                 }
             }
@@ -63,7 +70,7 @@ function Contact(Id_User,Id_Cv,Mail,Name,Address,Number,Links){
              "mail":Mail,
              "name":Name,
              "address":Address,
-             "phone_number":Number,
+             "phoneNumber":Number,
              "links":Links
         })
     }).then(response => {
@@ -121,7 +128,7 @@ function ProfessionalExperience(Id_User, Id_Cv, Position, Company, City, StartDa
         },
         body: JSON.stringify({
             "position":Position,
-            "company_name":Company,
+            "company":Company,
             "localisation":City,
             "startDate":StartDate,
             "endDate":EndDate,
@@ -137,7 +144,7 @@ function ProfessionalExperience(Id_User, Id_Cv, Position, Company, City, StartDa
     }).catch(error => console.error(error))
 }
 function Experience(data){
-    document.getElementById("list_experience").innerHTML += '<li class="list-group-item" id="exp'+ data.id +'"><button class="btn btn-xs text-light float-end" data-bs-toggle="modal" data-bs-target="#modify_experience_popup" id="modify_experience_btn" type="button"><img src="img/edit_icon.png"></button>'+
+    document.getElementById("list_experience").innerHTML += '<li class="list-group-item" id="exp'+ data.id +'">'+
          '<button type="button" id='+ data.id +' class="btn float-end mx-2" onclick="ProfessionalExperienceDelete(this.id)"><img src="img/delete_icon.png"> </button>'+
          '<div><label>Position : </label><label id="experience_position">'+ data.position +'</label></div>'+
          '<div class="row"><article class="col-md-4"><div><label>Company : </label><label id="experience_company">'+ data.company +'</label></div></article>'+
@@ -151,18 +158,18 @@ function ProfessionalExperienceDelete(id){
     let data = JSON.parse(sessionStorage.getItem("userData"))
     let queryString = window.location.search
     let cv = queryString[4]
-    fetch('http://localhost:8080/api/user/'+data.userId+'/profExp/delete?cv='+cv+'&ProfExpId='+id, {
+    fetch('http://localhost:8080/api/user/'+data.userId+'/profExp/delete?cv='+cv+'&profExpId='+id, {
         method: 'DELETE',
         headers: {
-        Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
         }
         }).then(response => {
-         if(response.status === 200){
-            window.location.reload()
-         }
+             if(response.status === 200){
+                window.location.reload()
+             }
         }).catch(error => console.error(error))
 }
-/*
+
 function OnClickEducationFunction(){
     // Graduation
     var SchoolingLevel = document.getElementById("schoolingLevel").value
@@ -172,12 +179,13 @@ function OnClickEducationFunction(){
     var FormationStartDate = document.getElementById("formationStartDate").value
     var FormationEndDate = document.getElementById("formationEndDate").value
     // Ids
-    let user_Data = sessionStorage.getItem("userData")
-    let id_CV = sessionStorage.getItem("id_CV")
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
     // API request
-    Education(user_Data.idUser, id_CV, SchoolingLevel, Domain, School, SchoolCity, FormationStartDate, FormationEndDate)
+    CallWebAPIEducation(data.userId, cv, SchoolingLevel, Domain, School, SchoolCity, FormationStartDate, FormationEndDate)
 }
-function Education(Id_User, Id_Cv, SchoolingLevel, Domain, School, SchoolCity, FormationStartDate, FormationEndDate) {
+function CallWebAPIEducation(Id_User, Id_Cv, SchoolingLevel, Domain, School, SchoolCity, FormationStartDate, FormationEndDate) {
     fetch('http://localhost:8080/api/user/' + Id_User + '/education/new?cv=' + Id_Cv, {
         method: 'PUT',
         headers: {
@@ -188,15 +196,40 @@ function Education(Id_User, Id_Cv, SchoolingLevel, Domain, School, SchoolCity, F
             "field":Domain,
             "school":School,
             "location":SchoolCity,
-            "start_date":FormationStartDate,
-            "end_date":FormationEndDate
+            "startDate":FormationStartDate,
+            "endDate":FormationEndDate
         })
     }).then(response => {
          if(response.status === 200){
-             // Success : reloading current page
-             //window.location.href = "../public/cv_form.html"
+            return response.json()
          }
+    }).then(data =>{
+        Education(data)
     }).catch(error => console.error(error))
+}
+function Education(data){
+    document.getElementById("list_formation").innerHTML += '<li class="list-group-item" id='+ data.id +'><button type="button" class="btn float-end mx-2" id='+ data.id +' onclick="EducationDelete(this.id)"><img src="img/delete_icon.png"></button>' +
+        '<div><label>Schooling level : </label><label id="formation_schoolingLevel">'+ data.degree +'</label></div><div>' +
+        '<label>Domain : </label><label id="formation_domain">'+ data.field +'</label></div><div class="row"><article class="col-md-4">' +
+        '<div><label>School : </label><label id="formation_school">'+ data.school +'</label></div></article><article class="col-md-4">' +
+        '<div><label>City : </label><label id="formation_schoolCity"> '+ data.location +' </label></div></article></div><div class="row">' +
+        '<article class="col-md-4"><div><label>From : </label><label id="formation_startDate"> '+ data.startDate +' </label></div></article>' +
+        '<article class="col-md-4"><div><label>To : </label><label id="formation_endDate">' + data.endDate + '</label></div></article></div></li>'
+}
+function EducationDelete(id){
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    fetch('http://localhost:8080/api/user/'+data.userId+'/education/delete?cv='+cv+'&eduId='+id, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        }
+        }).then(response => {
+             if(response.status === 200){
+                window.location.reload()
+             }
+        }).catch(error => console.error(error))
 }
 
 function OnClickSkillsFunction(){
@@ -204,12 +237,13 @@ function OnClickSkillsFunction(){
     var Skill = document.getElementById("skills").value
     var SkillLevel = document.getElementById("skillsLevel").value
     // Ids
-    let user_Data = sessionStorage.getItem("userData")
-    let id_CV = sessionStorage.getItem("id_CV")
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
     // API request
-    Skills(user_Data.idUser, id_CV, Skill, SkillLevel)
+    CallWebAPISkills(data.userId, cv, Skill, SkillLevel)
 }
-function Skills(Id_User, Id_Cv, Skill, SkillLevel) {
+function CallWebAPISkills(Id_User, Id_Cv, Skill, SkillLevel) {
     fetch('http://localhost:8080/api/user/' + Id_User + '/skill/new?cv=' + Id_Cv, {
         method: 'PUT',
         headers: {
@@ -221,42 +255,31 @@ function Skills(Id_User, Id_Cv, Skill, SkillLevel) {
         })
     }).then(response => {
          if(response.status === 200){
-             // Success : reloading current page
-             //window.location.href = "../public/cv_form.html"
+            return response.json()
          }
+    }).then(data => {
+        Skills(data)
     }).catch(error => console.error(error))
 }
-
-function OnClickCertificationsFunction(){
-    // Certifications
-    var CertifTitle = document.getElementById("certifTitle").value
-    var CertifStartDate = document.getElementById("certifStartDate").value
-    var CertifEndDate = document.getElementById("certifEndDate").value
-    var CertifDescription = document.getElementById("certifDescription").value
-    // Ids
-    let user_Data = sessionStorage.getItem("userData")
-    let id_CV = sessionStorage.getItem("id_CV")
-    // API request
-    Certifications(user_Data.idUser, id_CV, CertifTitle, CertifStartDate, CertifEndDate, CertifDescription)
+function Skills(data){
+    document.getElementById("list_skill").innerHTML += '<li class="list-group-item" id='+ data.id +'><button type="button" class="btn float-end mx-2" id='+ data.id +' onclick="SkillsDelete(this.id)"><img src="img/delete_icon.png"></button><div class="row"><article class="col-md-4"><div>' +
+        '<label>Skill\'s name : </label><label id="skill_name">'+ data.name +'</label></div></article><article class="col-md-4"><div>' +
+        '<label>Level : </label><label id="skill_level">'+ data.level +'</label></div></article></div></li>'
 }
-function Certifications(Id_User, Id_Cv, CertifTitle, CertifStartDate, CertifEndDate, CertifDescription) {
-    fetch('http://localhost:8080/api/user/' + Id_User + '/cert/new?cv=' + Id_Cv, {
-        method: 'PUT',
+function SkillsDelete(id){
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    fetch('http://localhost:8080/api/user/'+data.userId+'/skill/delete?cv='+cv+'&skillId='+id, {
+        method: 'DELETE',
         headers: {
             Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
-        },
-        body: JSON.stringify({
-            "name":CertifTitle,
-            "start_date":CertifStartDate,
-            "end_date":CertifEndDate,
-            "description":CertifDescription
-        })
-    }).then(response => {
-         if(response.status === 200){
-             // Success : reloading current page
-             //window.location.href = "../public/cv_form.html"
-         }
-    }).catch(error => console.error(error))
+        }
+        }).then(response => {
+             if(response.status === 200){
+                window.location.reload()
+             }
+        }).catch(error => console.error(error))
 }
 
 function OnClickLanguagesFunction(){
@@ -264,12 +287,13 @@ function OnClickLanguagesFunction(){
     var LanguageName = document.getElementById("languageName").value
     var LanguageLevel = document.getElementById("languageLevel").value
     // Ids
-    let user_Data = sessionStorage.getItem("userData")
-    let id_CV = sessionStorage.getItem("id_CV")
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
     // API request
-    Language(user_Data.idUser, id_CV, LanguageName, LanguageLevel)
+    CallWebAPILanguage(data.userId, cv, LanguageName, LanguageLevel)
 }
-function Language(Id_User, Id_Cv, LanguageName, LanguageLevel) {
+function CallWebAPILanguage(Id_User, Id_Cv, LanguageName, LanguageLevel) {
     fetch('http://localhost:8080/api/user/' + Id_User + '/lang/new?cv=' + Id_Cv, {
         method: 'PUT',
         headers: {
@@ -281,9 +305,86 @@ function Language(Id_User, Id_Cv, LanguageName, LanguageLevel) {
         })
     }).then(response => {
          if(response.status === 200){
-             // Success : reloading current page
-             //window.location.href = "../public/cv_form.html"
+             return response.json()
          }
+    }).then(data => {
+        Languages(data)
     }).catch(error => console.error(error))
 }
-*/
+function Languages(data){
+    document.getElementById("list_language").innerHTML += '<li class="list-group-item" id='+ data.id +'><button type="button" class="btn text-light float-end mx-2" id='+ data.id +' onclick="LanguagesDelete(this.id)"><img src="img/delete_icon.png"> </button><div class="row"><article class="col-md-4"><div>' +
+    '<label>Language : </label><label id="language_name"> ' + data.name + '</label></div></article><article class="col-md-4"><div>'+
+    '<label>Level : </label><label id="language_level"> '+ data.level + '</label></div></article></div></li>'
+}
+function LanguagesDelete(id){
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    fetch('http://localhost:8080/api/user/'+data.userId+'/language/delete?cv='+cv+'&langId='+id, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        }
+        }).then(response => {
+             if(response.status === 200){
+                window.location.reload()
+             }
+        }).catch(error => console.error(error))
+}
+
+function OnClickCertificationsFunction(){
+    // Certifications
+    var CertifTitle = document.getElementById("certifTitle").value
+    var CertifStartDate = document.getElementById("certifStartDate").value
+    var CertifEndDate = document.getElementById("certifEndDate").value
+    var CertifDescription = document.getElementById("certifDescription").value
+    // Ids
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    // API request
+    CallWebAPICertifications(data.userId, cv, CertifTitle, CertifStartDate, CertifEndDate, CertifDescription)
+}
+function CallWebAPICertifications(Id_User, Id_Cv, CertifTitle, CertifStartDate, CertifEndDate, CertifDescription) {
+    fetch('http://localhost:8080/api/user/' + Id_User + '/cert/new?cv=' + Id_Cv, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        },
+        body: JSON.stringify({
+            "name":CertifTitle,
+            "startDate":CertifStartDate,
+            "endDate":CertifEndDate,
+            "description":CertifDescription
+        })
+    }).then(response => {
+         if(response.status === 200){
+             return response.json()
+         }
+    }).then(data => {
+        Certifications(data)
+    }).catch(error => console.error(error))
+}
+function Certifications(data){
+     document.getElementById("list_certification").innerHTML += '<li class="list-group-item" id='+ data.id + '><button type="button" class="btn text-light float-end mx-2" id='+ data.id +' onclick="CertificationsDelete(this.id)"><img src="img/delete_icon.png"></button>' +
+        '<label>Title : </label><label id="certification_title">'+ data.name +'</label><div class="row"><article class="col-md-4"><div> ' +
+        '<label>Date of acquisition : </label><label id="certification_start_date">' + data.startDate + '</label></div></article><article class="col-md-4">' +
+        '<div><label>Date of expiration : </label><label id="certification_end_date">' + data.endDate + '</label></div></article>' +
+        '<label>Certification\'s description : </label><p id="certification_description">' + data.description + '</p></div></li>';
+}
+function CertificationsDelete(id){
+    let data = JSON.parse(sessionStorage.getItem("userData"))
+    let queryString = window.location.search
+    let cv = queryString[4]
+    fetch('http://localhost:8080/api/user/'+data.userId+'/cert/delete?cv='+cv+'&certId='+id, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json','Content-Type': 'application/json; charset=utf8'
+        }
+        }).then(response => {
+             if(response.status === 200){
+                window.location.reload()
+             }
+        }).catch(error => console.error(error))
+}
+
