@@ -3,7 +3,7 @@
 Prerequisites:
 - Maven
 - Java 17
-- pdfGen API
+- pdfGen API (https://github.com/BYPluton/pdfGen)
 
 Setup:
 - Reload Project with maven to resolve dependencies.
