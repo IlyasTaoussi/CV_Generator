@@ -5,7 +5,7 @@ Prerequisites:
 - Java 17
 - pdfGen API
 
-Setup:
+Setup:\n
 1- Reload Project with maven to resolve dependencies.
 2- Add "--add-opens java.base/java.lang=ALL-UNNAMED" to VM Options in Run Configurations Tab.
 3- Run CvApplication.java to Launch API Server
